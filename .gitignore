@@ -3,3 +3,5 @@ build
 # Ignore directories used by CLion for project generation
 .idea
 cmake-build-debug
+#visual studio files
+.vs
