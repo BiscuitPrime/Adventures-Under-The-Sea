@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Tilemap label="level1" lines="20" columns="20">
+	<Tiletype type="sand">
+		<Tile x="0" y="0"/>
+	</Tiletype>
+</Tilemap>
