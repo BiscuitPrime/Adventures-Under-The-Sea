@@ -31,6 +31,8 @@ source distribution.
 *********************************************************************/
 
 #include <iostream>
+#include <filesystem>
+#include <direct.h>
 
 #include <tmxlite/Map.hpp>
 #include <tmxlite/Layer.hpp>
@@ -39,20 +41,25 @@ source distribution.
 #include <Assets/GameAssets.h>
 #include <SFML/Graphics.hpp>
 
+
 int myMain()
 {
     int lines = 5;
     int columns = 5;
     int width = 1920;
     int height = 1080;
-   
     
 
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML window");
     for (int x = 0; x < columns; x++) {
         for (int y = 0; y < lines; y++) {
             sf::Sprite sprite;
-            sprite.setTexture(GameAssets::get()->sandTile);
+            if (x % 2 == 0) {
+                sprite.setTexture(GameAssets::get()->sandTile);
+            }
+            else {
+                sprite.setTexture(GameAssets::get()->sandAlgeaTile);
+            }
             sprite.setOrigin(sprite.getPosition().x - GameAssets::get()->sandTile.getSize().x / 2, sprite.getPosition().y - GameAssets::get()->sandTile.getSize().y / 2);
             std::pair<int, int> coords = { 64 * x, 64 * y };
             std::pair<int, int> isoCoords = { (coords.first - coords.second) * 0.5, (coords.first + coords.second) * 0.25};
