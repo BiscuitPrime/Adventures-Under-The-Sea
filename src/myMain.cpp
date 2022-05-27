@@ -36,7 +36,7 @@ source distribution.
 #include <tmxlite/Layer.hpp>
 #include <tmxlite/TileLayer.hpp>
 #include <tmxlite/ObjectGroup.hpp>
-
+#include <Assets/GameAssets.h>
 #include <SFML/Graphics.hpp>
 
 int myMain()
@@ -45,21 +45,15 @@ int myMain()
     int columns = 5;
     int width = 1920;
     int height = 1080;
-    sf::Texture sandSprite;
+   
     
 
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML window");
-    bool rt = sandSprite.loadFromFile("C:/Users/hugoc/OneDrive/Documents/C++/projet/projet-cpp/resources/Sprites/sand.png");
-    if (!rt)
-    {
-        std::cout << "Error on img load\n";
-        exit(0);
-    }
     for (int x = 0; x < columns; x++) {
         for (int y = 0; y < lines; y++) {
             sf::Sprite sprite;
-            sprite.setTexture(sandSprite);
-            sprite.setOrigin(sprite.getPosition().x - sandSprite.getSize().x / 2, sprite.getPosition().y - sandSprite.getSize().y / 2);
+            sprite.setTexture(GameAssets::get()->sandTile);
+            sprite.setOrigin(sprite.getPosition().x - GameAssets::get()->sandTile.getSize().x / 2, sprite.getPosition().y - GameAssets::get()->sandTile.getSize().y / 2);
             std::pair<int, int> coords = { 64 * x, 64 * y };
             std::pair<int, int> isoCoords = { (coords.first - coords.second) * 0.5, (coords.first + coords.second) * 0.25};
             std::pair<int, int> offset = { width / 2, height / 2 };
