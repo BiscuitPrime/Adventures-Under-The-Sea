@@ -6,13 +6,15 @@
 Player::Player(std::string texturePath) : Actor{texturePath}
 {
 	//playerStates = PlayerStates();
+	//_state = STATE_IDLE;
 }
 
 //method that changes the player's state depending on the input
 void Player::handleInput(int input)
 {
-	if (input == 0)
-	{
-		//_state = &PlayerStates::idle;
-	}
+	//WHAT TO DO NOW :
+	/*
+	* - Do some ifs etc
+	*/
+	_state = &PlayerStates::idle;
 }

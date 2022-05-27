@@ -1,29 +1,62 @@
-#include "PlayerState.h"
+#include "Actors/PlayerStates/PlayerState.h"
 #include <iostream>
 /*
 * Source code of the various player states
 */
-void PlayerIdleState::handleInput()
+
+//-------------------------------------------
+//PlayerState class :
+PlayerState::PlayerState() {}
+
+void PlayerState::handleStateInput(){}
+//-------------------------------------------
+
+//-------------------------------------------
+//PlayerIdleState class :
+PlayerIdleState::PlayerIdleState(){}
+
+
+void PlayerIdleState::handleStateInput()
 {
 	std::cout << "Idle state\n";
 }
+//-------------------------------------------
 
-void PlayerMovingState::handleInput() 
+//-------------------------------------------
+//PlayerMovingState class :
+PlayerMovingState::PlayerMovingState(){}
+
+void PlayerMovingState::handleStateInput() 
 {
 	std::cout << "Moving state\n";
 }
+//-------------------------------------------
 
-void PlayerAttackState::handleInput()
+//-------------------------------------------
+//PlayerAttackState class :
+PlayerAttackState::PlayerAttackState(){}
+
+void PlayerAttackState::handleStateInput()
 {
 	std::cout << "Attack state\n";
 }
+//-------------------------------------------
 
-void PlayerMineAttackState::handleInput()
+//-------------------------------------------
+//PlayerMineAttackState class :
+PlayerMineAttackState::PlayerMineAttackState(){}
+
+void PlayerMineAttackState::handleStateInput()
 {
 	std::cout << "Mine state\n";
 }
+//-------------------------------------------
 
-void PlayerTorpedoAttackState::handleInput()
+//-------------------------------------------
+//PlayerTorpedoAttackState class :
+PlayerTorpedoAttackState::PlayerTorpedoAttackState(){}
+
+void PlayerTorpedoAttackState::handleStateInput()
 {
 	std::cout << "Torpedo state\n";
 }

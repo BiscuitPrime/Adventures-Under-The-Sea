@@ -33,7 +33,7 @@ source distribution.
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <tmxlite/Map.hpp>
-#include "Actors/Player.cpp"
+#include "Actors/Player.h"
 
 int myMain()
 {
@@ -44,7 +44,7 @@ int myMain()
 
     //---------------------------------
     //Creating the player :
-    std::string playerTexturePath="C:/Users/shado/Desktop/COURS\ TSP/2A/C++/PROJET\ C++/projet-cpp/resources/Sprites/Player.png";
+    std::string playerTexturePath="../../../../resources/Sprites/Player.png";
     auto player = Player(playerTexturePath);
     player.setPosition(sf::Vector2f(0, 0));
     //---------------------------------
@@ -64,7 +64,6 @@ int myMain()
             sf::Vector2i pixelMousePos = sf::Mouse::getPosition(window); //get the current mouse position in the window
             sf::Vector2f worldMousePos = window.mapPixelToCoords(pixelMousePos);
             player.setPosition(worldMousePos); //we move the player's position
-            player.handleInput(1);
         }
         window.clear(sf::Color::Black);
         window.draw(player.getSprite());

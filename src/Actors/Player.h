@@ -11,8 +11,7 @@
 class Player : public Actor
 {
 private:
-	//PlayerStates playerStates;
-	//PlayerState* _state; //the pointer that will handle the state of the player
+	PlayerState* _state; //the pointer that will handle the state of the player
 public:
 	Player(std::string texturePath);
 	void handleInput(int input);
