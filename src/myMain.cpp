@@ -32,21 +32,22 @@ source distribution.
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
-
 #include <tmxlite/Map.hpp>
-
-#include "SFMLOrthogonalLayer.h"
+#include "Actors/Player.cpp"
 
 int myMain()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 
     tmx::Map map;
-    map.load("resources/demo.tmx");
+    map.load("resources/Test4.tmx");
 
-    MapLayer layerZero(map, 0);
-    MapLayer layerOne(map, 1);
-    MapLayer layerTwo(map, 2);
+    //---------------------------------
+    //Creating the player :
+    std::string playerTexturePath="C:/Users/shado/Desktop/COURS\ TSP/2A/C++/PROJET\ C++/projet-cpp/resources/Sprites/Player.png";
+    auto player = Player(playerTexturePath);
+    player.setPosition(sf::Vector2f(0, 0));
+    //---------------------------------
 
     sf::Clock globalClock;
     while (window.isOpen())
@@ -57,14 +58,16 @@ int myMain()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
-        sf::Time duration = globalClock.getElapsedTime();
-        layerZero.update(duration);
-
+        //when mouse clicked
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) 
+        {
+            sf::Vector2i pixelMousePos = sf::Mouse::getPosition(window); //get the current mouse position in the window
+            sf::Vector2f worldMousePos = window.mapPixelToCoords(pixelMousePos);
+            player.setPosition(worldMousePos); //we move the player's position
+            player.handleInput(1);
+        }
         window.clear(sf::Color::Black);
-        window.draw(layerZero);
-        window.draw(layerOne);
-        window.draw(layerTwo);
+        window.draw(player.getSprite());
         window.display();
     }
 
