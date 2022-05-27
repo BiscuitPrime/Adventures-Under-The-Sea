@@ -1,6 +1,6 @@
 Ce projet contient un test de Tmxlite (https://github.com/fallahn/tmxlite) avec SFML.
 
-src/myMain.cpp est une adaptation du main.cpp présent dans tmxlite/SFMLExample/src :
+src/myMain.cpp est une adaptation du main.cpp prï¿½sent dans tmxlite/SFMLExample/src :
 - #include "SFMLOrthogonalLayer.hpp"
   est devenu
   include "SFMLOrthogonalLayer.h"
@@ -11,7 +11,7 @@ src/myMain.cpp est une adaptation du main.cpp présent dans tmxlite/SFMLExample/s
   est devenu
   map.load("resources/demo.tmx");
 
-src/SFMLOrthogonalLayer.h est la version renommée en .h de SFMLOrthogonalLayer.hpp présent
+src/SFMLOrthogonalLayer.h est la version renommï¿½e en .h de SFMLOrthogonalLayer.hpp prï¿½sent
 dans tmxlite/SFMLExample/src
 
-Le répertoire resources contient tout le contenu du répertoire tmxlite/SFMLExample/assets.
+Le rï¿½pertoire resources contient tout le contenu du rï¿½pertoire tmxlite/SFMLExample/assets.
