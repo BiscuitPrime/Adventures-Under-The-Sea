@@ -11,6 +11,19 @@ endif()
 
 set (BUILD_SHARED_LIBS FALSE)
 
+if(APPLE)
+  find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
+  include_directories(${SFML_INCLUDE_DIRS})
+else()
+  # Linux or Windows
+  FetchContent_Declare(
+    sfml
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 2.5.1
+  )
+  FetchContent_MakeAvailable(sfml)
+endif()
+
 FetchContent_Declare(
     pugixml
     GIT_REPOSITORY https://github.com/zeux/pugixml.git
