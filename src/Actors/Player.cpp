@@ -5,8 +5,7 @@
 
 Player::Player(std::string texturePath) : Actor{texturePath}
 {
-	//playerStates = PlayerStates();
-	//_state = STATE_IDLE;
+	_state = &PlayerStates::idle;//by default, player is in it's default (idle) state
 }
 
 //method that changes the player's state depending on the input

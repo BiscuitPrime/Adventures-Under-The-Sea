@@ -1,6 +1,6 @@
 #pragma once
 /*
-* File used to define the various available Player states
+* Header used to define the various available Player states
 */
 
 
@@ -27,6 +27,7 @@ public:
 	void handleStateInput() override;
 };
 
+//attack state :
 class PlayerAttackState : public PlayerState
 {
 public:
@@ -34,6 +35,7 @@ public:
 	void handleStateInput() override;
 };
 
+//mine attack state :
 class PlayerMineAttackState : public PlayerAttackState
 {
 public:
@@ -41,6 +43,7 @@ public:
 	void handleStateInput() override;
 };
 
+//torpedo attack state :
 class PlayerTorpedoAttackState : public PlayerAttackState
 {
 public:
