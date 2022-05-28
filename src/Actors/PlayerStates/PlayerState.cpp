@@ -8,7 +8,7 @@
 //PlayerState class :
 PlayerState::PlayerState() {}
 
-void PlayerState::handleStateInput() {}
+void PlayerState::stateExecute() {}
 //-------------------------------------------
 
 //-------------------------------------------
@@ -16,7 +16,7 @@ void PlayerState::handleStateInput() {}
 PlayerIdleState::PlayerIdleState() {}
 
 
-void PlayerIdleState::handleStateInput()
+void PlayerIdleState::stateExecute()
 {
 	std::cout << "Idle state\n";
 }
@@ -26,18 +26,18 @@ void PlayerIdleState::handleStateInput()
 //PlayerMovingState class :
 PlayerMovingState::PlayerMovingState() {}
 
-void PlayerMovingState::handleStateInput()
+void PlayerMovingState::stateExecute()
 {
 	std::cout << "Moving state\n";
 }
 //-------------------------------------------
 
-/*
+
 //-------------------------------------------
 //PlayerAttackState class :
 PlayerAttackState::PlayerAttackState() {}
 
-void PlayerAttackState::handleStateInput()
+void PlayerAttackState::stateExecute()
 {
 	std::cout << "Attack state\n";
 }
@@ -47,7 +47,7 @@ void PlayerAttackState::handleStateInput()
 //PlayerMineAttackState class :
 PlayerMineAttackState::PlayerMineAttackState() {}
 
-void PlayerMineAttackState::handleStateInput()
+void PlayerMineAttackState::stateExecute()
 {
 	std::cout << "Mine state\n";
 }
@@ -57,8 +57,7 @@ void PlayerMineAttackState::handleStateInput()
 //PlayerTorpedoAttackState class :
 PlayerTorpedoAttackState::PlayerTorpedoAttackState() {}
 
-void PlayerTorpedoAttackState::handleStateInput()
+void PlayerTorpedoAttackState::stateExecute()
 {
 	std::cout << "Torpedo state\n";
 }
-*/

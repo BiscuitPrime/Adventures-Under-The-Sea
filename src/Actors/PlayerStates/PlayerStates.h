@@ -8,9 +8,7 @@ class PlayerStates {
 public:
 	static PlayerIdleState idle;
 	static PlayerMovingState moving;
-	/*
 	static PlayerAttackState attack;
 	static PlayerMineAttackState mine;
 	static PlayerTorpedoAttackState torpedo;
-	*/
 };

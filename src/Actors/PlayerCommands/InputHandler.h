@@ -8,7 +8,8 @@ static class InputHandler {
 private:
 	PlayerState* _state;
 	MoveCommand moveCommand;
-	AttackCommand attackCommand;
+	MineAttackCommand mineCommand;
+	TorpedoAttackCommand torpedoCommand;
 public:
 	InputHandler();
 	void handleInput(Player* player, sf::RenderWindow* window);

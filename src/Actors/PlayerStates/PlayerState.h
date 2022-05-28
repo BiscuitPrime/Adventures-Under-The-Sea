@@ -7,7 +7,7 @@
 class PlayerState {
 public:
 	PlayerState();
-	virtual void handleStateInput();
+	virtual void stateExecute();
 };
 
 //idle state :
@@ -15,7 +15,7 @@ class PlayerIdleState : public PlayerState
 {
 public:
 	PlayerIdleState();
-	void handleStateInput() override;
+	void stateExecute() override;
 };
 
 //moving state :
@@ -23,15 +23,15 @@ class PlayerMovingState : public PlayerState
 {
 public:
 	PlayerMovingState();
-	void handleStateInput() override;
+	void stateExecute() override;
 };
-/*
+
 //attack state :
 class PlayerAttackState : public PlayerState
 {
 public:
 	PlayerAttackState();
-	void handleStateInput() override;
+	void stateExecute() override;
 };
 
 //mine attack state :
@@ -39,7 +39,7 @@ class PlayerMineAttackState : public PlayerAttackState
 {
 public:
 	PlayerMineAttackState();
-	void handleStateInput() override;
+	void stateExecute() override;
 };
 
 //torpedo attack state :
@@ -47,6 +47,6 @@ class PlayerTorpedoAttackState : public PlayerAttackState
 {
 public:
 	PlayerTorpedoAttackState();
-	void handleStateInput() override;
+	void stateExecute() override;
 };
-*/
+

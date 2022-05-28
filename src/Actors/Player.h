@@ -11,11 +11,7 @@
 //player class :
 class Player : public Actor
 {
-private:
-	PlayerState* _state; //the pointer that will handle the state of the player
 public:
 	Player(std::string texturePath);
 	void handleInput(int input);
-	void update(sf::RenderWindow* window);
-	void move(sf::RenderWindow* window);
 };

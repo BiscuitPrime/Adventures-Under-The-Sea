@@ -19,8 +19,14 @@ public:
 };
 
 //the attack command given to the player :
-class AttackCommand :public PlayerCommand {
+class MineAttackCommand :public PlayerCommand {
 public:
-	AttackCommand() {};
+	MineAttackCommand() {};
+	void execute(Player* player, sf::RenderWindow* window) override;
+};
+
+class TorpedoAttackCommand : public PlayerCommand {
+public:
+	TorpedoAttackCommand() {};
 	void execute(Player* player, sf::RenderWindow* window) override;
 };

@@ -25,8 +25,7 @@ int myMain()
                 window.close();
         }
 
-        inputHandler.handleInput(&player, &window);
-        //player.update(&window);
+        inputHandler.handleInput(&player, &window); //each frame we call the inputhandler's handle input that will analyse the inputted data
 
         window.clear(sf::Color::Black);
         window.draw(player.getSprite());
