@@ -3,7 +3,6 @@
 * Header used to define the various available Player states
 */
 
-
 //basic player state class :
 class PlayerState {
 public:
@@ -26,7 +25,7 @@ public:
 	PlayerMovingState();
 	void handleStateInput() override;
 };
-
+/*
 //attack state :
 class PlayerAttackState : public PlayerState
 {
@@ -50,3 +49,4 @@ public:
 	PlayerTorpedoAttackState();
 	void handleStateInput() override;
 };
+*/

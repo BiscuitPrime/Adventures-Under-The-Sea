@@ -2,22 +2,25 @@
 /*
 *	Header containing the definition of the various Command classes implemented via the Command Game Programming Pattern
 */
-#include <src/Actors/Player.h>
+#include <Actors/Player.h>
 
 //basic PlayerCommand class :
 class PlayerCommand {
 public:
-	virtual Command() {};
-	virtual void execute(&Player player);
+	PlayerCommand() {};
+	virtual void execute(Player* player, sf::RenderWindow* window);
 };
 
+//the move command given to the player :
 class MoveCommand :public PlayerCommand {
 public:
-	MoveCommand();
-
+	MoveCommand() {};
+	void execute(Player* player, sf::RenderWindow* window) override;
 };
 
+//the attack command given to the player :
 class AttackCommand :public PlayerCommand {
 public:
-	AttackCommand();
+	AttackCommand() {};
+	void execute(Player* player, sf::RenderWindow* window) override;
 };

@@ -32,6 +32,7 @@ void PlayerMovingState::handleStateInput()
 }
 //-------------------------------------------
 
+/*
 //-------------------------------------------
 //PlayerAttackState class :
 PlayerAttackState::PlayerAttackState() {}
@@ -60,3 +61,4 @@ void PlayerTorpedoAttackState::handleStateInput()
 {
 	std::cout << "Torpedo state\n";
 }
+*/
