@@ -1,13 +1,15 @@
 #pragma once
-#include <Tile.h>
+#include <World/Tile.h>
+
 class Tilemap {
 private:
-	int lines;
-	int columns;
-	Tile tilemap[][];
+	int lines = 10;
+	int columns = 10;
+	Tile tilemap;
 public:
-	Tilemap(int lines, int columns);
+	explicit Tilemap(std::string fileName);
 	int getLines() const { return lines; };
 	int getColumns() const { return columns; };
-	int setTile(Tile tile);
+	int setTile(Tile* tile);
+	int buildTilemap(std::string fileName);
 };

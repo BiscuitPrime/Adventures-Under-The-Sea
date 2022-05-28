@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 class Tile {
 private:
 	sf::Vector2f coordinates;

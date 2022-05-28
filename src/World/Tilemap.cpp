@@ -1,12 +1,22 @@
 #include "Tilemap.h"
+#include <pugixml.hpp>
+
 #include <iostream>
 
-Tilemap::Tilemap(int lines, int columns)
+Tilemap::Tilemap(std::string fileName)
 {
-	lines = lines;
-	columns = columns;
-	Tile* map[columns][lines];
-	tilemap = map;
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("../../../../resources/images/tilemap/" + fileName);
+	if (!result)
+	{
+		std::cerr << "Could not open file visage.xml because " << result.description() << std::endl;
+		return 1;
+	}
+	return 0;
+}
+
+int Tilemap::buildTilemap(std::string fileName) {
+	return 0;
 }
 
 int Tilemap::setTile(Tile* tile)
@@ -28,6 +38,3 @@ int Tilemap::setTile(Tile* tile)
 	tilemap[y][x] = tile;
 	return 0;
 }
-
-
-

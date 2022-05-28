@@ -41,6 +41,8 @@ source distribution.
 #include <Assets/GameAssets.h>
 #include <SFML/Graphics.hpp>
 
+#include <World/Tilemap.h>
+
 
 int myMain()
 {
@@ -49,6 +51,7 @@ int myMain()
     int width = 1920;
     int height = 1080;
     
+    Tilemap tilemap = Tilemap("Tilemap.xml");
 
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML window");
     for (int x = 0; x < columns; x++) {
