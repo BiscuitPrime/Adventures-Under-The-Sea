@@ -1,1 +1,0 @@
-## Directory used by the UI of our game ##

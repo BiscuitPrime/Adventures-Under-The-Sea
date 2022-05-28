@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
 
-TEST(TestTmxLite, AlwaysTrue) {
-	EXPECT_EQ(true, true);
+TEST(TestCaseName, TestName) {
+    EXPECT_EQ(true, false);
 }
