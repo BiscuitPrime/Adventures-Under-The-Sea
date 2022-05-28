@@ -32,6 +32,10 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window)
 	}
 
 	//here we create a fake "change" that simulates the various game phases
+	//We simulate the following state setup :
+	// idle -> click A -> moving -> click mouse -> performs movement -> attack -> click M/T -> mine/torpedo -> click mouse -> perform attack -> idle
+	// In the end product, the "click A" etc will be replaced by decisions made by the game system
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //TO BE REMOVED EVENTUALLY
 	{
 		if (_state == &PlayerStates::idle) //if the player can move (A has been pressed) -> move if player can move
@@ -56,4 +60,10 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window)
 			_state = &PlayerStates::torpedo;
 		}
 	}
+}
+
+//method that returns the current player state
+PlayerState* InputHandler::getState()
+{
+	return _state;
 }

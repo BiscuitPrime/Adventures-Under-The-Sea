@@ -5,4 +5,5 @@
 #include <Actors/PlayerCommands/InputHandler.h>
 
 Player::Player(std::string texturePath) : Actor{ texturePath }
-{}
+{
+}

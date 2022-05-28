@@ -13,4 +13,5 @@ private:
 public:
 	InputHandler();
 	void handleInput(Player* player, sf::RenderWindow* window);
+	PlayerState* getState();
 };
