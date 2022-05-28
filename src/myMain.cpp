@@ -50,7 +50,7 @@ int myMain()
     int columns = 5;
     int width = 1920;
     int height = 1080;
-    
+
     Tilemap tilemap = Tilemap("Tilemap.xml");
 
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML window");
@@ -65,10 +65,10 @@ int myMain()
             }
             sprite.setOrigin(sprite.getPosition().x - GameAssets::get()->sandTile.getSize().x / 2, sprite.getPosition().y - GameAssets::get()->sandTile.getSize().y / 2);
             std::pair<int, int> coords = { 64 * x, 64 * y };
-            std::pair<int, int> isoCoords = { (coords.first - coords.second) * 0.5, (coords.first + coords.second) * 0.25};
+            std::pair<int, int> isoCoords = { (coords.first - coords.second) * 0.5, (coords.first + coords.second) * 0.25 };
             std::pair<int, int> offset = { width / 2, height / 2 };
             sprite.setPosition(isoCoords.first + offset.first, isoCoords.second + offset.second);
-            
+
             window.draw(sprite);
         }
     }
@@ -83,38 +83,6 @@ int myMain()
                 window.close();
         }
     }
-
-    
-    /*
-    tmx::Map map;
-    if (map.load("path/to.tmx"))
-    {
-        const auto& layers = map.getLayers();
-        for (const auto& layer : layers)
-        {
-            if (layer->getType() == tmx::Layer::Type::Object)
-            {
-                const auto& objectLayer = layer->getLayerAs<tmx::ObjectGroup>();
-                const auto& objects = objectLayer.getObjects();
-                for (const auto& object : objects)
-                {
-                    //do stuff with object properties
-                }
-            }
-            else if (layer->getType() == tmx::Layer::Type::Tile)
-            {
-                const auto& tileLayer = layer->getLayerAs<tmx::TileLayer>();
-                //read out tile layer properties etc...
-            }
-        }
-
-        const auto& tilesets = map.getTilesets();
-        for (const auto& tileset : tilesets)
-        {
-
-            //read out tile set properties, load textures etc...
-        }
-    }*/
 
     return 0;
 }
