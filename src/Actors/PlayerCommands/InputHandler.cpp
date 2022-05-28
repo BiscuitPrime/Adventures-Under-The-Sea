@@ -17,6 +17,16 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window)
 		if (_state == &PlayerStates::moving)
 		{
 			moveCommand.execute(player, window);
+			_state = &PlayerStates::attack;
+		}
+		else if (_state == &PlayerStates::mine)
+		{
+			mineCommand.execute(player, window);
+			_state = &PlayerStates::idle;
+		}
+		else if (_state == &PlayerStates::torpedo)
+		{
+			torpedoCommand.execute(player, window);
 			_state = &PlayerStates::idle;
 		}
 	}
@@ -24,9 +34,26 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window)
 	//here we create a fake "change" that simulates the various game phases
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //TO BE REMOVED EVENTUALLY
 	{
-		if (_state == &PlayerStates::idle)
+		if (_state == &PlayerStates::idle) //if the player can move (A has been pressed) -> move if player can move
 		{
 			_state = &PlayerStates::moving;
+		}
+	}
+
+	//same here
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) //TO BE REMOVED EVENTUALLY
+	{
+		if (_state == &PlayerStates::attack)
+		{
+			_state = &PlayerStates::mine;
+		}
+	}
+	//same here
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))//TO BE REMOVED EVENTUALLY
+	{
+		if (_state == &PlayerStates::attack)
+		{
+			_state = &PlayerStates::torpedo;
 		}
 	}
 }

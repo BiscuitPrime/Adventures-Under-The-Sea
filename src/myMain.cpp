@@ -9,7 +9,7 @@ int myMain()
 
     //---------------------------------
     //Creating the player :
-    std::string playerTexturePath = "C:/Users/shado/Desktop/COURS\ TSP/2A/C++/PROJET\ C++/projet-cpp/resources/Sprites/Player.png";
+    std::string playerTexturePath = "../../../../resources/Sprites/Player.png";
     auto player = Player(playerTexturePath);
     player.setPosition(sf::Vector2f(0, 0));
     //Creating the input handler associated to the player :
