@@ -10,6 +10,7 @@ void PlayerCommand::execute(Player* player, sf::RenderWindow* window){}
 //---------------------------------------------------
 //Player's MoveCommand class :
 
+//moving command for the player :
 void MoveCommand::execute(Player* player, sf::RenderWindow* window)
 {
 	std::cout << "Move command executed\n";

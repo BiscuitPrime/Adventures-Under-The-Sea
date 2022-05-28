@@ -7,6 +7,7 @@
 InputHandler::InputHandler()
 {
 	_state = &PlayerStates::idle; //by default, in idle state
+	_command = &moveCommand; //by default, command is given to move command
 }
 
 //method that handles the player's inputs :
@@ -16,17 +17,20 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window)
 	{
 		if (_state == &PlayerStates::moving)
 		{
-			moveCommand.execute(player, window);
+			_command = &moveCommand;
+			_command->execute(player, window);
 			_state = &PlayerStates::attack;
 		}
 		else if (_state == &PlayerStates::mine)
 		{
-			mineCommand.execute(player, window);
+			_command = &mineCommand;
+			_command->execute(player, window);
 			_state = &PlayerStates::idle;
 		}
 		else if (_state == &PlayerStates::torpedo)
 		{
-			torpedoCommand.execute(player, window);
+			_command = &torpedoCommand;
+			_command->execute(player, window);
 			_state = &PlayerStates::idle;
 		}
 	}

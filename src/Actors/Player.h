@@ -14,4 +14,5 @@ class Player : public Actor
 public:
 	Player(std::string texturePath);
 	void handleInput(int input);
+	void death() override;
 };
