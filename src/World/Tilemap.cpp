@@ -5,6 +5,7 @@
 
 Tilemap::Tilemap()
 {
+	// initialize tilemap array with basic tiles 
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			auto tile = Tile();
@@ -37,7 +38,10 @@ int Tilemap::buildTilemap(char fileName[])
 	std::cout << "Start building\n";
 	// build the tilemap array from a xml file (see format in resources/images/tilemap/..)
 	pugi::xml_document doc;
-	pugi::xml_parse_result result = doc.load_file("C:/Users/hugoc/OneDrive/Documents/C++/projet/projet-cpp/resources/images/tilemap/Tilemap.xml");
+	char filePath[400];
+	strcpy(filePath, "../../../../resources/images/tilemap/");
+	strcat(filePath, fileName);
+	pugi::xml_parse_result result = doc.load_file(filePath);
 	if (!result)
 	{
 		std::cerr << "Could not open file because " << result.description() << std::endl;
@@ -71,7 +75,6 @@ int Tilemap::buildTilemap(char fileName[])
 
 int Tilemap::draw(sf::RenderWindow &window)
 {
-	std::cout << "Start draw\n";
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			Tile tile = tilemap[x][y];
@@ -79,7 +82,6 @@ int Tilemap::draw(sf::RenderWindow &window)
 			tile.draw(window);
 		}
 	}
-	std::cout << "Finish draw\n";
 	return 0;
 }
 
