@@ -16,7 +16,7 @@ Tilemap::Tilemap()
 
 int Tilemap::setTile(int x, int y, std::string type)
 {
-	// sets ptr to a tile at its corresponding coordinate in the tilemap;
+	// sets ptr to a tile at its corresponding coordinate in the tilemap
 	if (x < 0 || x >= 10) {
 		std::cout << "Could not set tile: x coordinate out of bounds\n";
 		return -1;
@@ -29,14 +29,14 @@ int Tilemap::setTile(int x, int y, std::string type)
 	tile.setCoordinates(x, y);
 	tile.setTexture(type);
 	tilemap[y][x] = tile;
-	std::cout << "After setting tile: (" << tilemap[y][x].getX() << ", " << tilemap[y][x].getY() << ")\n";
 	return 0;
 }
 
 int Tilemap::buildTilemap(char fileName[])
 {
-	std::cout << "Start building\n";
 	// build the tilemap array from a xml file (see format in resources/images/tilemap/..)
+
+	// loads xml file
 	pugi::xml_document doc;
 	char filePath[400];
 	strcpy(filePath, "../../../../resources/images/tilemap/");
@@ -47,6 +47,7 @@ int Tilemap::buildTilemap(char fileName[])
 		std::cerr << "Could not open file because " << result.description() << std::endl;
 	}
 
+	// parse xml
 	auto tilemapNode = doc.child("Tilemap");
 	setLabel(tilemapNode.attribute("label").as_string());
 	if (tilemapNode.attribute("lines").as_int() != lines || tilemapNode.attribute("columns").as_int() != columns) {
@@ -64,21 +65,19 @@ int Tilemap::buildTilemap(char fileName[])
 				return -1;
 			}
 			// set the tile in the tilemap
-			std::cout << "Coordinates parsed: (" << xCoord << ", " << yCoord << ")\n";
-			std::cout << "Type parsed:" << tileTypeStr << "\n";
-			setTile(xCoord, yCoord, tileTypeStr);
+			int rt = setTile(xCoord, yCoord, tileTypeStr);
+			if (rt < 0) return -1;
 		}
 	}
-	std::cout << "Finish building\n";
 	return 0;
 }
 
-int Tilemap::draw(sf::RenderWindow &window)
+int Tilemap::draw(sf::RenderWindow &window) const
 {
+	// run through the tilemap array and call Tile.draw() for each one
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			Tile tile = tilemap[x][y];
-			std::cout << "Before drawing tile : (" << tile.getX() << ", " << tile.getY() << ")\n";
 			tile.draw(window);
 		}
 	}

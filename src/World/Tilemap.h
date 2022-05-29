@@ -3,6 +3,9 @@
 #include <string>
 
 class Tilemap {
+/// <summary>
+/// Tilemap has an array of tiles 
+/// </summary>
 private:
 	std::string label;
 	int lines = 10;
@@ -16,5 +19,5 @@ public:
 	int getColumns() const { return columns; };
 	int setTile(int x, int y, std::string type);
 	int buildTilemap(char fileName[]);
-	int draw(sf::RenderWindow &window);
+	int draw(sf::RenderWindow &window) const;
 };
