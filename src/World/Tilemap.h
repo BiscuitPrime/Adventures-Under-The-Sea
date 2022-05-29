@@ -1,17 +1,20 @@
 #pragma once
-#pragma once
 #include <World/Tile.h>
 #include <string>
 
 class Tilemap {
 private:
+	std::string label;
 	int lines = 10;
 	int columns = 10;
-	Tile tilemap;
+	Tile tilemap[10][10];
 public:
-	explicit Tilemap(std::string fileName);
+	Tilemap();
+	std::string getLabel() const { return label; }
+	void setLabel(std::string const& lbl) { label = lbl; }
 	int getLines() const { return lines; };
 	int getColumns() const { return columns; };
-	int setTile(Tile* tile);
-	int buildTilemap(std::string fileName);
+	int setTile(int x, int y, std::string type);
+	int buildTilemap(char fileName[]);
+	int draw(sf::RenderWindow &window);
 };

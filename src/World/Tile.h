@@ -1,11 +1,23 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Tile {
 private:
-	// sf::Vector2f coordinates;
-	// sf::Sprite sprite;
+	int xCoord = 666;
+	int yCoord = 666;
+	std::string texture;
 public:
-	/*sf::Vector2f getCoordinates() const { return coordinates; };
-	float getX() const { return coordinates.x; };
-	float getY() const { return coordinates.y; };*/
+	Tile();
+	Tile(int x, int y, std::string str);
+	void setCoordinates(int x, int y) {
+		std::cout << "trying to set coords from (" << xCoord << ", " << yCoord << ") to (" << x << ", " << y << ")\n";
+		xCoord = x;
+		yCoord = y;
+	}
+	std::string getTexture() const { return texture; }
+	void setTexture(std::string str) { texture = str; }
+	int getX() const { return xCoord; };
+	int getY() const { return yCoord; };
+	void draw(sf::RenderWindow &window);
 };
