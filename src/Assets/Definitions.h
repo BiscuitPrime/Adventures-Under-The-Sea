@@ -8,5 +8,5 @@
 
 class Definitions {
 public:
-	static std::pair<int, int> orthoToIso(std::pair<int, int> orthoCoords);
+	static std::pair<double, double> orthoToIso(std::pair<int, int> orthoCoords);
 };

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <World/Tilemap.h>
+#include <Assets/Definitions.h>
 
 
 int myMain()
@@ -17,6 +18,10 @@ int myMain()
     window.display();
     while (window.isOpen())
     {
+        sf::Vector2i globalPosition = sf::Mouse::getPosition(window);
+        sf::Vector2f worldPosition = window.mapPixelToCoords(globalPosition);
+        //std::cout << "Mouse global pos : (" << globalPosition.x << ", " << globalPosition.y << ") || World Pos : (" << worldPosition.x << ", " << worldPosition.y << ")\n";
+        std::pair<int, int> gblPosition = std::pair(worldPosition.x, worldPosition.y);
         sf::Event event;
         while (window.pollEvent(event))
         {

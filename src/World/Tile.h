@@ -8,19 +8,20 @@ class Tile {
 /// Tile has a string describing its sf::Texture accordingly to the dictionnary in GameAssets.h
 /// </summary>
 private:
-	int xCoord;
-	int yCoord;
+	sf::Vector2i orthogonalCoords;
+	sf::Vector2i isometricCoords;
 	std::string texture;
 public:
 	Tile();
 	Tile(int x, int y, std::string str);
 	void setCoordinates(int x, int y) {
-		xCoord = x;
-		yCoord = y;
+		orthogonalCoords = sf::Vector2i(x, y);
+	}
+	void setIsometricCoordinates(int x, int y) {
+		isometricCoords = sf::Vector2i(x, y);
 	}
 	std::string getTexture() const { return texture; }
 	void setTexture(std::string str) { texture = str; }
-	int getX() const { return xCoord; };
-	int getY() const { return yCoord; };
-	void draw(sf::RenderWindow &window) const;
+	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
+	void draw(sf::RenderWindow& window);
 };
