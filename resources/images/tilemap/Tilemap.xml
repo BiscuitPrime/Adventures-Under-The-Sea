@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Tilemap label="level1" lines="20" columns="20">
+<Tilemap label="level1" lines="10" columns="10">
 	<Tiletype type="sand">
 		<Tile x="0" y="0"/>
 		<Tile x="0" y="1"/>

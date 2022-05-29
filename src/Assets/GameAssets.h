@@ -1,9 +1,8 @@
 #pragma once
-#pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <string>
-
 
 class GameAssets {
 private:
@@ -33,6 +32,7 @@ public:
 GameAssets* GameAssets::singleton = nullptr;
 
 GameAssets::GameAssets() {
+    std::cout << "Start loading sprites\n";
     std::string resourceDirectory = "../../../../resources/Sprites/";
     sandTile.loadFromFile(resourceDirectory + "sand.png");
     tileIndexes.insert({ "sand", sandTile });
@@ -46,5 +46,5 @@ GameAssets::GameAssets() {
     tileIndexes.insert({ "sandAlgeaTall", sandAlgeaTallTile });
     sandAlgeaTall2Tile.loadFromFile(resourceDirectory + "sandAlgeaTall2.png");
     tileIndexes.insert({ "sandAlgeaTall2", sandAlgeaTall2Tile });
-
+    std::cout << "Sprites loaded\n";
 }
