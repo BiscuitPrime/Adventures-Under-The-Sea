@@ -11,6 +11,7 @@ private:
 	sf::Vector2i orthogonalCoords;
 	sf::Vector2i isometricCoords;
 	std::string texture;
+	sf::Sprite sprite;
 public:
 	Tile();
 	Tile(int x, int y, std::string str);
@@ -22,6 +23,11 @@ public:
 	}
 	std::string getTexture() const { return texture; }
 	void setTexture(std::string str) { texture = str; }
+	sf::Sprite getSprite() const { return sprite; }
+	void setSprite(sf::Sprite sprt) { sprite = sprt; }
 	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
+	sf::Vector2i getIsometricCoords() const { return isometricCoords; }
 	void draw(sf::RenderWindow& window);
+	void selectTile();
+	void unSelectTile();
 };

@@ -2,6 +2,7 @@
 #include "pugixml.hpp"
 #include "Assets/Definitions.h"
 #include <iostream>
+#include <math.h>
 
 
 Tilemap::Tilemap()
@@ -83,6 +84,25 @@ int Tilemap::draw(sf::RenderWindow &window) const
 		}
 	}
 	return 0;
+}
+
+Tile* Tilemap::findNearestTileISO(int isoX, int isoY) const
+{
+	float minDistance = 9999999;
+	auto* nearestTile = (Tile*) & (tilemap[0][0]);
+	for (int y = 0; y < lines; y++) {
+		for (int x = 0; x < columns; x++) {
+			sf::Vector2i isoTileCoords = tilemap[y][x].getIsometricCoords();
+			float newDistance = sqrtf(pow((isoTileCoords.x - isoX), 2) + pow((isoTileCoords.y - isoY), 2));
+				std::cout << newDistance << std::endl;
+			if (newDistance < minDistance) {
+				minDistance = newDistance;
+				nearestTile = (Tile*)&(tilemap[y][x]);
+			}
+		}
+	}
+	//std::cout << "Select tile (" << nearestTile->getOrthogonalCoords().x << ", " << nearestTile->getOrthogonalCoords().y << ")\n";
+	return nearestTile;
 }
 
 

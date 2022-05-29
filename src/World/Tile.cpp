@@ -26,7 +26,6 @@ void Tile::draw(sf::RenderWindow &window)
     // process isometric coordinates
     std::pair<int, int> isoCoords = Definitions::orthoToIso(std::pair<int, int>(orthogonalCoords.x, orthogonalCoords.y));
     std::pair<int, int> offset = { width / 2, height / 2 };
-    std::cout << "Set tile at ortho coords (" << orthogonalCoords.x << ", " << orthogonalCoords.y << ") || Set tile at iso coords (" << isoCoords.first + offset.first << ", " << isoCoords.second + offset.second << ")\n";
     sprite.setPosition(isoCoords.first + offset.first, isoCoords.second + offset.second);
     // store isometric coordinates
     setIsometricCoordinates(isoCoords.first + offset.first, isoCoords.second + offset.second);
@@ -37,7 +36,20 @@ void Tile::draw(sf::RenderWindow &window)
     }
     else {
     sprite.setTexture(tileIndexes.at(getTexture()));
+    setSprite(sprite);
     // draw
     window.draw(sprite);
     }
+}
+
+void Tile::selectTile()
+{
+    //std::cout << "Select tile (" << orthogonalCoords.x << ", " << orthogonalCoords.y << ")\n";
+    sprite.move(sf::Vector2f(0, 100));
+}
+
+void Tile::unSelectTile()
+{
+   // std::cout << "Unselect tile (" << orthogonalCoords.x << ", " << orthogonalCoords.y << ")\n";
+    sprite.move(sf::Vector2f(0, -100));
 }

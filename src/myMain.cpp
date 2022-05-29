@@ -14,6 +14,9 @@ int myMain()
     auto* fileName = (char*) "Tilemap.xml";
     tilemap.buildTilemap(fileName);
     tilemap.draw(window);
+    Tile* selectedTile = tilemap.getTile(0, 0);
+    Tile* previouslySelectedTile = tilemap.getTile(0, 0);
+
     
     window.display();
     while (window.isOpen())
@@ -21,7 +24,12 @@ int myMain()
         sf::Vector2i globalPosition = sf::Mouse::getPosition(window);
         sf::Vector2f worldPosition = window.mapPixelToCoords(globalPosition);
         //std::cout << "Mouse global pos : (" << globalPosition.x << ", " << globalPosition.y << ") || World Pos : (" << worldPosition.x << ", " << worldPosition.y << ")\n";
-        std::pair<int, int> gblPosition = std::pair(worldPosition.x, worldPosition.y);
+        previouslySelectedTile = selectedTile;
+        selectedTile = tilemap.findNearestTileISO((int) worldPosition.x, (int)worldPosition.y);
+        //std::cout << "Select tile (" << selectedTile->getOrthogonalCoords().x << ", " << selectedTile->getOrthogonalCoords().y << ")\n";
+        previouslySelectedTile->unSelectTile();
+        selectedTile->selectTile();
+
         sf::Event event;
         while (window.pollEvent(event))
         {

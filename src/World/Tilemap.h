@@ -1,5 +1,6 @@
 #pragma once
 #include <World/Tile.h>
+#include <Assets/Definitions.h>
 #include <string>
 
 class Tilemap {
@@ -8,17 +9,17 @@ class Tilemap {
 /// </summary>
 private:
 	std::string label;
-	int lines = 10;
-	int columns = 10;
-	Tile tilemap[10][10];
+	Tile tilemap[columns][lines];
 public:
 	Tilemap();
 	std::string getLabel() const { return label; }
 	void setLabel(std::string const& lbl) { label = lbl; }
-	int getLines() const { return lines; };
-	int getColumns() const { return columns; };
 	int setTile(int x, int y, std::string type);
+	Tile* getTile(int x, int y) { return &tilemap[x][y]; }
 	int buildTilemap(char fileName[]);
 	int draw(sf::RenderWindow &window) const;
-	std::pair<int, int> static OrthoToIso(std::pair<int, int> coords);
+
+	// takes in isometric coordinates and returns the tile closest to that point in world space
+	Tile* findNearestTileISO(int isoX, int isoY) const;
+
 };
