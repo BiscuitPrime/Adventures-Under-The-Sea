@@ -20,4 +20,5 @@ public:
 	int setTile(int x, int y, std::string type);
 	int buildTilemap(char fileName[]);
 	int draw(sf::RenderWindow &window) const;
+	std::pair<int, int> static OrthoToIso(std::pair<int, int> coords);
 };

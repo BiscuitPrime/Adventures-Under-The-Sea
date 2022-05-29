@@ -1,5 +1,6 @@
 #include "Tilemap.h"
 #include "pugixml.hpp"
+#include "Assets/Definitions.h"
 #include <iostream>
 
 
@@ -83,5 +84,6 @@ int Tilemap::draw(sf::RenderWindow &window) const
 	}
 	return 0;
 }
+
 
 

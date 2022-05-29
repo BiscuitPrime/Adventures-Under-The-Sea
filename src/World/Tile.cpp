@@ -1,4 +1,5 @@
 #include "Tile.h"
+#include "Assets/Definitions.h"
 #include "Assets/GameAssets.h"
 #include <iostream>
 
@@ -23,8 +24,7 @@ void Tile::draw(sf::RenderWindow &window) const
     int width = window.getSize().x;
     int height = window.getSize().y;
 
-    std::pair<int, int> coords = { 64 * getX(), 64 * getY()};
-    std::pair<int, int> isoCoords = { (coords.first - coords.second) * 0.5, (coords.first + coords.second) * 0.25 };
+    std::pair<int, int> isoCoords = Definitions::orthoToIso(std::pair<int, int>(getX(), getY()));
     std::pair<int, int> offset = { width / 2, height / 2 };
     sprite.setPosition(isoCoords.first + offset.first, isoCoords.second + offset.second);
 
