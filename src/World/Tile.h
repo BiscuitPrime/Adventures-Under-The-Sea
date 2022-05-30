@@ -28,6 +28,6 @@ public:
 	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
 	sf::Vector2i getIsometricCoords() const { return isometricCoords; }
 	void draw(sf::RenderWindow& window);
-	void selectTile();
-	void unSelectTile();
+	void selectTile(sf::RenderWindow& window);
+	void unSelectTile(sf::RenderWindow& window);
 };

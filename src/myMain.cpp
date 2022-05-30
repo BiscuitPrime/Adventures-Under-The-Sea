@@ -13,21 +13,13 @@ int myMain()
     Tilemap tilemap;
     auto* fileName = (char*) "Tilemap.xml"; // mettre dans le test
     tilemap.buildTilemap(fileName); // mettre dans le test
-    tilemap.draw(window);
     Tile& selectedTile = tilemap.getTile(0, 0);
     Tile& previouslySelectedTile = tilemap.getTile(0, 0);
 
     
-    window.display();
+   // window.display();
     while (window.isOpen())
     {
-        sf::Vector2i worldPosition = sf::Mouse::getPosition(window);
-        //std::cout << "World Pos : (" << worldPosition.x << ", " << worldPosition.y << ")\n";
-        previouslySelectedTile = selectedTile;
-        selectedTile = tilemap.findNearestTileISO((int) worldPosition.x, (int)worldPosition.y);
-        //std::cout << "Select tile (" << selectedTile->getOrthogonalCoords().x << ", " << selectedTile->getOrthogonalCoords().y << ")\n";
-        //previouslySelectedTile.unSelectTile();
-        selectedTile.selectTile();
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -35,6 +27,16 @@ int myMain()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+
+        tilemap.draw(window);
+        window.display();
+        sf::Vector2i worldPosition = sf::Mouse::getPosition(window);
+        //std::cout << "World Pos : (" << worldPosition.x << ", " << worldPosition.y << ")\n";
+        previouslySelectedTile = selectedTile;
+        selectedTile = tilemap.findNearestTileISO((int)worldPosition.x, (int)worldPosition.y);
+        //std::cout << "Select tile (" << selectedTile->getOrthogonalCoords().x << ", " << selectedTile->getOrthogonalCoords().y << ")\n";
+        previouslySelectedTile.unSelectTile(window);
+        //selectedTile.selectTile(window);
     }
 
     return 0;

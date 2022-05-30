@@ -34,14 +34,14 @@ void Tile::draw(sf::RenderWindow &window)
     }
 }
 
-void Tile::selectTile()
+void Tile::selectTile(sf::RenderWindow& window)
 {
-    std::cout << "Select tile (" << orthogonalCoords.x << ", " << orthogonalCoords.y << ")\n";
     sprite.move(sf::Vector2f(0, 100));
+    window.draw(sprite);
 }
 
-void Tile::unSelectTile()
+void Tile::unSelectTile(sf::RenderWindow& window)
 {
-    //std::cout << "Unselect tile (" << orthogonalCoords.x << ", " << orthogonalCoords.y << ")\n";
     sprite.move(sf::Vector2f(0, -100));
+    window.draw(sprite);
 }
