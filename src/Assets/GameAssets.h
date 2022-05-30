@@ -33,7 +33,7 @@ GameAssets* GameAssets::singleton = nullptr;
 
 GameAssets::GameAssets() {
     std::cout << "Start loading sprites\n";
-    std::string resourceDirectory = "../../../../resources/Sprites/";
+    std::string resourceDirectory = "resources/Sprites/";
     sandTile.loadFromFile(resourceDirectory + "sand.png");
     tileIndexes.insert({ "sand", sandTile });
     sandTallTile.loadFromFile(resourceDirectory + "sandTall.png");

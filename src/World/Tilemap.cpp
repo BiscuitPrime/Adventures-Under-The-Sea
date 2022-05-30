@@ -44,7 +44,7 @@ int Tilemap::buildTilemap(char fileName[])
 	// loads xml file
 	pugi::xml_document doc;
 	char filePath[400];
-	strcpy(filePath, "../../../../resources/images/tilemap/");
+	strcpy(filePath, "resources/images/tilemap/");
 	strcat(filePath, fileName);
 	pugi::xml_parse_result result = doc.load_file(filePath);
 	if (!result)
