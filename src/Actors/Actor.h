@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include <Actors/Modules/HealthModule.h>
+#include <Actors/Modules/OxygenModule.h>
 
 /*
 * Actor class, that will define every actor in our system (player and enemy).
