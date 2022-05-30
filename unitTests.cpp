@@ -35,7 +35,7 @@ TEST(TestActor, TestHealthPlayer) //test wether or not the player's Health is in
     ASSERT_EQ(player.getHealth(), 9) << "Player health has not taken damage correctly";
 }
 
-TEST(TestActor, TestOxygenPlayer)
+TEST(TestActor, TestOxygenPlayer) //test wether or not the player's Oxygen is initialized correctly AND is correctly updated
 {
     std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
     auto player = Player(playerTexturePath);
