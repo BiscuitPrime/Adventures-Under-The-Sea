@@ -11,6 +11,7 @@ int myMain()
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML window");
 
     Tilemap tilemap;
+    auto ga = GameAssets();
     auto* fileName = (char*) "Tilemap.xml"; // mettre dans le test
     tilemap.buildTilemap(fileName); // mettre dans le test
     Tile& selectedTile = tilemap.getTile(0, 0);
@@ -28,15 +29,13 @@ int myMain()
                 window.close();
         }
 
-        tilemap.draw(window);
+        tilemap.draw(window, ga);
         window.display();
         sf::Vector2i worldPosition = sf::Mouse::getPosition(window);
         //std::cout << "World Pos : (" << worldPosition.x << ", " << worldPosition.y << ")\n";
         previouslySelectedTile = selectedTile;
         selectedTile = tilemap.findNearestTileISO((int)worldPosition.x, (int)worldPosition.y);
         //std::cout << "Select tile (" << selectedTile->getOrthogonalCoords().x << ", " << selectedTile->getOrthogonalCoords().y << ")\n";
-        previouslySelectedTile.unSelectTile(window);
-        //selectedTile.selectTile(window);
     }
 
     return 0;

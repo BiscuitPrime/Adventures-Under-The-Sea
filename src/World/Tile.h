@@ -1,4 +1,5 @@
 #pragma once
+#include "Assets/GameAssets.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -12,6 +13,7 @@ private:
 	sf::Vector2i isometricCoords;
 	std::string texture;
 	sf::Sprite sprite;
+	bool isSelected;
 public:
 	Tile();
 	Tile(int x, int y, std::string str);
@@ -27,7 +29,5 @@ public:
 	void setSprite(sf::Sprite sprt) { sprite = sprt; }
 	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
 	sf::Vector2i getIsometricCoords() const { return isometricCoords; }
-	void draw(sf::RenderWindow& window);
-	void selectTile(sf::RenderWindow& window);
-	void unSelectTile(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, GameAssets ga);
 };

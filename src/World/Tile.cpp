@@ -1,6 +1,5 @@
 #include "Tile.h"
 #include "Assets/Definitions.h"
-#include "Assets/GameAssets.h"
 #include <iostream>
 
 Tile::Tile() :
@@ -17,31 +16,23 @@ texture(str)
 {
 }
 
-void Tile::draw(sf::RenderWindow &window)
+void Tile::draw(sf::RenderWindow &window, GameAssets ga)
 {
     // finds and loads texture from dictionnary in GameAssets.
+    std::string currentTexture = texture;
     // process sprite texture
-    std::map<std::string, sf::Texture> tileIndexes = GameAssets::get()->tileIndexes;
-    if (!tileIndexes.contains(texture)) {
+    if (isSelected) {
+        currentTexture.append("Selected");
+    }
+    std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
+    if (!tileIndexes.contains(currentTexture)) {
         std::cout << "Error when drawing tile: texture \'" << texture << "\' could not be found\n";
     }
     else {
-    sprite.setTexture(tileIndexes.at(getTexture()));
+    sprite.setTexture(tileIndexes.at(currentTexture));
     //sets sprite position
     sprite.setPosition(sf::Vector2f(getIsometricCoords().x, getIsometricCoords().y));
     // draw
     window.draw(sprite);
     }
-}
-
-void Tile::selectTile(sf::RenderWindow& window)
-{
-    sprite.move(sf::Vector2f(0, 100));
-    window.draw(sprite);
-}
-
-void Tile::unSelectTile(sf::RenderWindow& window)
-{
-    sprite.move(sf::Vector2f(0, -100));
-    window.draw(sprite);
 }

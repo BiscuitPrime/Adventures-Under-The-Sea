@@ -82,13 +82,13 @@ int Tilemap::buildTilemap(char fileName[])
 	return 0;
 }
 
-int Tilemap::draw(sf::RenderWindow &window)
+int Tilemap::draw(sf::RenderWindow &window, GameAssets ga)
 {
 	// run through the tilemap array and call Tile.draw() for each one
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			Tile& tile = tilemap[x][y];
-			tile.draw(window);
+			tile.draw(window, ga);
 		}
 	}
 	return 0;
