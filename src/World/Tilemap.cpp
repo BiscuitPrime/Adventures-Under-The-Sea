@@ -41,7 +41,7 @@ int Tilemap::buildTilemap(char fileName[])
 	// loads xml file
 	pugi::xml_document doc;
 	char filePath[400];
-	strcpy(filePath, "../../../../resources/images/tilemap/");
+	strcpy(filePath, "../../../resources/images/tilemap/");
 	strcat(filePath, fileName);
 	pugi::xml_parse_result result = doc.load_file(filePath);
 	if (!result)
@@ -86,18 +86,19 @@ int Tilemap::draw(sf::RenderWindow &window) const
 	return 0;
 }
 
-Tile* Tilemap::findNearestTileISO(int isoX, int isoY) const
+Tile& Tilemap::findNearestTileISO(int isoX, int isoY)
 {
 	float minDistance = 9999999;
-	auto* nearestTile = (Tile*) & (tilemap[0][0]);
+	Tile& nearestTile =  tilemap[0][0];
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			sf::Vector2i isoTileCoords = tilemap[y][x].getIsometricCoords();
+
+			//std::cout << "try tile (" << isoTileCoords.x << ", " << isoTileCoords.y << ")\n";
 			float newDistance = sqrtf(pow((isoTileCoords.x - isoX), 2) + pow((isoTileCoords.y - isoY), 2));
-				std::cout << newDistance << std::endl;
 			if (newDistance < minDistance) {
 				minDistance = newDistance;
-				nearestTile = (Tile*)&(tilemap[y][x]);
+				nearestTile = tilemap[y][x];
 			}
 		}
 	}

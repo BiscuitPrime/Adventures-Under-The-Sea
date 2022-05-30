@@ -15,11 +15,11 @@ public:
 	std::string getLabel() const { return label; }
 	void setLabel(std::string const& lbl) { label = lbl; }
 	int setTile(int x, int y, std::string type);
-	Tile* getTile(int x, int y) { return &tilemap[x][y]; }
+	Tile& getTile(int x, int y) { return tilemap[x][y]; }
 	int buildTilemap(char fileName[]);
 	int draw(sf::RenderWindow &window) const;
 
 	// takes in isometric coordinates and returns the tile closest to that point in world space
-	Tile* findNearestTileISO(int isoX, int isoY) const;
+	Tile& findNearestTileISO(int isoX, int isoY);
 
 };

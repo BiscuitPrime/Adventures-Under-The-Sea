@@ -44,12 +44,12 @@ void Tile::draw(sf::RenderWindow &window)
 
 void Tile::selectTile()
 {
-    //std::cout << "Select tile (" << orthogonalCoords.x << ", " << orthogonalCoords.y << ")\n";
+    std::cout << "Select tile (" << orthogonalCoords.x << ", " << orthogonalCoords.y << ")\n";
     sprite.move(sf::Vector2f(0, 100));
 }
 
 void Tile::unSelectTile()
 {
-   // std::cout << "Unselect tile (" << orthogonalCoords.x << ", " << orthogonalCoords.y << ")\n";
+    //std::cout << "Unselect tile (" << orthogonalCoords.x << ", " << orthogonalCoords.y << ")\n";
     sprite.move(sf::Vector2f(0, -100));
 }
