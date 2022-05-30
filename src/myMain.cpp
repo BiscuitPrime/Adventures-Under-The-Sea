@@ -1,7 +1,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <World/Tilemap.h>
-
+#include "myMain.h"
+#include <SFML/Graphics.hpp>
+#include <Actors/Player.h>
+#include <Actors/PlayerCommands/InputHandler.h>
 
 int myMain()
 {
@@ -10,10 +13,10 @@ int myMain()
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML window");
 
     Tilemap tilemap;
-    auto* fileName = (char*) "Tilemap.xml";
+    auto* fileName = (char*)"Tilemap.xml";
     tilemap.buildTilemap(fileName);
     tilemap.draw(window);
-    
+
     window.display();
     while (window.isOpen())
     {
