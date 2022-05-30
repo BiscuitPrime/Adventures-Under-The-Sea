@@ -14,10 +14,10 @@ public:
 	Tilemap();
 	std::string getLabel() const { return label; }
 	void setLabel(std::string const& lbl) { label = lbl; }
-	int setTile(int x, int y, std::string type);
+	int setTile(int x, int y, int isoX, int isoY, std::string type);
 	Tile& getTile(int x, int y) { return tilemap[x][y]; }
 	int buildTilemap(char fileName[]);
-	int draw(sf::RenderWindow &window) const;
+	int draw(sf::RenderWindow &window);
 
 	// takes in isometric coordinates and returns the tile closest to that point in world space
 	Tile& findNearestTileISO(int isoX, int isoY);

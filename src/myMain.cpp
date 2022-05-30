@@ -26,7 +26,7 @@ int myMain()
         previouslySelectedTile = selectedTile;
         selectedTile = tilemap.findNearestTileISO((int) worldPosition.x, (int)worldPosition.y);
         //std::cout << "Select tile (" << selectedTile->getOrthogonalCoords().x << ", " << selectedTile->getOrthogonalCoords().y << ")\n";
-        previouslySelectedTile.unSelectTile();
+        //previouslySelectedTile.unSelectTile();
         selectedTile.selectTile();
 
         sf::Event event;

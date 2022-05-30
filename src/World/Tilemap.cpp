@@ -16,7 +16,7 @@ Tilemap::Tilemap()
 	}
 }
 
-int Tilemap::setTile(int x, int y, std::string type)
+int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type)
 {
 	// sets ptr to a tile at its corresponding coordinate in the tilemap
 	if (x < 0 || x >= 10) {
@@ -29,7 +29,10 @@ int Tilemap::setTile(int x, int y, std::string type)
 	}
 	Tile tile = tilemap[y][x];
 	tile.setCoordinates(x, y);
+	tile.setIsometricCoordinates(isoX, isoY);
 	tile.setTexture(type);
+	sf::Sprite sprite;
+	tile.setSprite(sprite);
 	tilemap[y][x] = tile;
 	return 0;
 }
@@ -41,7 +44,7 @@ int Tilemap::buildTilemap(char fileName[])
 	// loads xml file
 	pugi::xml_document doc;
 	char filePath[400];
-	strcpy(filePath, "../../../resources/images/tilemap/");
+	strcpy(filePath, "../../../../resources/images/tilemap/");
 	strcat(filePath, fileName);
 	pugi::xml_parse_result result = doc.load_file(filePath);
 	if (!result)
@@ -66,20 +69,25 @@ int Tilemap::buildTilemap(char fileName[])
 				std::cerr << "Error when parsing xml file: tile coordinates (" << xCoord << ", " << yCoord << ") exceed bounds\n";
 				return -1;
 			}
+			// process isometric coordinates
+			std::pair<int, int> isoCoords = Definitions::orthoToIso(std::pair<int, int>(xCoord, yCoord));
+			std::pair<int, int> offset = { windowWidth / 2, windowHeight / 2 };
+			std::pair<int, int> worldCoords{ isoCoords.first + offset.first, isoCoords.second + offset.second };
 			// set the tile in the tilemap
-			int rt = setTile(xCoord, yCoord, tileTypeStr);
+			int rt = setTile(xCoord, yCoord, worldCoords.first, worldCoords.second, tileTypeStr);
+			// store isometric coordinates
 			if (rt < 0) return -1;
 		}
 	}
 	return 0;
 }
 
-int Tilemap::draw(sf::RenderWindow &window) const
+int Tilemap::draw(sf::RenderWindow &window)
 {
 	// run through the tilemap array and call Tile.draw() for each one
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
-			Tile tile = tilemap[x][y];
+			Tile& tile = tilemap[x][y];
 			tile.draw(window);
 		}
 	}
@@ -93,8 +101,6 @@ Tile& Tilemap::findNearestTileISO(int isoX, int isoY)
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			sf::Vector2i isoTileCoords = tilemap[y][x].getIsometricCoords();
-
-			//std::cout << "try tile (" << isoTileCoords.x << ", " << isoTileCoords.y << ")\n";
 			float newDistance = sqrtf(pow((isoTileCoords.x - isoX), 2) + pow((isoTileCoords.y - isoY), 2));
 			if (newDistance < minDistance) {
 				minDistance = newDistance;
@@ -102,7 +108,6 @@ Tile& Tilemap::findNearestTileISO(int isoX, int isoY)
 			}
 		}
 	}
-	//std::cout << "Select tile (" << nearestTile->getOrthogonalCoords().x << ", " << nearestTile->getOrthogonalCoords().y << ")\n";
 	return nearestTile;
 }
 

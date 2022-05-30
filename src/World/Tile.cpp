@@ -19,16 +19,7 @@ texture(str)
 
 void Tile::draw(sf::RenderWindow &window)
 {
-    // creates sprite for the tile, sets its position, finds and loads texture from dictionnary in GameAssets.h
-    sf::Sprite sprite;
-    int width = windowWidth;
-    int height = windowHeight;
-    // process isometric coordinates
-    std::pair<int, int> isoCoords = Definitions::orthoToIso(std::pair<int, int>(orthogonalCoords.x, orthogonalCoords.y));
-    std::pair<int, int> offset = { width / 2, height / 2 };
-    sprite.setPosition(isoCoords.first + offset.first, isoCoords.second + offset.second);
-    // store isometric coordinates
-    setIsometricCoordinates(isoCoords.first + offset.first, isoCoords.second + offset.second);
+    // finds and loads texture from dictionnary in GameAssets.
     // process sprite texture
     std::map<std::string, sf::Texture> tileIndexes = GameAssets::get()->tileIndexes;
     if (!tileIndexes.contains(texture)) {
@@ -36,7 +27,8 @@ void Tile::draw(sf::RenderWindow &window)
     }
     else {
     sprite.setTexture(tileIndexes.at(getTexture()));
-    setSprite(sprite);
+    //sets sprite position
+    sprite.setPosition(sf::Vector2f(getIsometricCoords().x, getIsometricCoords().y));
     // draw
     window.draw(sprite);
     }
