@@ -1,17 +1,20 @@
 #include "Tilemap.h"
+#include "Tilemap.h"
 #include "pugixml.hpp"
 #include "Assets/Definitions.h"
 #include <iostream>
 #include <math.h>
 
 
-Tilemap::Tilemap()
+Tilemap::Tilemap():
+label("")
 {
 	// initialize tilemap array with basic tiles 
+	selectedTileCoords = sf::Vector2i(0, 0);
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			auto tile = Tile();
-			tilemap[x][y] = tile;
+			tilemap[y][x] = tile;
 		}
 	}
 }
@@ -35,6 +38,11 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type)
 	tile.setSprite(sprite);
 	tilemap[y][x] = tile;
 	return 0;
+}
+
+void Tilemap::selectTile(Tile tile)
+{
+	selectedTileCoords = tile.getOrthogonalCoords();
 }
 
 int Tilemap::buildTilemap(char fileName[])
@@ -88,7 +96,13 @@ int Tilemap::draw(sf::RenderWindow &window, GameAssets ga)
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			Tile& tile = tilemap[x][y];
-			tile.draw(window, ga);
+			if (x == selectedTileCoords.y && y == selectedTileCoords.x) {
+				tile.drawAsSelected(window, ga);
+			}
+			else 
+			{
+				tile.draw(window, ga);
+			}
 		}
 	}
 	return 0;

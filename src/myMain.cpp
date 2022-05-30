@@ -10,6 +10,7 @@ int myMain()
     int height = 1080;
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML window");
 
+
     Tilemap tilemap;
     auto ga = GameAssets();
     auto* fileName = (char*) "Tilemap.xml"; // mettre dans le test
@@ -17,8 +18,8 @@ int myMain()
     Tile& selectedTile = tilemap.getTile(0, 0);
     Tile& previouslySelectedTile = tilemap.getTile(0, 0);
 
+    tilemap.draw(window, ga);
     
-   // window.display();
     while (window.isOpen())
     {
 
@@ -29,13 +30,14 @@ int myMain()
                 window.close();
         }
 
-        tilemap.draw(window, ga);
-        window.display();
         sf::Vector2i worldPosition = sf::Mouse::getPosition(window);
         //std::cout << "World Pos : (" << worldPosition.x << ", " << worldPosition.y << ")\n";
-        previouslySelectedTile = selectedTile;
         selectedTile = tilemap.findNearestTileISO((int)worldPosition.x, (int)worldPosition.y);
-        //std::cout << "Select tile (" << selectedTile->getOrthogonalCoords().x << ", " << selectedTile->getOrthogonalCoords().y << ")\n";
+        tilemap.selectTile(selectedTile);
+       
+        window.clear(sf::Color::Black);
+        tilemap.draw(window, ga);
+        window.display();
     }
 
     return 0;

@@ -13,7 +13,7 @@ private:
 	sf::Vector2i isometricCoords;
 	std::string texture;
 	sf::Sprite sprite;
-	bool isSelected;
+	bool isSelected = false;
 public:
 	Tile();
 	Tile(int x, int y, std::string str);
@@ -29,5 +29,9 @@ public:
 	void setSprite(sf::Sprite sprt) { sprite = sprt; }
 	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
 	sf::Vector2i getIsometricCoords() const { return isometricCoords; }
+	void selectTile() { isSelected = true; }
+	void unselectTile() { isSelected = false; }
 	void draw(sf::RenderWindow& window, GameAssets ga);
+	void drawAsSelected(sf::RenderWindow& window, GameAssets ga);
+
 };

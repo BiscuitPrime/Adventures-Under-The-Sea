@@ -16,15 +16,15 @@ GameAssets::GameAssets() {
     sandAlgeaTall2TileSelected.loadFromFile(resourceDirectory + "sandAlgeaTall2s.png");
 
     tileIndexes.insert({ "sand", sandTile });
-    tileIndexes.insert({ "sandSelected", sandTileSelected });
+    tileIndexes.insert({ "sands", sandTileSelected });
     tileIndexes.insert({ "sandTall", sandTallTile });
-    tileIndexes.insert({ "sandTallSelected", sandTallTileSelected });
+    tileIndexes.insert({ "sandTalls", sandTallTileSelected });
     tileIndexes.insert({ "sandAlgea", sandAlgeaTile });
-    tileIndexes.insert({ "sandAlgeaSelected", sandAlgeaTileSelected });
+    tileIndexes.insert({ "sandAlgeas", sandAlgeaTileSelected });
     tileIndexes.insert({ "sandAlgea2", sandAlgea2Tile });
-    tileIndexes.insert({ "sandAlgea2Selected", sandAlgea2TileSelected });
+    tileIndexes.insert({ "sandAlgea2s", sandAlgea2TileSelected });
     tileIndexes.insert({ "sandAlgeaTall", sandAlgeaTallTile });
-    tileIndexes.insert({ "sandAlgeaTallSelected", sandAlgeaTallTileSelected });
+    tileIndexes.insert({ "sandAlgeaTalls", sandAlgeaTallTileSelected });
     tileIndexes.insert({ "sandAlgeaTall2", sandAlgeaTall2Tile });
-    tileIndexes.insert({ "sandAlgeaTall2Selected", sandAlgeaTall2TileSelected });
+    tileIndexes.insert({ "sandAlgeaTall2s", sandAlgeaTall2TileSelected });
 }
