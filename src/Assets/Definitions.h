@@ -11,4 +11,5 @@
 class Definitions {
 public:
 	static std::pair<double, double> orthoToIso(std::pair<int, int> orthoCoords);
+	static std::pair<double, double> isoToOrtho(std::pair<int, int> isoCoords);
 };

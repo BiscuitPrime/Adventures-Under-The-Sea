@@ -1,7 +1,5 @@
 #include "Tilemap.h"
-#include "Tilemap.h"
 #include "pugixml.hpp"
-#include "Assets/Definitions.h"
 #include <iostream>
 #include <math.h>
 
@@ -40,9 +38,23 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type)
 	return 0;
 }
 
-void Tilemap::selectTile(Tile tile)
+void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 {
-	selectedTileCoords = tile.getOrthogonalCoords();
+	sf::Vector2i worldPosition = sf::Mouse::getPosition(window);
+	sf::Vector2f PosNoOffset = sf::Vector2f(worldPosition.x - (windowWidth / 2), worldPosition.y - (windowHeight / 2));
+	std::pair<int, int> orthoMousePos = Definitions::isoToOrtho(std::pair( (int) PosNoOffset.x, (int) PosNoOffset.y));
+	
+	// prevent mouse to generate coordinates out of bounds
+	if (orthoMousePos.first > 0 && orthoMousePos.first < columns && orthoMousePos.second > 0 && orthoMousePos.second < lines) {
+		Tile& selectedTile = tilemap[orthoMousePos.second][orthoMousePos.first];
+
+		sf::Vector2i newlySelectedTileCoords = selectedTile.getOrthogonalCoords();
+		if (selectedTileCoords != newlySelectedTileCoords) {
+			selectedTileCoords = selectedTile.getOrthogonalCoords();
+			draw(window, ga);
+			window.display();
+		}
+	}
 }
 
 int Tilemap::buildTilemap(char fileName[])
