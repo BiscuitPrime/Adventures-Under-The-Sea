@@ -10,7 +10,7 @@ EnemyHandler::EnemyHandler()
 }
 
 //function that will control the enemy
-void EnemyHandler::handleEnemy() 
+void EnemyHandler::handleEnemy(Enemy* enemy, sf::RenderWindow* window)
 {
 
 }

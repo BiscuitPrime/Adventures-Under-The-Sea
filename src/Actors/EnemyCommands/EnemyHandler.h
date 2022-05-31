@@ -11,5 +11,5 @@ private:
 	AttackCommand attackCommand;
 public:
 	EnemyHandler();
-	void handleEnemy();
+	void handleEnemy(Enemy* enemy, sf::RenderWindow* window);
 };
