@@ -7,7 +7,7 @@
 static class InputHandler {
 private:
 	PlayerState* _state; //state of the player
-	PlayerCommand* _command;
+	PlayerCommand* _command; //USELESS FOR NOW
 	MoveCommand moveCommand;
 	MineAttackCommand mineCommand;
 	TorpedoAttackCommand torpedoCommand;
