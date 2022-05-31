@@ -3,7 +3,6 @@
 #include <iostream>
 #include <math.h>
 
-
 Tilemap::Tilemap():
 label("")
 {
@@ -41,12 +40,12 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type)
 void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 {
 	sf::Vector2i worldPosition = sf::Mouse::getPosition(window);
-	sf::Vector2f PosNoOffset = sf::Vector2f(worldPosition.x - (windowWidth / 2), worldPosition.y - (windowHeight / 2));
-	std::pair<int, int> orthoMousePos = Definitions::isoToOrtho(std::pair( (int) PosNoOffset.x, (int) PosNoOffset.y));
-	
+	sf::Vector2f PosNoOffset = sf::Vector2f(worldPosition.x - (windowWidth / 2) - 32, worldPosition.y - (windowHeight / 2) - 32);
+	std::pair<double, double> orthoMousePos = Definitions::isoToOrtho(std::pair( (int) PosNoOffset.x, (int) PosNoOffset.y));
+	std::pair<int, int> selectedTilePos = std::pair(round(orthoMousePos.first), round(orthoMousePos.second));
 	// prevent mouse to generate coordinates out of bounds
 	if (orthoMousePos.first > 0 && orthoMousePos.first < columns && orthoMousePos.second > 0 && orthoMousePos.second < lines) {
-		Tile& selectedTile = tilemap[orthoMousePos.second][orthoMousePos.first];
+		Tile& selectedTile = tilemap[selectedTilePos.second][selectedTilePos.first];
 
 		sf::Vector2i newlySelectedTileCoords = selectedTile.getOrthogonalCoords();
 		if (selectedTileCoords != newlySelectedTileCoords) {
