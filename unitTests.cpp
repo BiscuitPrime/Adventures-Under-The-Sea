@@ -55,3 +55,14 @@ TEST(TestActor, TestHealthEnemy) //test wether or not the enemy's Health is init
     enemy.takeDamage(1);
     ASSERT_EQ(enemy.getHealth(), 9) << "Player health has not taken damage correctly";
 }
+
+TEST(TestActor, TestConcurrentHealth)
+{
+    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
+    auto enemy = Enemy(enemyTexturePath);
+    std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
+    auto player = Player(playerTexturePath);
+    player.takeDamage(1);
+    enemy.takeDamage(2);
+    ASSERT_NE(player.getHealth(), enemy.getHealth()) << "Player and enemy health pool seem to be indistinct";
+}
