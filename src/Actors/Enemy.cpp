@@ -4,7 +4,9 @@
 #include <Actors/Enemy.h>
 
 Enemy::Enemy(std::string texturePath) : Actor{ texturePath } 
-{}
+{
+	health.setInitialHealth(10);
+}
 
 
 //method called when the enemy is dying.
