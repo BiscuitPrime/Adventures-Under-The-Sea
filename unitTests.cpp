@@ -2,6 +2,7 @@
 #include <Actors/Player.h>
 #include <Actors/PlayerCommands/InputHandler.h>
 #include <Actors/Enemy.h>
+#include <Actors/EnemyCommands/EnemyHandler.h>
 /*
 * File of the various tests of the program
 */
@@ -56,7 +57,7 @@ TEST(TestActor, TestHealthEnemy) //test wether or not the enemy's Health is init
     ASSERT_EQ(enemy.getHealth(), 9) << "Player health has not taken damage correctly";
 }
 
-TEST(TestActor, TestConcurrentHealth)
+TEST(TestActor, TestConcurrentHealth) //test if two health pool can coexist without issues
 {
     std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
     auto enemy = Enemy(enemyTexturePath);
@@ -65,4 +66,14 @@ TEST(TestActor, TestConcurrentHealth)
     player.takeDamage(1);
     enemy.takeDamage(2);
     ASSERT_NE(player.getHealth(), enemy.getHealth()) << "Player and enemy health pool seem to be indistinct";
+}
+
+TEST(TestActor, TestEnemyStates) //test wether the enemy states are updated
+{
+    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
+    auto enemy = Enemy(enemyTexturePath);
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    ASSERT_EQ(enemy.getState(),EnemyStates::STATE_IDLE) << "Enemy did not have its states setup at idle by default";
+    enemy.changeState(EnemyStates::STATE_MOVING);
+    ASSERT_EQ(enemy.getState(), EnemyStates::STATE_MOVING) << "Enemy did not have its state updated";
 }

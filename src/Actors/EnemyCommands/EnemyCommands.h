@@ -13,15 +13,15 @@ public:
 };
 
 //Enemy move command class :
-class MoveCommand : public EnemyCommand {
+class EnemyMoveCommand : public EnemyCommand {
 public:
-	MoveCommand() {};
+	EnemyMoveCommand() {};
 	void execute(Enemy* enemy, sf::RenderWindow* window) override;
 };
 
 //Enemy attack command class :
-class AttackCommand : public EnemyCommand {
+class EnemyAttackCommand : public EnemyCommand {
 public:
-	AttackCommand() {};
+	EnemyAttackCommand() {};
 	void execute(Enemy* enemy, sf::RenderWindow* window) override;
 };

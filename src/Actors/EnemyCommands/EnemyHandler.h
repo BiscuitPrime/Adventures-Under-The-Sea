@@ -7,8 +7,8 @@
 class EnemyHandler {
 private:
 	EnemyCommand* _command;
-	MoveCommand moveCommand;
-	AttackCommand attackCommand;
+	EnemyMoveCommand moveCommand;
+	EnemyAttackCommand attackCommand;
 public:
 	EnemyHandler();
 	void handleEnemy(Enemy* enemy, sf::RenderWindow* window);

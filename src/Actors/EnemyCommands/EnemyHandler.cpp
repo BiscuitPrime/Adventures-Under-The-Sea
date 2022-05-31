@@ -6,7 +6,6 @@
 //constructor
 EnemyHandler::EnemyHandler() 
 {
-	_command = &moveCommand; //by default, enemy is on move command
 }
 
 //function that will control the enemy
