@@ -1,5 +1,7 @@
 #pragma once
 #include <World/Tile.h>
+#include <Assets/Definitions.h>
+#include <SFML/Graphics.hpp>
 #include <string>
 
 class Tilemap {
@@ -8,16 +10,19 @@ class Tilemap {
 /// </summary>
 private:
 	std::string label;
-	int lines = 10;
-	int columns = 10;
-	Tile tilemap[10][10];
+	Tile tilemap[columns][lines];
+	sf::Vector2i selectedTileCoords;
 public:
 	Tilemap();
 	std::string getLabel() const { return label; }
 	void setLabel(std::string const& lbl) { label = lbl; }
-	int getLines() const { return lines; };
-	int getColumns() const { return columns; };
-	int setTile(int x, int y, std::string type);
-	int buildTilemap(char fileName[]);
-	int draw(sf::RenderWindow &window) const;
+	int setTile(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga);
+	void selectTile(sf::RenderWindow& window, GameAssets const& ga);
+	Tile& getTile(int x, int y) { return tilemap[x][y]; }
+	int buildTilemap(char fileName[], GameAssets const& ga);
+	int draw(sf::RenderWindow &window);
+
+	// takes in isometric coordinates and returns the tile closest to that point in world space
+	Tile& findNearestTileISO(int isoX, int isoY);
+
 };

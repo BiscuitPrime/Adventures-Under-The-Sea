@@ -1,39 +1,50 @@
 #include "Tile.h"
-#include "Assets/GameAssets.h"
+#include "Tile.h"
+#include "Tile.h"
+#include "Assets/Definitions.h"
 #include <iostream>
 
 Tile::Tile() :
-xCoord(0),
-yCoord(0),
-texture("sand")
+orthogonalCoords(sf::Vector2i(0, 0)),
+isometricCoords(sf::Vector2i(0, 0)),
+stringTexture("sand")
 {
 }
 
 Tile::Tile(int x, int y, std::string str): 
-xCoord(x),
-yCoord(y),
-texture(str)
+orthogonalCoords(sf::Vector2i(x, y)),
+isometricCoords(sf::Vector2i(0, 0)),
+stringTexture(str)
 {
 }
 
-void Tile::draw(sf::RenderWindow &window) const
+int Tile::loadSelectedTextureVariant(GameAssets const& ga)
 {
-    // creates sprite for the tile, sets its position, finds and loads texture from dictionnary in GameAssets.h
-    sf::Sprite sprite;
-    int width = window.getSize().x;
-    int height = window.getSize().y;
+	std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
 
-    std::pair<int, int> coords = { 64 * getX(), 64 * getY()};
-    std::pair<int, int> isoCoords = { (coords.first - coords.second) * 0.5, (coords.first + coords.second) * 0.25 };
-    std::pair<int, int> offset = { width / 2, height / 2 };
-    sprite.setPosition(isoCoords.first + offset.first, isoCoords.second + offset.second);
+	if (!tileIndexes.contains(stringTexture + 's')) {
+		std::cout << "Error when drawing tile: texture \'" << stringTexture + 's' << "\' could not be found\n";
+		return -1;
+	}	
+	setTexture(tileIndexes.at(stringTexture + 's'));
+	sprite.setTexture(getTexture());
+	return 0;
+}
 
-    std::map<std::string, sf::Texture> tileIndexes = GameAssets::get()->tileIndexes;
-    if (!tileIndexes.contains(texture)) {
-        std::cout << "Error when drawing tile: texture \'" << texture << "\' could not be found\n";
-    }
-    else {
-    sprite.setTexture(tileIndexes.at(getTexture()));
-    window.draw(sprite);
-    }
+int Tile::unloadSelectedTextureVariant(GameAssets const& ga) {
+
+	std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
+
+	if (!tileIndexes.contains(stringTexture)) {
+		std::cout << "Error when drawing tile: texture \'" << stringTexture << "\' could not be found\n";
+		return -1;
+	}
+	setTexture(tileIndexes.at(stringTexture));
+	sprite.setTexture(getTexture());
+	return 0;
+}
+
+void Tile::draw(sf::RenderWindow &window)
+{       // draw
+        window.draw(sprite);
 }

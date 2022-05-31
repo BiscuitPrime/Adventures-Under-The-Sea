@@ -1,4 +1,5 @@
 #pragma once
+#include "Assets/GameAssets.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -8,19 +9,32 @@ class Tile {
 /// Tile has a string describing its sf::Texture accordingly to the dictionnary in GameAssets.h
 /// </summary>
 private:
-	int xCoord;
-	int yCoord;
-	std::string texture;
+	sf::Vector2i orthogonalCoords;
+	sf::Vector2i isometricCoords;
+	std::string stringTexture;
+	sf::Texture texture;
+	sf::Sprite sprite;
+	bool isSelected = false;
 public:
 	Tile();
 	Tile(int x, int y, std::string str);
 	void setCoordinates(int x, int y) {
-		xCoord = x;
-		yCoord = y;
+		orthogonalCoords = sf::Vector2i(x, y);
 	}
-	std::string getTexture() const { return texture; }
-	void setTexture(std::string str) { texture = str; }
-	int getX() const { return xCoord; };
-	int getY() const { return yCoord; };
-	void draw(sf::RenderWindow &window) const;
+	void setIsometricCoordinates(int x, int y) {
+		isometricCoords = sf::Vector2i(x, y);
+	}
+	std::string getStringTexture() const { return stringTexture; }
+	void setStringTexture(std::string str) { stringTexture = str; }
+	sf::Texture& getTexture() { return texture; }
+	void setTexture(sf::Texture txtr) { texture = txtr; }
+	sf::Sprite& getSprite() { return sprite; }
+	void setSprite(sf::Sprite sprt) { sprite = sprt; }
+	int loadSelectedTextureVariant(GameAssets const& ga);
+	int unloadSelectedTextureVariant(GameAssets const& ga);
+	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
+	sf::Vector2i getIsometricCoords() const { return isometricCoords; }
+	void selectTile() { isSelected = true; }
+	void unselectTile() { isSelected = false; }
+	void draw(sf::RenderWindow& window);
 };

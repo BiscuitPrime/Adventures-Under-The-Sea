@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <Actors/Player.h>
 #include <Actors/PlayerCommands/InputHandler.h>
+#include <Assets/Definitions.h>
 
 int myMain()
 {
@@ -23,11 +24,11 @@ int myMain()
 
     Tilemap tilemap;
     auto* fileName = (char*)"Tilemap.xml";
-    tilemap.buildTilemap(fileName);
-    tilemap.draw(window);
-    window.display();
+    auto ga = GameAssets();
+    tilemap.buildTilemap(fileName, ga); // mettre dans le test
     while (window.isOpen())
     {
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -42,6 +43,8 @@ int myMain()
         //window.draw(player.getSprite());
         //window.display();
         //--------------------
+        
+        tilemap.selectTile(window, ga);
     }
 
     return 0;
