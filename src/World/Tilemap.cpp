@@ -39,13 +39,13 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type)
 
 void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 {
-	sf::Vector2i worldPosition = sf::Mouse::getPosition(window);
-	sf::Vector2f PosNoOffset = sf::Vector2f(worldPosition.x - (windowWidth / 2) - 32, worldPosition.y - (windowHeight / 2) - 32);
-	std::pair<double, double> orthoMousePos = Definitions::isoToOrtho(std::pair( (int) PosNoOffset.x, (int) PosNoOffset.y));
-	std::pair<int, int> selectedTilePos = std::pair(round(orthoMousePos.first), round(orthoMousePos.second));
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+	sf::Vector2i adjustedWorldPosition = sf::Vector2i((int) (mousePosition.x - (windowWidth / 2) - 32), (int) (mousePosition.y - (windowHeight / 2) - 32));
+	sf::Vector2f orthogonalMousePos = Definitions::isoToOrtho(adjustedWorldPosition);
+	sf::Vector2i selectedTilePos = sf::Vector2i(round(orthogonalMousePos.x), round(orthogonalMousePos.y));
 	// prevent mouse to generate coordinates out of bounds
-	if (orthoMousePos.first > 0 && orthoMousePos.first < columns && orthoMousePos.second > 0 && orthoMousePos.second < lines) {
-		Tile& selectedTile = tilemap[selectedTilePos.second][selectedTilePos.first];
+	if (orthogonalMousePos.x > 0 && orthogonalMousePos.x < columns && orthogonalMousePos.y > 0 && orthogonalMousePos.y < lines) {
+		Tile& selectedTile = tilemap[selectedTilePos.y][selectedTilePos.x];
 
 		sf::Vector2i newlySelectedTileCoords = selectedTile.getOrthogonalCoords();
 		if (selectedTileCoords != newlySelectedTileCoords) {
@@ -89,11 +89,11 @@ int Tilemap::buildTilemap(char fileName[])
 				return -1;
 			}
 			// process isometric coordinates
-			std::pair<int, int> isoCoords = Definitions::orthoToIso(std::pair<int, int>(xCoord, yCoord));
-			std::pair<int, int> offset = { windowWidth / 2, windowHeight / 2 };
-			std::pair<int, int> worldCoords{ isoCoords.first + offset.first, isoCoords.second + offset.second };
+			sf::Vector2f isoCoords = Definitions::orthoToIso(sf::Vector2i(xCoord, yCoord));
+			sf::Vector2f offset = { windowWidth / 2, windowHeight / 2 };
+			sf::Vector2f worldCoords = isoCoords + offset;
 			// set the tile in the tilemap
-			int rt = setTile(xCoord, yCoord, worldCoords.first, worldCoords.second, tileTypeStr);
+			int rt = setTile(xCoord, yCoord, worldCoords.x, worldCoords.y, tileTypeStr);
 			// store isometric coordinates
 			if (rt < 0) return -1;
 		}
