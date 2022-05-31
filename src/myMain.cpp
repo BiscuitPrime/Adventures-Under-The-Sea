@@ -15,10 +15,10 @@ int myMain()
     Tilemap tilemap;
     auto ga = GameAssets();
     auto* fileName = (char*) "Tilemap.xml"; // mettre dans le test
-    tilemap.buildTilemap(fileName); // mettre dans le test
+    tilemap.buildTilemap(fileName, ga); // mettre dans le test
    
 
-    tilemap.draw(window, ga);
+    //tilemap.draw(window);
     
     while (window.isOpen())
     {
