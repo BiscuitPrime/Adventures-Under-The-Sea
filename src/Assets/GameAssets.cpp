@@ -1,7 +1,7 @@
 #include "GameAssets.h"
 
 GameAssets::GameAssets() {
-    std::string resourceDirectory = "resources/Sprites/";
+    std::string resourceDirectory = "resources/sprites/";
     sandTile.loadFromFile(resourceDirectory + "sand.png");
     sandTileSelected.loadFromFile(resourceDirectory + "sands.png");
     sandTallTile.loadFromFile(resourceDirectory + "sandTall.png");

@@ -88,7 +88,7 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 	// loads xml file
 	pugi::xml_document doc;
 	char filePath[400];
-	strcpy(filePath, "resources/images/tilemap/");
+	strcpy(filePath, "resources/tilemaps/");
 	strcat(filePath, fileName);
 	pugi::xml_parse_result result = doc.load_file(filePath);
 	if (!result)
