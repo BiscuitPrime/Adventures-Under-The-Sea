@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "Actor.h"
+#include "Actor.h"
 /*
 * We define the code of the Actor class here :
 */
@@ -59,4 +60,10 @@ void Actor::takeDamage(int dmg)
 void Actor::death()
 {
     std::cout << "Actor has died\n";
+}
+
+//method that returns the actor's type :
+ActorType Actor::getType()
+{
+    return actorType;
 }

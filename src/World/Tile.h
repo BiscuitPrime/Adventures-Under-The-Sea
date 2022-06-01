@@ -50,4 +50,6 @@ public:
 	void draw(sf::RenderWindow& window);
 	void changeOccupied(bool status);
 	void changeCurrentActor(Actor* actor);
+	bool isOccupiedTest();
+	Actor* getCurActor();
 };

@@ -7,6 +7,7 @@
 
 Enemy::Enemy(std::string texturePath) : Actor{ texturePath } 
 {
+	actorType = ENEMY;
 	_state = EnemyStates::STATE_IDLE; //by default in idle state
 	health.setInitialHealth(10);
 }

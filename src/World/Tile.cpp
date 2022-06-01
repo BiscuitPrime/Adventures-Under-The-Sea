@@ -3,6 +3,8 @@
 #include "Tile.h"
 #include "Tile.h"
 #include "Tile.h"
+#include "Tile.h"
+#include "Tile.h"
 #include "Assets/Definitions.h"
 #include <iostream>
 
@@ -97,4 +99,15 @@ void Tile::changeOccupied(bool status)
 void Tile::changeCurrentActor(Actor* actor)
 {
 	currentActor = actor;
+}
+//method indicating tile occupied
+bool Tile::isOccupiedTest()
+{
+	return isOccupied;
+}
+
+//returns the current actor of the tile
+Actor* Tile::getCurActor()
+{
+	return currentActor;
 }
