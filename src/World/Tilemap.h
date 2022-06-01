@@ -3,6 +3,7 @@
 #include <Assets/Definitions.h>
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <Assets/Definitions.h>
 
 class Tilemap {
 /// <summary>

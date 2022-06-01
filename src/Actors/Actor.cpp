@@ -50,9 +50,9 @@ int Actor::getHealth()
 void Actor::takeDamage(int dmg)
 {
     int curHp=health.takeDamage(dmg);
-    if (curHp <= 0)
+    if (curHp <= 0) //if the actor's life pool has reached 0, it dies : the death() function is dependant to the considered actor
     {
-        death();
+        death(); 
     }
 }
  //method that handles the actor's death

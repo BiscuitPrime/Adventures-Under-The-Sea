@@ -1,6 +1,7 @@
 #pragma once
 /*
 *	Header containing the definition of the various Command classes implemented via the Command Game Programming Pattern
+*	The various command classes contain the effective "functions" that will alter the player.
 */
 #include <Actors/Player.h>
 
