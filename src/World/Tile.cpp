@@ -29,7 +29,7 @@ int Tile::loadSelectedTextureVariant(GameAssets const& ga, TileVariant variant)
 	switch (variant) {
 	case SELECTED:
 		if (!tileIndexes.contains(stringTexture + 's')) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + 's' << "\' could not be found\n";
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + 's' << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
 		setTexture(tileIndexes.at(stringTexture + 's'));
@@ -37,23 +37,23 @@ int Tile::loadSelectedTextureVariant(GameAssets const& ga, TileVariant variant)
 		return 0;
 	case MOVEMENT:
 		if (!tileIndexes.contains(stringTexture + 'm')) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + 'm' << "\' could not be found\n";
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + 'm' << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
 		setTexture(tileIndexes.at(stringTexture + 'm'));
 		sprite.setTexture(getTexture());
 		return 0;
 	case ATTACK:
-		if (!tileIndexes.contains(stringTexture + 'a')) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + 'a' << "\' could not be found\n";
+		if (!tileIndexes.contains(stringTexture + 'A')) {
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + 'a' << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
-		setTexture(tileIndexes.at(stringTexture + 'a'));
+		setTexture(tileIndexes.at(stringTexture + 'A'));
 		sprite.setTexture(getTexture());
 		return 0;
 	case MOVEMENT_SELECTED:
 		if (!tileIndexes.contains(stringTexture + "ms")) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + "ms" << "\' could not be found\n";
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + "ms" << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
 		setTexture(tileIndexes.at(stringTexture + "ms"));
@@ -61,7 +61,7 @@ int Tile::loadSelectedTextureVariant(GameAssets const& ga, TileVariant variant)
 		return 0;
 	case ATTACK_SELECTED:
 		if (!tileIndexes.contains(stringTexture + "as")) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + "as" << "\' could not be found\n";
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + "as" << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
 		setTexture(tileIndexes.at(stringTexture + "as"));

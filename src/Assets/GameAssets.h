@@ -81,7 +81,6 @@ public:
     sf::Texture sandRock3TileMovementSelected;
     sf::Texture sandRock3AlgeaTile;
     sf::Texture sandRock3AlgeaTileAttack;
-    sf::Texture sandRock3AlgeaTileAttack;
     sf::Texture sandRock3AlgeaTileMovement;
     sf::Texture sandRock3AlgeaTileSelected;
     sf::Texture sandRock3AlgeaTileMovementSelected;
