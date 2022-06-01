@@ -11,7 +11,8 @@ class Tile {
 private:
 	sf::Vector2i orthogonalCoords;
 	sf::Vector2i isometricCoords;
-	std::string texture;
+	std::string stringTexture;
+	sf::Texture texture;
 	sf::Sprite sprite;
 	bool isSelected = false;
 public:
@@ -23,15 +24,17 @@ public:
 	void setIsometricCoordinates(int x, int y) {
 		isometricCoords = sf::Vector2i(x, y);
 	}
-	std::string getTexture() const { return texture; }
-	void setTexture(std::string str) { texture = str; }
-	sf::Sprite getSprite() const { return sprite; }
+	std::string getStringTexture() const { return stringTexture; }
+	void setStringTexture(std::string str) { stringTexture = str; }
+	sf::Texture& getTexture() { return texture; }
+	void setTexture(sf::Texture txtr) { texture = txtr; }
+	sf::Sprite& getSprite() { return sprite; }
 	void setSprite(sf::Sprite sprt) { sprite = sprt; }
+	int loadSelectedTextureVariant(GameAssets const& ga);
+	int unloadSelectedTextureVariant(GameAssets const& ga);
 	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
 	sf::Vector2i getIsometricCoords() const { return isometricCoords; }
 	void selectTile() { isSelected = true; }
 	void unselectTile() { isSelected = false; }
-	void draw(sf::RenderWindow& window, GameAssets ga);
-	void drawAsSelected(sf::RenderWindow& window, GameAssets ga);
-
+	void draw(sf::RenderWindow& window);
 };

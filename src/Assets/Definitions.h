@@ -1,6 +1,7 @@
 #pragma once
 
 #include <utility>
+#include <SFML/Graphics.hpp>
 
 #define spriteSize 64			// size in px for the sprites
 #define lines 10				// how many lines of tiles the tilemap has
@@ -10,6 +11,6 @@
 
 class Definitions {
 public:
-	static std::pair<double, double> orthoToIso(std::pair<int, int> orthoCoords);
-	static std::pair<double, double> isoToOrtho(std::pair<int, int> isoCoords);
+	static sf::Vector2f orthoToIso(sf::Vector2i orthoCoords);
+	static sf::Vector2f isoToOrtho(sf::Vector2i isoCoords);
 };
