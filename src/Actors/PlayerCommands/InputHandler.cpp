@@ -1,5 +1,6 @@
 #include "InputHandler.h"
 #include "InputHandler.h"
+#include "InputHandler.h"
 /*
 * Source code for Input handler class
 */
@@ -48,7 +49,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		if (_state == &PlayerStates::idle) //if the player can move (A has been pressed) -> move if player can move
 		{
 			_state = &PlayerStates::moving;
-			int selectTiles = selectAvailableTiles(player, tilemap, 3);
+			int selectTiles = selectAvailableTiles(player, tilemap, 1);
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
@@ -80,18 +81,33 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 		return -1;
 	}
 	Tile* selectedTile = &tilemap->getTile(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x);
-	for (int tileIndX = 0; tileIndX < range; tileIndX++) 
+	int tileIndX = 0;
+	int tileIndY = 0;
+	std::cout << "Selecting the tiles\n";
+	while (tileIndX >= 0 && tileIndX < columns) 
 	{
-		for (int tileIndY = 0; tileIndY < range; tileIndY++) 
+		while (tileIndY >= 0 && tileIndY < lines) 
 		{
-			Tile* curTile = &tilemap->getTile(tilemap->getSelectedTileCoords()->y - 1, tilemap->getSelectedTileCoords()->x - 1);
+			Tile* curTile = &tilemap->getTile(player->getPosition().y - 1, player->getPosition().x - 1);
 			int loadTextureVar = curTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
 			if (loadTextureVar < 0) {
 				std::cout << "Error when selecting tile: selected texture could not be loaded\n";
 			}
+			tileIndY += 1;
 		}
+		tileIndX += 1;
+		std::cout << "Selection in progress : " << tileIndX << " , " << tileIndY<<'\n';
 	}
 	return 0;
+}
+
+//method that sets up the player at the tilemap's 0,0 tile
+void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
+{
+	sf::Vector2i pos = tilemap->getTile(0, 0).getOrthogonalCoords();
+	sf::Vector2f isoCoords = Definitions::orthoToIso(pos);
+	sf::Vector2f offset = { windowWidth / 2, windowHeight / 2 };
+	player->setPosition(isoCoords+offset);
 }
 
 //method that returns the current player state

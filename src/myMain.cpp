@@ -29,6 +29,7 @@ int myMain()
     //Creating the input handler associated to the player :
     auto inputHandler = InputHandler(ga);
 
+
     //Creating the basic enemy :
     std::string enemyTexturePath = "../../../../resources/Sprites/EnemyPLACEHOLDER.png";
     auto enemy = Enemy(enemyTexturePath);
@@ -39,6 +40,8 @@ int myMain()
     auto* fileName = (char*)"Tilemap.xml";
     tilemap.buildTilemap(fileName, ga); // mettre dans le test
 
+    //setting up the player :
+    inputHandler.setUpPlayer(&player, &tilemap);
     //---------------------------------
 
     while (window.isOpen())
