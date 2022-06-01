@@ -28,9 +28,10 @@ void MoveCommand::execute(Player* player, sf::RenderWindow* window, Tile* select
 {
 	std::cout << "Move command executed\n";
 	//we start by unallocating the prev tile :
-	getPrevSelectedTile()->changeOccupied(false);
-	getPrevSelectedTile()->changeCurrentActor(nullptr);
-
+	if(getPrevSelectedTile()!=NULL){
+		getPrevSelectedTile()->changeOccupied(false);
+		getPrevSelectedTile()->changeCurrentActor(nullptr);
+	}
 	//we recuperate the appropriate coords :
 	sf::Vector2f isoCoords = Definitions::orthoToIso(sf::Vector2i(selectedTile->getOrthogonalCoords().x, selectedTile->getOrthogonalCoords().y));
 	sf::Vector2f offset = { windowWidth / 2, windowHeight / 2 };

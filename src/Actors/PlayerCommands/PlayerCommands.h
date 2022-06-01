@@ -11,7 +11,7 @@ class PlayerCommand {
 private:
 	Tile* prevSelectedTile;
 public:
-	PlayerCommand() {};
+	PlayerCommand() { prevSelectedTile = NULL; };
 	virtual void execute(Player* player, sf::RenderWindow* window, Tile* selectedTile);
 	Tile* getPrevSelectedTile();
 	void setPrevSelectedTile(Tile* tile);
