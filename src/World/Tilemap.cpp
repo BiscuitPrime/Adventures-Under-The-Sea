@@ -1,4 +1,5 @@
 #include "Tilemap.h"
+#include "Tilemap.h"
 #include "pugixml.hpp"
 #include <iostream>
 #include <math.h>
@@ -14,6 +15,7 @@ label("")
 			tilemap[y][x] = tile;
 		}
 	}
+	availableVariant = MOVEMENT;
 }
 
 int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga)
@@ -71,22 +73,29 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga) //TO RE
 			// set the right textures
 			if (previouslySelectedTile.getAvailable()) //if the previously selected tile is available, we let it remain available
 			{
-				rt = previouslySelectedTile.loadSelectedTextureVariant(ga,MOVEMENT); // FOR NOW ISSUE : CANNOT BE USED FOR THE ATTACK
+				if (availableVariant == MOVEMENT) 
+				{
+					rt = previouslySelectedTile.loadSelectedTextureVariant(ga, MOVEMENT);
+				}
+				else if (availableVariant == ATTACK)
+				{
+					rt = previouslySelectedTile.loadSelectedTextureVariant(ga, ATTACK);
+				}
 				if (rt < 0) {
-					std::cout << "Error when selecting tile: selected texture could not be unloaded\n";
+					std::cout << "Error when selecting tile: selected texture could not be unloaded \n";
 				}
 			} 
 			else 
 			{
 				rt = previouslySelectedTile.unloadSelectedTextureVariant(ga);
 				if (rt < 0) {
-					std::cout << "Error when selecting tile: selected texture could not be unloaded\n";
+					std::cout << "Error when selecting tile: selected texture could not be unloaded (origin:Tilemap.cpp)\n";
 				}
 			}
 
 			rt = newlySelectedTile.loadSelectedTextureVariant(ga,variant);
 			if (rt < 0) {
-				std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+				std::cout << "Error when selecting tile: selected texture could not be loaded (origin:Tilemap.cpp)\n";
 			}
 			// store info regarding newly selected tile
 			selectedTileCoords = newlySelectedTile.getOrthogonalCoords();
@@ -210,6 +219,12 @@ void Tilemap::removePlayerTile()
 			}
 		}
 	}
+}
+
+//method that sets up the current variant
+void Tilemap::setAvailableVariant(TileVariant variant)
+{
+	availableVariant = variant;
 }
 
 //function that unloads all the variants

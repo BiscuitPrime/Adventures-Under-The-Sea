@@ -1,8 +1,3 @@
-#include "InputHandler.h"
-#include "InputHandler.h"
-#include "InputHandler.h"
-#include "InputHandler.h"
-#include "InputHandler.h"
 /*
 * Source code for Input handler class
 */
@@ -50,7 +45,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		if (_state == &PlayerStates::idle) //if the player can move (A has been pressed) -> move if player can move
 		{
 			_state = &PlayerStates::moving;
-			int selectTiles = selectAvailableTiles(player, tilemap, 2); //we display the selectable tiles
+			int selectTiles = selectAvailableTiles(player, tilemap, 2, _state); //we display the selectable tiles
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
@@ -61,25 +56,26 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		if (_state == &PlayerStates::attack)
 		{
 			_state = &PlayerStates::mine;
-			int selectTiles = selectAvailableTiles(player, tilemap, 1); //we display the selectable tiles
+			std::cout << "Selecting mine tiles\n";
+			int selectTiles = selectAvailableTiles(player, tilemap, 1, _state); //we display the selectable tiles
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
 	//same here
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))//TO BE REMOVED EVENTUALLY
 	{
-		std::cout << "T pressed\n";
+		//std::cout << "T pressed\n";
 		if (_state == &PlayerStates::attack)
 		{
 			_state = &PlayerStates::torpedo;
-			int selectTiles = selectAvailableTiles(player, tilemap, 3); //we display the selectable tiles
+			std::cout << "Selecting torpedo tiles\n";
+			int selectTiles = selectAvailableTiles(player, tilemap, 3, _state); //we display the selectable tiles
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
 }
 //method that will select the Available tiles dependant on the current player _state :
-//FOR NOW WORKS ONLY WITH _state = &PlayerStates::moving
-int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int range)
+int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int range, PlayerState* _state)
 {
 	if (_state == &PlayerStates::idle) //test wether we are in correct state
 	{
@@ -90,11 +86,25 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 	
 	Tile* selectedTile = tilemap->getTileRef(tilemap->getPlayerTile()->getOrthogonalCoords().y, tilemap->getPlayerTile()->getOrthogonalCoords().x);
 	std::cout << "Current selected player tile : " << tilemap->getPlayerTile()->getOrthogonalCoords().y << " , " << tilemap->getPlayerTile()->getOrthogonalCoords().x << '\n';
-	int loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
-	selectedTile->setAvailable(true);
+	
+	//we choose the current texture dependent on the state :
+	int loadTextureVar;
+	if (_state==&PlayerStates::moving)
+	{
+		tilemap->setAvailableVariant(MOVEMENT);
+		loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+	}
+	else if (_state == &PlayerStates::mine || _state == &PlayerStates::torpedo)
+	{
+		tilemap->setAvailableVariant(ATTACK);
+		loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, ATTACK);
+	}
 	if (loadTextureVar < 0) {
 		std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+		return -1;
 	}
+	selectedTile->setAvailable(true);
+
 	//we will then select every tile around the player :
 	for (int indX = -range; indX < range+1; indX++) 
 	{
@@ -108,7 +118,14 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 				if (x >= 0 && x < lines && y >= 0 && y < columns) //we make sure that the selected tile is in bounds
 				{
 					selectedTile = tilemap->getTileRef(y, x);
-					loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+					if (_state == &PlayerStates::moving)
+					{
+						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+					}
+					else if (_state == &PlayerStates::mine && _state == &PlayerStates::torpedo)
+					{
+						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, ATTACK);
+					}
 					if (loadTextureVar < 0) {
 						std::cout << "Error when selecting tile: selected texture could not be loaded\n";
 					}

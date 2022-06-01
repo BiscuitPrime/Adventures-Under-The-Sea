@@ -13,6 +13,7 @@ private:
 	std::string label;
 	Tile tilemap[columns][lines];
 	sf::Vector2i selectedTileCoords;
+	TileVariant availableVariant;
 public:
 	Tilemap();
 	std::string getLabel() const { return label; }
@@ -29,4 +30,5 @@ public:
 	Tile* getPlayerTile();
 	int unselectTiles(GameAssets const& ga);
 	void removePlayerTile();
+	void setAvailableVariant(TileVariant variant); //method that sets up the current variant
 };
