@@ -1,36 +1,39 @@
+#include "InputHandler.h"
+#include "InputHandler.h"
 /*
 * Source code for Input handler class
 */
 #include <Actors/PlayerCommands/InputHandler.h>
 
 //constructor of the input handler :
-InputHandler::InputHandler()
+InputHandler::InputHandler(GameAssets const& ga)
 {
+	gameAssets = ga;
 	_state = &PlayerStates::idle; //by default, in idle state
 	_command = &moveCommand; //by default, command is given to move command
 }
 
 //method that handles the player's inputs :
-void InputHandler::handleInput(Player* player, sf::RenderWindow* window) 
+void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) //if the player is attempting to click and _state is moving -> we move the player
 	{
 		if (_state == &PlayerStates::moving)
 		{
 			_command = &moveCommand;
-			_command->execute(player, window);
+			_command->execute(player, window, &tilemap->getTile(tilemap->getSelectedTileCoords()->y,tilemap->getSelectedTileCoords()->x));
 			_state = &PlayerStates::attack;
 		}
 		else if (_state == &PlayerStates::mine)
 		{
 			_command = &mineCommand;
-			_command->execute(player, window);
+			_command->execute(player, window, &tilemap->getTile(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x));
 			_state = &PlayerStates::idle;
 		}
 		else if (_state == &PlayerStates::torpedo)
 		{
 			_command = &torpedoCommand;
-			_command->execute(player, window);
+			_command->execute(player, window, &tilemap->getTile(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x));
 			_state = &PlayerStates::idle;
 		}
 	}
@@ -45,6 +48,8 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window)
 		if (_state == &PlayerStates::idle) //if the player can move (A has been pressed) -> move if player can move
 		{
 			_state = &PlayerStates::moving;
+			int selectTiles = selectAvailableTiles(player, tilemap, 3);
+			if (selectTiles == -1) { exit(0); }
 		}
 	}
 
@@ -64,6 +69,29 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window)
 			_state = &PlayerStates::torpedo;
 		}
 	}
+}
+//method that will select the Available tiles dependant on the current player _state :
+//FOR NOW WORKS ONLY WITH _state = &PlayerStates::moving
+int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int range)
+{
+	if (_state == &PlayerStates::idle) //test wether we are in correct state
+	{
+		std::cout << "Error : attempting to select available tiles in idle state\n";
+		return -1;
+	}
+	Tile* selectedTile = &tilemap->getTile(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x);
+	for (int tileIndX = 0; tileIndX < range; tileIndX++) 
+	{
+		for (int tileIndY = 0; tileIndY < range; tileIndY++) 
+		{
+			Tile* curTile = &tilemap->getTile(tilemap->getSelectedTileCoords()->y - 1, tilemap->getSelectedTileCoords()->x - 1);
+			int loadTextureVar = curTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+			if (loadTextureVar < 0) {
+				std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+			}
+		}
+	}
+	return 0;
 }
 
 //method that returns the current player state
