@@ -65,10 +65,8 @@ int Tile::loadSelectedTextureVariant(GameAssets const& ga, TileVariant variant)
 		setTexture(tileIndexes.at(stringTexture + "as"));
 		sprite.setTexture(getTexture());
 		return 0;
-		break;
 	}
-
-	return 0;
+	return -1;
 }
 
 int Tile::unloadSelectedTextureVariant(GameAssets const& ga) {
