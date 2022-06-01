@@ -1,4 +1,5 @@
 #include "Tilemap.h"
+#include "Tilemap.h"
 #include "pugixml.hpp"
 #include <iostream>
 #include <math.h>
@@ -14,6 +15,7 @@ label("")
 			tilemap[y][x] = tile;
 		}
 	}
+	availableVariant = MOVEMENT;
 }
 
 int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga)
@@ -49,28 +51,51 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, GameAss
 	return 0;
 }
 
-void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
+//method that selects a tile under the mouse cursor
+void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga) //TO REWRITE
 {
 	// convert isometric mouse coordinates to orthogonal normalized ones to get tile position in array
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	sf::Vector2i adjustedWorldPosition = sf::Vector2i((int) (mousePosition.x - (windowWidth / 2) - 32), (int) (mousePosition.y - (windowHeight / 2) - 32));
 	sf::Vector2f orthogonalMousePos = Definitions::isoToOrtho(adjustedWorldPosition);
 	sf::Vector2i selectedTileOrthoPos = sf::Vector2i(round(orthogonalMousePos.x), round(orthogonalMousePos.y));
-	// prevent mouse to generate coordinates out of bounds
-	if (orthogonalMousePos.x > 0 && orthogonalMousePos.x < columns && orthogonalMousePos.y > 0 && orthogonalMousePos.y < lines) {
-		Tile& newlySelectedTile = tilemap[selectedTileOrthoPos.y][selectedTileOrthoPos.x];
+	TileVariant variant = SELECTED;
 
+	// prevent mouse to generate coordinates out of bounds
+	if (orthogonalMousePos.x >= 0 && orthogonalMousePos.x < columns && orthogonalMousePos.y >= 0 && orthogonalMousePos.y < lines) {
+		Tile& newlySelectedTile = tilemap[selectedTileOrthoPos.y][selectedTileOrthoPos.x];
 		sf::Vector2i newlySelectedTileCoords = newlySelectedTile.getOrthogonalCoords();
+
+		//if the selectedTile is new :
 		if (selectedTileCoords != newlySelectedTileCoords) {
 			Tile& previouslySelectedTile = tilemap[selectedTileCoords.y][selectedTileCoords.x];
+			int rt;
 			// set the right textures
-			int rt = previouslySelectedTile.unloadSelectedTextureVariant(ga);
-			if (rt < 0) {
-				std::cout << "Error when selecting tile: selected texture could not be unloaded\n";
+			if (previouslySelectedTile.getAvailable()) //if the previously selected tile is available, we let it remain available
+			{
+				if (availableVariant == MOVEMENT) 
+				{
+					rt = previouslySelectedTile.loadSelectedTextureVariant(ga, MOVEMENT);
+				}
+				else if (availableVariant == ATTACK)
+				{
+					rt = previouslySelectedTile.loadSelectedTextureVariant(ga, ATTACK);
+				}
+				if (rt < 0) {
+					std::cout << "Error when selecting tile: selected texture could not be unloaded \n";
+				}
+			} 
+			else 
+			{
+				rt = previouslySelectedTile.unloadSelectedTextureVariant(ga);
+				if (rt < 0) {
+					std::cout << "Error when selecting tile: selected texture could not be unloaded (origin:Tilemap.cpp)\n";
+				}
 			}
-			rt = newlySelectedTile.loadSelectedTextureVariant(ga);
+
+			rt = newlySelectedTile.loadSelectedTextureVariant(ga,variant);
 			if (rt < 0) {
-				std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+				std::cout << "Error when selecting tile: selected texture could not be loaded (origin:Tilemap.cpp)\n";
 			}
 			// store info regarding newly selected tile
 			selectedTileCoords = newlySelectedTile.getOrthogonalCoords();
@@ -114,9 +139,12 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 				return -1;
 			}
 			// process isometric coordinates
+			// PUT THESE THREE LINES IN DEFINITIONS -------------------------------------------------------------------
 			sf::Vector2f isoCoords = Definitions::orthoToIso(sf::Vector2i(xCoord, yCoord));
 			sf::Vector2f offset = { windowWidth / 2, windowHeight / 2 };
 			sf::Vector2f worldCoords = isoCoords + offset;
+			// PUT THESE THREE LINES IN DEFINITIONS -------------------------------------------------------------------
+
 			// set the tile in the tilemap
 			int rt = setTile(xCoord, yCoord, worldCoords.x, worldCoords.y, tileTypeStr, ga);
 			// store isometric coordinates
@@ -124,6 +152,12 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 		}
 	}
 	return 0;
+}
+
+//get the selected Tile coords
+sf::Vector2i* Tilemap::getSelectedTileCoords()
+{
+	return &selectedTileCoords;
 }
 
 int Tilemap::draw(sf::RenderWindow &window)
@@ -157,5 +191,55 @@ Tile& Tilemap::findNearestTileISO(int isoX, int isoY)
 	return nearestTile;
 }
 
+//function that returns the tile where the player currently is :
+Tile* Tilemap::getPlayerTile()
+{
+	for (int y = 0; y < lines; y++) {
+		for (int x = 0; x < columns; x++) {
+			Tile* tile = &tilemap[y][x];
+			if (tile->getOccupied() == true && tile->getCurActor()!=nullptr && tile->getCurActor()->getType() == PLAYER)
+			{
+				return tile;
+			}
+		}
+	}
+	return nullptr;
+}
 
+//function that removes the player
+void Tilemap::removePlayerTile()
+{
+	for (int y = 0; y < lines; y++) {
+		for (int x = 0; x < columns; x++) {
+			Tile* tile = &tilemap[y][x];
+			if (tile->getOccupied() == true && tile->getCurActor() != nullptr && tile->getCurActor()->getType() == PLAYER)
+			{
+				tile->changeCurrentActor(nullptr);
+				tile->changeOccupied(false);
+			}
+		}
+	}
+}
+
+//method that sets up the current variant
+void Tilemap::setAvailableVariant(TileVariant variant)
+{
+	availableVariant = variant;
+}
+
+//function that unloads all the variants
+int Tilemap::unselectTiles(GameAssets const& ga) {
+	for (int y = 0; y < lines; y++) {
+		for (int x = 0; x < columns; x++) {
+			Tile* tile = &tilemap[y][x];
+			int unload = tile->unloadSelectedTextureVariant(ga);
+			if (unload == -1)
+			{
+				std::cout << "Error while unloading the texture\n";
+				return -1;
+			}
+			tile->setAvailable(false);
+		}
+	}
+}
 
