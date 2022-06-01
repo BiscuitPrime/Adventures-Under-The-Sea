@@ -2,6 +2,7 @@
 #include "Assets/GameAssets.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <Actors/Actor.h>
 
 class Tile {
 /// <summary>
@@ -15,6 +16,8 @@ private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 	bool isSelected = false;
+	bool isOccupied = false;
+	Actor* currentActor; //currentActor on the tile
 public:
 	Tile();
 	Tile(int x, int y, std::string str);
@@ -37,4 +40,6 @@ public:
 	void selectTile() { isSelected = true; }
 	void unselectTile() { isSelected = false; }
 	void draw(sf::RenderWindow& window);
+	void changeOccupied(bool status);
+	void changeCurrentActor(Actor* actor);
 };

@@ -22,8 +22,7 @@ public:
 	Tile& getTile(int x, int y) { return tilemap[x][y]; }
 	int buildTilemap(char fileName[], GameAssets const& ga);
 	int draw(sf::RenderWindow &window);
-
+	sf::Vector2i* getSelectedTileCoords();
 	// takes in isometric coordinates and returns the tile closest to that point in world space
 	Tile& findNearestTileISO(int isoX, int isoY);
-
 };

@@ -48,16 +48,17 @@ int myMain()
 
         //-------------------
         window.clear(sf::Color::Black);
+        //drawing the tilemap :
+        tilemap.selectTile(window, ga);
+        tilemap.draw(window);
+        //sf::Vector2i selectedTileCoords = tilemap.getSelectedTileCoords(); //we obtain the currently selected tile
 
-        tilemap.draw(window); //drawing the tilemap -> optimisation possible ?
-        inputHandler.handleInput(&player, &window); //each frame we call the inputhandler's handle input that will analyse the inputted data and perform the appropriate player's action
+        inputHandler.handleInput(&player, &window, &tilemap); //each frame we call the inputhandler's handle input that will analyse the inputted data and perform the appropriate player's action
         window.draw(enemy.getSprite());
         window.draw(player.getSprite());
 
         window.display();
         //--------------------
-        
-        tilemap.selectTile(window, ga);
     }
 
     return 0;

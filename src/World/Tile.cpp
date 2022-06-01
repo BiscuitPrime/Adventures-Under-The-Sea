@@ -1,6 +1,8 @@
 #include "Tile.h"
 #include "Tile.h"
 #include "Tile.h"
+#include "Tile.h"
+#include "Tile.h"
 #include "Assets/Definitions.h"
 #include <iostream>
 
@@ -47,4 +49,16 @@ int Tile::unloadSelectedTextureVariant(GameAssets const& ga) {
 void Tile::draw(sf::RenderWindow &window)
 {       // draw
         window.draw(sprite);
+}
+
+//changes the occupation status of the Tile
+void Tile::changeOccupied(bool status)
+{
+	isOccupied = status;
+}
+
+//change the current actor on the tile :
+void Tile::changeCurrentActor(Actor* actor)
+{
+	currentActor = actor;
 }

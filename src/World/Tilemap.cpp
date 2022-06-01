@@ -57,7 +57,7 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 	sf::Vector2f orthogonalMousePos = Definitions::isoToOrtho(adjustedWorldPosition);
 	sf::Vector2i selectedTileOrthoPos = sf::Vector2i(round(orthogonalMousePos.x), round(orthogonalMousePos.y));
 	// prevent mouse to generate coordinates out of bounds
-	if (orthogonalMousePos.x > 0 && orthogonalMousePos.x < columns && orthogonalMousePos.y > 0 && orthogonalMousePos.y < lines) {
+	if (orthogonalMousePos.x >= 0 && orthogonalMousePos.x < columns && orthogonalMousePos.y >= 0 && orthogonalMousePos.y < lines) {
 		Tile& newlySelectedTile = tilemap[selectedTileOrthoPos.y][selectedTileOrthoPos.x];
 
 		sf::Vector2i newlySelectedTileCoords = newlySelectedTile.getOrthogonalCoords();
@@ -114,9 +114,12 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 				return -1;
 			}
 			// process isometric coordinates
+			// PUT THESE THREE LINES IN DEFINITIONS -------------------------------------------------------------------
 			sf::Vector2f isoCoords = Definitions::orthoToIso(sf::Vector2i(xCoord, yCoord));
 			sf::Vector2f offset = { windowWidth / 2, windowHeight / 2 };
 			sf::Vector2f worldCoords = isoCoords + offset;
+			// PUT THESE THREE LINES IN DEFINITIONS -------------------------------------------------------------------
+
 			// set the tile in the tilemap
 			int rt = setTile(xCoord, yCoord, worldCoords.x, worldCoords.y, tileTypeStr, ga);
 			// store isometric coordinates
@@ -124,6 +127,12 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 		}
 	}
 	return 0;
+}
+
+//get the selected Tile coords
+sf::Vector2i* Tilemap::getSelectedTileCoords()
+{
+	return &selectedTileCoords;
 }
 
 int Tilemap::draw(sf::RenderWindow &window)
@@ -156,6 +165,4 @@ Tile& Tilemap::findNearestTileISO(int isoX, int isoY)
 	}
 	return nearestTile;
 }
-
-
 

@@ -23,7 +23,7 @@ TEST(TestActor, TestChangingState) //test wether or not the states of the player
     auto inputHandler = InputHandler();
 
     sf::Keyboard::isKeyPressed(sf::Keyboard::A); // ???????????????????????????????? -> how do you test a player input ??
-    inputHandler.handleInput(&player, &window);
+    //inputHandler.handleInput(&player, &window);
 
     ASSERT_EQ(inputHandler.getState()->getName(), PlayerStates::moving.getName()) << "Player states have not been updated correctly"; //TEST IS USELESS FOR NOW AS WE CAN'T CHANGE INPUT
 }
