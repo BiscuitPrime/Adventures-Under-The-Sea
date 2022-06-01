@@ -10,13 +10,6 @@ GameAssets::GameAssets() {
     sandAlgea2Tile.loadFromFile(resourceDirectory + "sandAlgea2.png");
     sandAlgeaTallTile.loadFromFile(resourceDirectory + "sandAlgeaTall.png");
     sandAlgeaTall2Tile.loadFromFile(resourceDirectory + "sandAlgeaTall2.png");
-    // movement indicator variants
-    sandTileMovement.loadFromFile(resourceDirectory + "sandm.png");
-    sandTallTileMovement.loadFromFile(resourceDirectory + "sandTallm.png");
-    sandAlgeaTileMovement.loadFromFile(resourceDirectory + "sandAlgeam.png");
-    sandAlgea2TileMovement.loadFromFile(resourceDirectory + "sandAlgea2m.png");
-    sandAlgeaTallTileMovement.loadFromFile(resourceDirectory + "sandAlgeaTallm.png");
-    sandAlgeaTall2TileMovement.loadFromFile(resourceDirectory + "sandAlgeaTall2m.png");
     // selected variant
     sandTileSelected.loadFromFile(resourceDirectory + "sands.png");
     sandTallTileSelected.loadFromFile(resourceDirectory + "sandTalls.png");
@@ -24,6 +17,27 @@ GameAssets::GameAssets() {
     sandAlgea2TileSelected.loadFromFile(resourceDirectory + "sandAlgea2s.png");
     sandAlgeaTallTileSelected.loadFromFile(resourceDirectory + "sandAlgeaTalls.png");
     sandAlgeaTall2TileSelected.loadFromFile(resourceDirectory + "sandAlgeaTall2s.png");
+    // attack variant 
+    sandTileAttack.loadFromFile(resourceDirectory + "sanda.png");
+    sandTallTileAttack.loadFromFile(resourceDirectory + "sandTalla.png");
+    sandAlgeaTileAttack.loadFromFile(resourceDirectory + "sandAlgeaa.png");
+    sandAlgea2TileAttack.loadFromFile(resourceDirectory + "sandAlgea2a.png");
+    sandAlgeaTallTileAttack.loadFromFile(resourceDirectory + "sandAlgeaTalla.png");
+    sandAlgeaTall2TileAttack.loadFromFile(resourceDirectory + "sandAlgeaTall2a.png");
+    // attack and selected variant
+    sandTileAttackSelected.loadFromFile(resourceDirectory + "sandas.png");
+    sandTallTileAttackSelected.loadFromFile(resourceDirectory + "sandTallas.png");
+    sandAlgeaTileAttackSelected.loadFromFile(resourceDirectory + "sandAlgeaas.png");
+    sandAlgea2TileAttackSelected.loadFromFile(resourceDirectory + "sandAlgea2as.png");
+    sandAlgeaTallTileAttackSelected.loadFromFile(resourceDirectory + "sandAlgeaTallas.png");
+    sandAlgeaTall2TileAttackSelected.loadFromFile(resourceDirectory + "sandAlgeaTall2as.png");
+    // movement indicator variants
+    sandTileMovement.loadFromFile(resourceDirectory + "sandm.png");
+    sandTallTileMovement.loadFromFile(resourceDirectory + "sandTallm.png");
+    sandAlgeaTileMovement.loadFromFile(resourceDirectory + "sandAlgeam.png");
+    sandAlgea2TileMovement.loadFromFile(resourceDirectory + "sandAlgea2m.png");
+    sandAlgeaTallTileMovement.loadFromFile(resourceDirectory + "sandAlgeaTallm.png");
+    sandAlgeaTall2TileMovement.loadFromFile(resourceDirectory + "sandAlgeaTall2m.png");
     // movement and selected variant
     sandTileMovementSelected.loadFromFile(resourceDirectory + "sandms.png");
     sandTallTileMovementSelected.loadFromFile(resourceDirectory + "sandTallms.png");
@@ -54,6 +68,20 @@ GameAssets::GameAssets() {
     sandRock2AlgeaTileSelected.loadFromFile(resourceDirectory + "sandRockAlgea2s.png");
     sandRock3TileSelected.loadFromFile(resourceDirectory + "sandRock3s.png");
     sandRock3AlgeaTileSelected.loadFromFile(resourceDirectory + "sandRockAlgea3s.png");
+    // attack variant
+    sandRockTileAttack.loadFromFile(resourceDirectory + "sandRocka.png");
+    sandRockAlgeaTileAttack.loadFromFile(resourceDirectory + "sandRockAlgeaa.png");
+    sandRock2TileAttack.loadFromFile(resourceDirectory + "sandRock2a.png");
+    sandRock2AlgeaTileAttack.loadFromFile(resourceDirectory + "sandRockAlgea2a.png");
+    sandRock3TileAttack.loadFromFile(resourceDirectory + "sandRock3a.png");
+    sandRock3AlgeaTileAttack.loadFromFile(resourceDirectory + "sandRockAlgea3a.png");
+    // attack and selected variant
+    sandRockTileAttackSelected.loadFromFile(resourceDirectory + "sandRockas.png");
+    sandRockAlgeaTileAttackSelected.loadFromFile(resourceDirectory + "sandRockAlgeaas.png");
+    sandRock2TileAttackSelected.loadFromFile(resourceDirectory + "sandRock2as.png");
+    sandRock2AlgeaTileAttackSelected.loadFromFile(resourceDirectory + "sandRockAlgea2as.png");
+    sandRock3TileAttackSelected.loadFromFile(resourceDirectory + "sandRock3as.png");
+    sandRock3AlgeaTileAttackSelected.loadFromFile(resourceDirectory + "sandRockAlgea3as.png");
     // movement and selected variant
     sandRockTileMovementSelected.loadFromFile(resourceDirectory + "sandRockms.png");
     sandRockAlgeaTileMovementSelected.loadFromFile(resourceDirectory + "sandRockAlgeams.png");
@@ -61,7 +89,7 @@ GameAssets::GameAssets() {
     sandRock2AlgeaTileMovementSelected.loadFromFile(resourceDirectory + "sandRockAlgea2ms.png");
     sandRock3TileMovementSelected.loadFromFile(resourceDirectory + "sandRock3ms.png");
     sandRock3AlgeaTileMovementSelected.loadFromFile(resourceDirectory + "sandRockAlgea3ms.png");
-
+    
 
     tileIndexes.insert({ "sand", sandTile });
     tileIndexes.insert({ "sandm", sandTileMovement });
