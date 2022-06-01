@@ -34,7 +34,6 @@ int myMain()
     auto* fileName = (char*)"Tilemap.xml";
     auto ga = GameAssets();
     tilemap.buildTilemap(fileName, ga); // mettre dans le test
-    tilemap.buildTilemap(fileName);
     //tilemap.draw(window);
     //window.display();
     while (window.isOpen())
