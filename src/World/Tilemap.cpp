@@ -49,6 +49,7 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, GameAss
 	return 0;
 }
 
+//method that selects a tile under the mouse cursor
 void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 {
 	// convert isometric mouse coordinates to orthogonal normalized ones to get tile position in array
@@ -56,6 +57,7 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 	sf::Vector2i adjustedWorldPosition = sf::Vector2i((int) (mousePosition.x - (windowWidth / 2) - 32), (int) (mousePosition.y - (windowHeight / 2) - 32));
 	sf::Vector2f orthogonalMousePos = Definitions::isoToOrtho(adjustedWorldPosition);
 	sf::Vector2i selectedTileOrthoPos = sf::Vector2i(round(orthogonalMousePos.x), round(orthogonalMousePos.y));
+	TileVariant variant = SELECTED;
 	// prevent mouse to generate coordinates out of bounds
 	if (orthogonalMousePos.x >= 0 && orthogonalMousePos.x < columns && orthogonalMousePos.y >= 0 && orthogonalMousePos.y < lines) {
 		Tile& newlySelectedTile = tilemap[selectedTileOrthoPos.y][selectedTileOrthoPos.x];
@@ -68,7 +70,7 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 			if (rt < 0) {
 				std::cout << "Error when selecting tile: selected texture could not be unloaded\n";
 			}
-			rt = newlySelectedTile.loadSelectedTextureVariant(ga);
+			rt = newlySelectedTile.loadSelectedTextureVariant(ga,variant);
 			if (rt < 0) {
 				std::cout << "Error when selecting tile: selected texture could not be loaded\n";
 			}

@@ -13,9 +13,10 @@ private:
 	MoveCommand moveCommand;
 	MineAttackCommand mineCommand;
 	TorpedoAttackCommand torpedoCommand;
+	GameAssets gameAssets;
 public:
-	InputHandler();
+	explicit InputHandler(GameAssets const& ga);
 	void handleInput(Player* player, sf::RenderWindow* window, Tilemap* selectedTileCoords);
-	int selectAvailableTiles(Player* player, Tilemap* tilemap);
+	int selectAvailableTiles(Player* player, Tilemap* tilemap, int range);
 	PlayerState* getState();
 };

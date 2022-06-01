@@ -4,6 +4,14 @@
 #include <iostream>
 #include <Actors/Actor.h>
 
+enum TileVariant {
+	SELECTED,
+	MOVEMENT,
+	ATTACK,
+	MOVEMENT_SELECTED,
+	ATTACK_SELECTED,
+};
+
 class Tile {
 /// <summary>
 /// Tile has coordinates that describe its orthogonal position
@@ -33,7 +41,7 @@ public:
 	void setTexture(sf::Texture txtr) { texture = txtr; }
 	sf::Sprite& getSprite() { return sprite; }
 	void setSprite(sf::Sprite sprt) { sprite = sprt; }
-	int loadSelectedTextureVariant(GameAssets const& ga);
+	int loadSelectedTextureVariant(GameAssets const& ga, TileVariant tileVariant);
 	int unloadSelectedTextureVariant(GameAssets const& ga);
 	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
 	sf::Vector2i getIsometricCoords() const { return isometricCoords; }

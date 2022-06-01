@@ -20,16 +20,54 @@ stringTexture(str)
 {
 }
 
-int Tile::loadSelectedTextureVariant(GameAssets const& ga)
+//method that loads a variant texture :
+int Tile::loadSelectedTextureVariant(GameAssets const& ga, TileVariant variant)
 {
 	std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
+	switch (variant) {
+	case SELECTED:
+		if (!tileIndexes.contains(stringTexture + 's')) {
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + 's' << "\' could not be found\n";
+			return -1;
+		}
+		setTexture(tileIndexes.at(stringTexture + 's'));
+		sprite.setTexture(getTexture());
+		return 0;
+	case MOVEMENT:
+		if (!tileIndexes.contains(stringTexture + 'm')) {
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + 'm' << "\' could not be found\n";
+			return -1;
+		}
+		setTexture(tileIndexes.at(stringTexture + 'm'));
+		sprite.setTexture(getTexture());
+		return 0;
+	case ATTACK:
+		if (!tileIndexes.contains(stringTexture + 'a')) {
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + 'a' << "\' could not be found\n";
+			return -1;
+		}
+		setTexture(tileIndexes.at(stringTexture + 'a'));
+		sprite.setTexture(getTexture());
+		return 0;
+	case MOVEMENT_SELECTED:
+		if (!tileIndexes.contains(stringTexture + "ms")) {
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + "ms" << "\' could not be found\n";
+			return -1;
+		}
+		setTexture(tileIndexes.at(stringTexture + "ms"));
+		sprite.setTexture(getTexture());
+		return 0;
+	case ATTACK_SELECTED:
+		if (!tileIndexes.contains(stringTexture + "as")) {
+			std::cout << "Error when drawing tile: texture \'" << stringTexture + "as" << "\' could not be found\n";
+			return -1;
+		}
+		setTexture(tileIndexes.at(stringTexture + "as"));
+		sprite.setTexture(getTexture());
+		return 0;
+		break;
+	}
 
-	if (!tileIndexes.contains(stringTexture + 's')) {
-		std::cout << "Error when drawing tile: texture \'" << stringTexture + 's' << "\' could not be found\n";
-		return -1;
-	}	
-	setTexture(tileIndexes.at(stringTexture + 's'));
-	sprite.setTexture(getTexture());
 	return 0;
 }
 
