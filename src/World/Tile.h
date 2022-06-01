@@ -23,8 +23,9 @@ private:
 	std::string stringTexture;
 	sf::Texture texture;
 	sf::Sprite sprite;
-	bool isSelected = false;
-	bool isOccupied = false;
+	bool isSelected = false; 
+	bool isOccupied = false; //wether the tile is occupied by an entity
+	bool isAvailable = false; //boolean indicating wether the tile should be displayed in an available manner or not
 	Actor* currentActor; //currentActor on the tile
 public:
 	Tile();
@@ -50,4 +51,8 @@ public:
 	void draw(sf::RenderWindow& window);
 	void changeOccupied(bool status);
 	void changeCurrentActor(Actor* actor);
+	bool getOccupied();
+	Actor* getCurActor();
+	void setAvailable(bool status) { isAvailable = status; }
+	bool getAvailable() const { return isAvailable; }
 };
