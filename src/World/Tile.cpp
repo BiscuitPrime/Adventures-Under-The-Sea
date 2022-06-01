@@ -101,7 +101,7 @@ void Tile::changeCurrentActor(Actor* actor)
 	currentActor = actor;
 }
 //method indicating tile occupied
-bool Tile::isOccupiedTest()
+bool Tile::getOccupied()
 {
 	return isOccupied;
 }

@@ -2,6 +2,7 @@
 #include "InputHandler.h"
 #include "InputHandler.h"
 #include "InputHandler.h"
+#include "InputHandler.h"
 /*
 * Source code for Input handler class
 */
@@ -18,7 +19,7 @@ InputHandler::InputHandler(GameAssets const& ga)
 //method that handles the player's inputs :
 void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) //if the player is attempting to click and _state is moving -> we move the player
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && ) //if the player is attempting to click and _state is moving -> we move the player
 	{
 		unselectAvailableTiles(tilemap); //we start by unloading any and all variants
 		if (_state == &PlayerStates::moving)
@@ -81,9 +82,11 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 		return -1;
 	}
 	//we select the tile where the player currently is :
+	
 	Tile* selectedTile = tilemap->getTileRef(tilemap->getPlayerTile()->getOrthogonalCoords().y, tilemap->getPlayerTile()->getOrthogonalCoords().x);
 	std::cout << "Current selected player tile : " << tilemap->getPlayerTile()->getOrthogonalCoords().y << " , " << tilemap->getPlayerTile()->getOrthogonalCoords().x << '\n';
 	int loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+	selectedTile->setAvailable(true);
 	if (loadTextureVar < 0) {
 		std::cout << "Error when selecting tile: selected texture could not be loaded\n";
 	}
@@ -95,12 +98,16 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 			int y = tilemap->getPlayerTile()->getOrthogonalCoords().y + indY;
 			int x = tilemap->getPlayerTile()->getOrthogonalCoords().x + indX;
 			std::cout << x << " , " << y<<'\n';
-			if(x>=0 && x<lines && y>=0 && y<columns) //we make sure that the selected tile is in bounds
+			if ((std::abs(x - tilemap->getPlayerTile()->getOrthogonalCoords().x) + std::abs(y - tilemap->getPlayerTile()->getOrthogonalCoords().y)) <= 2) 
 			{
-				selectedTile = tilemap->getTileRef(y, x);
-				loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
-				if (loadTextureVar < 0) {
-					std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+				if (x >= 0 && x < lines && y >= 0 && y < columns) //we make sure that the selected tile is in bounds
+				{
+					selectedTile = tilemap->getTileRef(y, x);
+					loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+					if (loadTextureVar < 0) {
+						std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+					}
+					selectedTile->setAvailable(true);
 				}
 			}
 		}

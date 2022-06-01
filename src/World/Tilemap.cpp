@@ -50,7 +50,7 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, GameAss
 }
 
 //method that selects a tile under the mouse cursor
-void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
+void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga) //TO REWRITE
 {
 	// convert isometric mouse coordinates to orthogonal normalized ones to get tile position in array
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
@@ -58,18 +58,32 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 	sf::Vector2f orthogonalMousePos = Definitions::isoToOrtho(adjustedWorldPosition);
 	sf::Vector2i selectedTileOrthoPos = sf::Vector2i(round(orthogonalMousePos.x), round(orthogonalMousePos.y));
 	TileVariant variant = SELECTED;
+
 	// prevent mouse to generate coordinates out of bounds
 	if (orthogonalMousePos.x >= 0 && orthogonalMousePos.x < columns && orthogonalMousePos.y >= 0 && orthogonalMousePos.y < lines) {
 		Tile& newlySelectedTile = tilemap[selectedTileOrthoPos.y][selectedTileOrthoPos.x];
-
 		sf::Vector2i newlySelectedTileCoords = newlySelectedTile.getOrthogonalCoords();
+
+		//if the selectedTile is new :
 		if (selectedTileCoords != newlySelectedTileCoords) {
 			Tile& previouslySelectedTile = tilemap[selectedTileCoords.y][selectedTileCoords.x];
+			int rt;
 			// set the right textures
-			int rt = previouslySelectedTile.unloadSelectedTextureVariant(ga);
-			if (rt < 0) {
-				std::cout << "Error when selecting tile: selected texture could not be unloaded\n";
+			if (previouslySelectedTile.getAvailable()) //if the previously selected tile is available, we let it remain available
+			{
+				rt = previouslySelectedTile.loadSelectedTextureVariant(ga,MOVEMENT); // FOR NOW ISSUE : CANNOT BE USED FOR THE ATTACK
+				if (rt < 0) {
+					std::cout << "Error when selecting tile: selected texture could not be unloaded\n";
+				}
+			} 
+			else 
+			{
+				rt = previouslySelectedTile.unloadSelectedTextureVariant(ga);
+				if (rt < 0) {
+					std::cout << "Error when selecting tile: selected texture could not be unloaded\n";
+				}
 			}
+
 			rt = newlySelectedTile.loadSelectedTextureVariant(ga,variant);
 			if (rt < 0) {
 				std::cout << "Error when selecting tile: selected texture could not be loaded\n";
@@ -174,7 +188,7 @@ Tile* Tilemap::getPlayerTile()
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			Tile* tile = &tilemap[y][x];
-			if (tile->isOccupiedTest() == true && tile->getCurActor()!=nullptr && tile->getCurActor()->getType() == PLAYER)
+			if (tile->getOccupied() == true && tile->getCurActor()!=nullptr && tile->getCurActor()->getType() == PLAYER)
 			{
 				return tile;
 			}
@@ -183,12 +197,13 @@ Tile* Tilemap::getPlayerTile()
 	return nullptr;
 }
 
+//function that removes the player
 void Tilemap::removePlayerTile()
 {
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			Tile* tile = &tilemap[y][x];
-			if (tile->isOccupiedTest() == true && tile->getCurActor() != nullptr && tile->getCurActor()->getType() == PLAYER)
+			if (tile->getOccupied() == true && tile->getCurActor() != nullptr && tile->getCurActor()->getType() == PLAYER)
 			{
 				tile->changeCurrentActor(nullptr);
 				tile->changeOccupied(false);
@@ -208,6 +223,7 @@ int Tilemap::unselectTiles(GameAssets const& ga) {
 				std::cout << "Error while unloading the texture\n";
 				return -1;
 			}
+			tile->setAvailable(false);
 		}
 	}
 }
