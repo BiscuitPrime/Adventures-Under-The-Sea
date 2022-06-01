@@ -19,7 +19,7 @@ InputHandler::InputHandler(GameAssets const& ga)
 //method that handles the player's inputs :
 void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && ) //if the player is attempting to click and _state is moving -> we move the player
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x)->getAvailable()) //if the player is attempting to click and _state is moving -> we move the player
 	{
 		unselectAvailableTiles(tilemap); //we start by unloading any and all variants
 		if (_state == &PlayerStates::moving)
@@ -54,21 +54,26 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
-
 	//same here
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) //TO BE REMOVED EVENTUALLY
 	{
+		std::cout << "M pressed\n";
 		if (_state == &PlayerStates::attack)
 		{
 			_state = &PlayerStates::mine;
+			int selectTiles = selectAvailableTiles(player, tilemap, 1); //we display the selectable tiles
+			if (selectTiles == -1) { exit(0); }
 		}
 	}
 	//same here
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))//TO BE REMOVED EVENTUALLY
 	{
+		std::cout << "T pressed\n";
 		if (_state == &PlayerStates::attack)
 		{
 			_state = &PlayerStates::torpedo;
+			int selectTiles = selectAvailableTiles(player, tilemap, 3); //we display the selectable tiles
+			if (selectTiles == -1) { exit(0); }
 		}
 	}
 }
