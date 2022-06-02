@@ -12,4 +12,5 @@ private:
 public:
 	EnemyHandler();
 	void handleEnemy(Enemy* enemy, sf::RenderWindow* window);
+	EnemyCommand* nextCommand(EnemyCommand* curCommand);
 };

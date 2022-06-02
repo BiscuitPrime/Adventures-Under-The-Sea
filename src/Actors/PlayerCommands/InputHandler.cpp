@@ -45,7 +45,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		if (_state == &PlayerStates::idle) //if the player can move (A has been pressed) -> move if player can move
 		{
 			_state = &PlayerStates::moving;
-			int selectTiles = selectAvailableTiles(player, tilemap, 2, _state); //we display the selectable tiles
+			int selectTiles = selectAvailableTiles(player, tilemap, 3, _state); //we display the selectable tiles
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
@@ -69,11 +69,12 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		{
 			_state = &PlayerStates::torpedo;
 			std::cout << "Selecting torpedo tiles\n";
-			int selectTiles = selectAvailableTiles(player, tilemap, 3, _state); //we display the selectable tiles
+			int selectTiles = selectAvailableTiles(player, tilemap, 2, _state); //we display the selectable tiles
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
 }
+
 //method that will select the Available tiles dependant on the current player _state :
 int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int range, PlayerState* _state)
 {
@@ -99,12 +100,14 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 		tilemap->setAvailableVariant(ATTACK);
 		loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, ATTACK);
 	}
-	if (loadTextureVar < 0) //HERE --------------------------------------------------------------------- < -- Current crash
+
+	if (loadTextureVar < 0) 
 	{
 		std::cout << "Error when selecting tile: selected texture could not be loaded\n";
 		return -1;
 	}
-	selectedTile->setAvailable(true);
+
+	selectedTile->setAvailable(true); //set's the tile availability
 
 	//we will then select every tile around the player :
 	for (int indX = -range; indX < range+1; indX++) 
@@ -115,7 +118,7 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 			int x = player->getCoordinates().x + indX;
 			sf::Vector2i playerNeighborCoords = sf::Vector2i(x, y);
 			std::cout << x << " , " << y<<'\n';
-			if ((std::abs(x - player->getCoordinates().x) + std::abs(y - player->getCoordinates().y)) <= 2)
+			if ((std::abs(x - player->getCoordinates().x) + std::abs(y - player->getCoordinates().y)) <= range)
 			{
 				if (x >= 0 && x < lines && y >= 0 && y < columns) //we make sure that the selected tile is in bounds
 				{

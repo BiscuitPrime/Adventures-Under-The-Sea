@@ -1,4 +1,6 @@
 #include "EnemyCommands.h"
+#include "EnemyCommands.h"
+#include "EnemyCommands.h"
 /*
 *	Source code used for the enemy commands classes
 */
