@@ -83,25 +83,7 @@ void Tile::draw(sf::RenderWindow &window)
         window.draw(sprite);
 }
 
-//changes the occupation status of the Tile
-void Tile::changeOccupied(bool status)
-{
-	isOccupied = status;
-}
 
-//change the current actor on the tile :
-void Tile::changeCurrentActor(Actor* actor)
-{
-	currentActor = actor;
-}
-//method indicating tile occupied
-bool Tile::getOccupied()
-{
-	return isOccupied;
-}
 
-//returns the current actor of the tile
-Actor* Tile::getCurActor()
-{
-	return currentActor;
-}
+
+

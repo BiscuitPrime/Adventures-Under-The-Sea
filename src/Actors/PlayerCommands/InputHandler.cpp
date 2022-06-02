@@ -142,7 +142,7 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 //method that will unselect the Available tiles dependant on the current player _state :
 int InputHandler::unselectAvailableTiles(Tilemap* tilemap)
 {
-	if (int unselect = tilemap->unselectTiles(gameAssets) == -1) {
+	if (int unselect = tilemap->removeAllTileVariants(gameAssets) == -1) {
 		std::cout << "Error while unselecting the Tiles (origin: InputHandler)\n";
 		return -1;
 	}
@@ -155,8 +155,8 @@ void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 	sf::Vector2i pos = sf::Vector2i(0, 0);
 	sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(pos);
 	//two lines below had getTile
-	tilemap->getTile(pos)->changeCurrentActor(player);
-	tilemap->getTile(pos)->changeOccupied(true);
+	tilemap->getTile(pos)->setCurrentActor(player);
+	tilemap->getTile(pos)->setOccupied(true);
 }
 
 //method that returns the current player state

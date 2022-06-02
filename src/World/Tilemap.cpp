@@ -162,14 +162,8 @@ int Tilemap::draw(sf::RenderWindow &window)
 	return 0;
 }
 
-//method that sets up the current variant
-void Tilemap::setAvailableVariant(TileVariant variant)
-{
-	availableVariant = variant;
-}
-
 //function that unloads all the variants
-int Tilemap::unselectTiles(GameAssets const& ga) {
+int Tilemap::removeAllTileVariants(GameAssets const& ga) {
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			Tile* tile = &tilemap[y][x];

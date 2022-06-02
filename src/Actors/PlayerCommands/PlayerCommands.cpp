@@ -25,8 +25,8 @@ void MoveCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* til
 
 	//we remove the old status for the previously occupied tile
 	Tile* tile = tilemap->getTile(selectedTileCoords);
-	tile->changeCurrentActor(nullptr);
-	tile->changeOccupied(false);
+	tile->setCurrentActor(nullptr);
+	tile->setOccupied(false);
 
 	player->decreaseOxygen(1); //we decrease the player's oxygen
 	std::cout << "Player oxygen :" << player->getOxygen()<<'\n';
@@ -38,8 +38,8 @@ void MoveCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* til
 
 	//we update the tile properties :
 	Tile* selectedTile = tilemap->getTile(tilemap->getSelectedTileCoords());
-	selectedTile->changeCurrentActor(player);
-	selectedTile->changeOccupied(true);
+	selectedTile->setCurrentActor(player);
+	selectedTile->setOccupied(true);
 }
 
 //---------------------------------------------------

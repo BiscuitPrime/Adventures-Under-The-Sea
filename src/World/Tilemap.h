@@ -21,10 +21,9 @@ public:
 	int setTile(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga);
 	void selectTile(sf::RenderWindow& window, GameAssets const& ga);
 	Tile* getTile(sf::Vector2i coords) { return &tilemap[coords.y][coords.x]; }
+	sf::Vector2i getSelectedTileCoords() { return selectedTileCoords;	}
+	void setAvailableVariant(TileVariant variant) { availableVariant = variant; }; //method that sets up the current variant
 	int buildTilemap(char fileName[], GameAssets const& ga);
 	int draw(sf::RenderWindow &window);
-	sf::Vector2i getSelectedTileCoords() { return selectedTileCoords;	}
-	// takes in isometric coordinates and returns the tile closest to that point in world space
-	int unselectTiles(GameAssets const& ga);
-	void setAvailableVariant(TileVariant variant); //method that sets up the current variant
+	int removeAllTileVariants(GameAssets const& ga);
 };
