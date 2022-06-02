@@ -5,9 +5,10 @@
 * Enemy class
 */
 
-enum class EnemyStates {
+enum EnemyStates {
 	STATE_IDLE,
-	STATE_MOVING
+	STATE_MOVING,
+	STATE_ATTACK
 };
 
 class Enemy : public Actor {

@@ -6,7 +6,7 @@
 
 class EnemyHandler {
 private:
-	EnemyCommand* _command;
+	EnemyCommand* _command; //command contains, at a point T in time, the NEXT command that will be called
 	EnemyMoveCommand moveCommand;
 	EnemyAttackCommand attackCommand;
 public:
