@@ -162,21 +162,6 @@ int Tilemap::draw(sf::RenderWindow &window)
 	return 0;
 }
 
-//function that returns the tile where the player currently is :
-Tile* Tilemap::getPlayerTile()
-{
-	for (int y = 0; y < lines; y++) {
-		for (int x = 0; x < columns; x++) {
-			Tile* tile = &tilemap[y][x];
-			if (tile->getOccupied() == true && tile->getCurActor()!=nullptr && tile->getCurActor()->getType() == PLAYER)
-			{
-				return tile;
-			}
-		}
-	}
-	return nullptr;
-}
-
 //function that removes the player
 void Tilemap::removePlayerTile()
 {
