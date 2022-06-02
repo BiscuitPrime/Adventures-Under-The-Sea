@@ -14,7 +14,7 @@ InputHandler::InputHandler(GameAssets const& ga)
 //method that handles the player's inputs :
 void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tilemap->getTileRef(tilemap->getSelectedTileCoords())->getAvailable()) //if the player is attempting to click and _state is moving -> we move the player
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tilemap->getTile(tilemap->getSelectedTileCoords())->getAvailable()) //if the player is attempting to click and _state is moving -> we move the player
 	{
 		unselectAvailableTiles(tilemap); //we start by unloading any and all variants
 		if (_state == &PlayerStates::moving)
@@ -84,7 +84,7 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 	}
 	//we select the tile where the player currently is :
 	
-	Tile* selectedTile = tilemap->getTileRef(tilemap->getPlayerTile()->getOrthogonalCoords());
+	Tile* selectedTile = tilemap->getTile(tilemap->getPlayerTile()->getOrthogonalCoords());
 	std::cout << "Current selected player tile : " << tilemap->getPlayerTile()->getOrthogonalCoords().y << " , " << tilemap->getPlayerTile()->getOrthogonalCoords().x << '\n';
 	
 	//we choose the current texture dependent on the state :
@@ -119,7 +119,7 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 			{
 				if (x >= 0 && x < lines && y >= 0 && y < columns) //we make sure that the selected tile is in bounds
 				{
-					selectedTile = tilemap->getTileRef(selectedCoords);
+					selectedTile = tilemap->getTile(selectedCoords);
 					if (_state == &PlayerStates::moving)
 					{
 						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
@@ -154,8 +154,9 @@ void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 {
 	sf::Vector2i pos = sf::Vector2i(0, 0);
 	sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(pos);
-	tilemap->getTile(pos).changeCurrentActor(player);
-	tilemap->getTile(pos).changeOccupied(true);
+	//two lines below had getTile
+	tilemap->getTile(pos)->changeCurrentActor(player);
+	tilemap->getTile(pos)->changeOccupied(true);
 }
 
 //method that returns the current player state

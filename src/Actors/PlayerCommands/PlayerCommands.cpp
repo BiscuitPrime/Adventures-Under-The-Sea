@@ -31,7 +31,7 @@ void MoveCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* til
 
 
 	//we update the tile properties :
-	Tile* selectedTile = tilemap->getTileRef(tilemap->getSelectedTileCoords());
+	Tile* selectedTile = tilemap->getTile(tilemap->getSelectedTileCoords());
 	selectedTile->changeCurrentActor(player);
 	selectedTile->changeOccupied(true);
 }

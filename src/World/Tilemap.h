@@ -20,8 +20,7 @@ public:
 	void setLabel(std::string const& lbl) { label = lbl; }
 	int setTile(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga);
 	void selectTile(sf::RenderWindow& window, GameAssets const& ga);
-	Tile& getTile(sf::Vector2i coords) { return tilemap[coords.y][coords.x]; }
-	Tile* getTileRef(sf::Vector2i coords) { return &tilemap[coords.y][coords.x]; }
+	Tile* getTile(sf::Vector2i coords) { return &tilemap[coords.y][coords.x]; }
 	int buildTilemap(char fileName[], GameAssets const& ga);
 	int draw(sf::RenderWindow &window);
 	sf::Vector2i getSelectedTileCoords() { return selectedTileCoords;	}
