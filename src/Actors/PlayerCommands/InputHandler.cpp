@@ -153,7 +153,6 @@ void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 {
 	sf::Vector2i pos = tilemap->getTile(0, 0).getOrthogonalCoords();
 	sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(pos);
-	player->setPosition(isoCoords);
 	tilemap->getTile(0, 0).changeCurrentActor(player);
 	tilemap->getTile(0, 0).changeOccupied(true);
 }

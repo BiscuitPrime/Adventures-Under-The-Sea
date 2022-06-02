@@ -24,9 +24,12 @@ protected:
 	HealthModule health;
 public:
 	Actor(std::string texturePath);
-	sf::Sprite getSprite() { return actorSprite; }
+	sf::Vector2i getCoordinates() const { return orthoCoords; }
+	void setOrthoCoordinates(sf::Vector2i coords) { orthoCoords = coords; }
+	sf::Vector2f getIsometricCoordinates() const { return isoCoords; }
+	void setIsoCoordinates(sf::Vector2f coords) { isoCoords = coords; }
+	sf::Sprite& getSprite() { return actorSprite; }
 	sf::Vector2f getPosition() { return actorPosition; }
-	void setPosition(sf::Vector2f position);
 	virtual int getHealth();
 	virtual void takeDamage(int dmg);
 	virtual void death();

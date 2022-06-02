@@ -26,7 +26,8 @@ void MoveCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* til
 
 	player->decreaseOxygen(1); //we decrease the player's oxygen
 	std::cout << "Player oxygen :" << player->getOxygen()<<'\n';
-	player->setPosition(worldCoords); //we move the player's position
+	player->setIsoCoordinates(worldCoords);
+	player->getSprite().setPosition(worldCoords);
 
 	//we update the tile properties :
 	Tile* selectedTile = tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x);

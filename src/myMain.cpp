@@ -24,7 +24,6 @@ int myMain()
     //Creating the player :
     std::string playerTexturePath = "../../../../resources/Sprites/Player.png";
     auto player = Player(playerTexturePath); //the player is created as a unique pointer
-    player.setPosition(sf::Vector2f(0, 0));
 
     //Creating the input handler associated to the player :
     auto inputHandler = InputHandler(ga);
@@ -33,7 +32,8 @@ int myMain()
     //Creating the basic enemy :
     std::string enemyTexturePath = "../../../../resources/Sprites/EnemyPLACEHOLDER.png";
     auto enemy = Enemy(enemyTexturePath);
-    enemy.setPosition(sf::Vector2f(200, 200));
+    enemy.setIsoCoordinates(sf::Vector2f(200, 200));
+    enemy.getSprite().setPosition(sf::Vector2f(200, 200));
 
     //Creating the tilemap :
     Tilemap tilemap;
