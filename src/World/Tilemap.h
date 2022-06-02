@@ -12,7 +12,7 @@ class Tilemap {
 private:
 	std::string label;
 	Tile tilemap[columns][lines];
-	sf::Vector2i selectedTileCoords;
+	sf::Vector2i selectedTileCoords; // coordinates of the current selected tile (ORTHOGONAL)
 	TileVariant availableVariant;
 public:
 	Tilemap();
@@ -20,11 +20,11 @@ public:
 	void setLabel(std::string const& lbl) { label = lbl; }
 	int setTile(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga);
 	void selectTile(sf::RenderWindow& window, GameAssets const& ga);
-	Tile& getTile(int x, int y) { return tilemap[x][y]; }
-	Tile* getTileRef(int x, int y) { return &tilemap[x][y]; }
+	Tile& getTile(sf::Vector2i coords) { return tilemap[coords.y][coords.x]; }
+	Tile* getTileRef(sf::Vector2i coords) { return &tilemap[coords.y][coords.x]; }
 	int buildTilemap(char fileName[], GameAssets const& ga);
 	int draw(sf::RenderWindow &window);
-	sf::Vector2i* getSelectedTileCoords();
+	sf::Vector2i getSelectedTileCoords() { return selectedTileCoords;	}
 	// takes in isometric coordinates and returns the tile closest to that point in world space
 	Tile& findNearestTileISO(int isoX, int isoY);
 	Tile* getPlayerTile();

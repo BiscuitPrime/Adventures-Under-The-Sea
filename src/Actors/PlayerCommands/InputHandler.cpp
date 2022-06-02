@@ -14,7 +14,7 @@ InputHandler::InputHandler(GameAssets const& ga)
 //method that handles the player's inputs :
 void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x)->getAvailable()) //if the player is attempting to click and _state is moving -> we move the player
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tilemap->getTileRef(tilemap->getSelectedTileCoords())->getAvailable()) //if the player is attempting to click and _state is moving -> we move the player
 	{
 		unselectAvailableTiles(tilemap); //we start by unloading any and all variants
 		if (_state == &PlayerStates::moving)
@@ -84,7 +84,7 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 	}
 	//we select the tile where the player currently is :
 	
-	Tile* selectedTile = tilemap->getTileRef(tilemap->getPlayerTile()->getOrthogonalCoords().y, tilemap->getPlayerTile()->getOrthogonalCoords().x);
+	Tile* selectedTile = tilemap->getTileRef(tilemap->getPlayerTile()->getOrthogonalCoords());
 	std::cout << "Current selected player tile : " << tilemap->getPlayerTile()->getOrthogonalCoords().y << " , " << tilemap->getPlayerTile()->getOrthogonalCoords().x << '\n';
 	
 	//we choose the current texture dependent on the state :
@@ -113,12 +113,13 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 		{
 			int y = tilemap->getPlayerTile()->getOrthogonalCoords().y + indY;
 			int x = tilemap->getPlayerTile()->getOrthogonalCoords().x + indX;
+			sf::Vector2i selectedCoords = sf::Vector2i(x, y);
 			std::cout << x << " , " << y<<'\n';
 			if ((std::abs(x - tilemap->getPlayerTile()->getOrthogonalCoords().x) + std::abs(y - tilemap->getPlayerTile()->getOrthogonalCoords().y)) <= 2) 
 			{
 				if (x >= 0 && x < lines && y >= 0 && y < columns) //we make sure that the selected tile is in bounds
 				{
-					selectedTile = tilemap->getTileRef(y, x);
+					selectedTile = tilemap->getTileRef(selectedCoords);
 					if (_state == &PlayerStates::moving)
 					{
 						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
@@ -151,10 +152,10 @@ int InputHandler::unselectAvailableTiles(Tilemap* tilemap)
 //method that sets up the player at the tilemap's 0,0 tile
 void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 {
-	sf::Vector2i pos = tilemap->getTile(0, 0).getOrthogonalCoords();
+	sf::Vector2i pos = sf::Vector2i(0, 0);
 	sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(pos);
-	tilemap->getTile(0, 0).changeCurrentActor(player);
-	tilemap->getTile(0, 0).changeOccupied(true);
+	tilemap->getTile(pos).changeCurrentActor(player);
+	tilemap->getTile(pos).changeOccupied(true);
 }
 
 //method that returns the current player state

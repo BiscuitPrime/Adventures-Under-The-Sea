@@ -28,8 +28,8 @@ public:
 	sf::Vector2f getIsometricCoordinates() const { return isoCoords; }
 	void setIsoCoordinates(sf::Vector2f coords) { isoCoords = coords; }
 	sf::Sprite& getSprite() { return actorSprite; }
-	virtual int getHealth();
+	virtual int getHealth()	{ return health.getHealth(); }
 	virtual void takeDamage(int dmg);
 	virtual void death();
-	ActorType getType();
+	ActorType getType() const { return actorType; };
 };
