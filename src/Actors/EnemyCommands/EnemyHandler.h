@@ -6,11 +6,12 @@
 
 class EnemyHandler {
 private:
+	Enemy* enemy;//the associated enemy to the handler
 	EnemyCommand* _command; //command contains, at a point T in time, the NEXT command that will be called
 	EnemyMoveCommand moveCommand;
 	EnemyAttackCommand attackCommand;
 public:
-	EnemyHandler();
-	void handleEnemy(Enemy* enemy, sf::RenderWindow* window);
+	explicit EnemyHandler(Enemy* enemy);
+	void handleEnemy(sf::RenderWindow* window);
 	EnemyCommand* nextCommand(EnemyCommand* curCommand);
 };

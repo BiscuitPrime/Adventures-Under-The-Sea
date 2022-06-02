@@ -4,14 +4,15 @@
 */
 
 //constructor
-EnemyHandler::EnemyHandler() 
+EnemyHandler::EnemyHandler(Enemy* en) 
 {
+	enemy = en;
 	_command = &moveCommand;
 }
 
 //function that will control the enemy
 //this method is called by an exterior class when the enemy needs to do something
-void EnemyHandler::handleEnemy(Enemy* enemy, sf::RenderWindow* window)
+void EnemyHandler::handleEnemy(sf::RenderWindow* window)
 {
 	if (enemy->getState() != STATE_IDLE) //if enemy is in movement state, handler calls the movement method
 	{

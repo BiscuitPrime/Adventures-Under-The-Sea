@@ -5,26 +5,31 @@
 #include <chrono>
 #include <iostream>
 #include "Actors/Player.h"
-#include "Actors/Enemy.h"
 #include "Actors/PlayerCommands/InputHandler.h"
 #include <Assets/GameAssets.h>
+#include "Actors/EnemyCommands/EnemyHandler.h"
 
 using namespace std;
 using namespace std::chrono;
 
-#define MS_PER_UPDATE (duration<double>)0.0007
+//#define MS_PER_UPDATE (duration<double>)0.09
 
+enum turnState {
+	PLAYER_TURN,
+	ENEMY_TURN
+};
 class GameManager {
 private:
-	duration<double> lag;
-	high_resolution_clock::time_point previousTimestamp;
+	//duration<double> lag;
+	//high_resolution_clock::time_point previousTimestamp;
 	Player* player;
-	Enemy* enemy;
+	std::vector<EnemyHandler> enemyGroup;
 	InputHandler* inputhandler;
 	Tilemap* tilemap;
 	sf::RenderWindow* window;
 	GameAssets* gameAssets;
+	turnState _turn;
 public:
-	GameManager(Player* player, Enemy* enemy, InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
+	GameManager(Player* player, /*EnemyHandler enemy,*/ InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
 	void gameLoop();
 };
