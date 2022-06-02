@@ -16,7 +16,6 @@ class Actor {
 private:
 	sf::Texture actorTexture;
 	sf::Sprite actorSprite;
-	sf::Vector2f actorPosition;
 	sf::Vector2i orthoCoords;
 	sf::Vector2f isoCoords;
 protected:
@@ -29,7 +28,6 @@ public:
 	sf::Vector2f getIsometricCoordinates() const { return isoCoords; }
 	void setIsoCoordinates(sf::Vector2f coords) { isoCoords = coords; }
 	sf::Sprite& getSprite() { return actorSprite; }
-	sf::Vector2f getPosition() { return actorPosition; }
 	virtual int getHealth();
 	virtual void takeDamage(int dmg);
 	virtual void death();
