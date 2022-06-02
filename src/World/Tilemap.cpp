@@ -139,12 +139,8 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 				return -1;
 			}
 			// process isometric coordinates
-			// PUT THESE THREE LINES IN DEFINITIONS -------------------------------------------------------------------
-			sf::Vector2f isoCoords = Definitions::orthoToIso(sf::Vector2i(xCoord, yCoord));
-			sf::Vector2f offset = { windowWidth / 2, windowHeight / 2 };
-			sf::Vector2f worldCoords = isoCoords + offset;
-			// PUT THESE THREE LINES IN DEFINITIONS -------------------------------------------------------------------
-
+			sf::Vector2f worldCoords = Definitions::orthoToIsoWithOffset(sf::Vector2i(xCoord, yCoord));
+			
 			// set the tile in the tilemap
 			int rt = setTile(xCoord, yCoord, worldCoords.x, worldCoords.y, tileTypeStr, ga);
 			// store isometric coordinates

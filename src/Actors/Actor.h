@@ -17,13 +17,15 @@ private:
 	sf::Texture actorTexture;
 	sf::Sprite actorSprite;
 	sf::Vector2f actorPosition;
+	sf::Vector2i orthoCoords;
+	sf::Vector2f isoCoords;
 protected:
 	ActorType actorType;
 	HealthModule health;
 public:
 	Actor(std::string texturePath);
-	sf::Sprite getSprite();
-	sf::Vector2f getPosition();
+	sf::Sprite getSprite() { return actorSprite; }
+	sf::Vector2f getPosition() { return actorPosition; }
 	void setPosition(sf::Vector2f position);
 	virtual int getHealth();
 	virtual void takeDamage(int dmg);

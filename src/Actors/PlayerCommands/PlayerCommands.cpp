@@ -19,9 +19,8 @@ void MoveCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* til
 {
 	std::cout << "Move command executed\n";
 	//we recuperate the appropriate coords :
-	sf::Vector2f isoCoords = Definitions::orthoToIso(sf::Vector2i(tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x)->getOrthogonalCoords().x, tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x)->getOrthogonalCoords().y));
-	sf::Vector2f offset = { windowWidth / 2, windowHeight / 2 };
-	sf::Vector2f worldCoords = isoCoords + offset; //we get the new player coords
+	sf::Vector2f worldCoords = Definitions::orthoToIsoWithOffset(sf::Vector2i(tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x)->getOrthogonalCoords().x, tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x)->getOrthogonalCoords().y));
+	//we get the new player coords
 
 	tilemap->removePlayerTile(); //we remove the old status for the previously occupied tile
 

@@ -22,18 +22,6 @@ Actor::Actor(std::string texturePath) {
     health = HealthModule();
 }
 
-//method that returns the sprite
-sf::Sprite Actor::getSprite()
-{
-    return actorSprite;
-}
-
-//method that returns the actor's position
-sf::Vector2f Actor::getPosition()
-{
-    return actorPosition;
-}
-
 //method that changes the actor's position 
 void Actor::setPosition(sf::Vector2f position)
 {
