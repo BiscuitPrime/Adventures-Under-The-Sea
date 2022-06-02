@@ -162,21 +162,6 @@ int Tilemap::draw(sf::RenderWindow &window)
 	return 0;
 }
 
-//function that removes the player
-void Tilemap::removePlayerTile()
-{
-	for (int y = 0; y < lines; y++) {
-		for (int x = 0; x < columns; x++) {
-			Tile* tile = &tilemap[y][x];
-			if (tile->getOccupied() == true && tile->getCurActor() != nullptr && tile->getCurActor()->getType() == PLAYER)
-			{
-				tile->changeCurrentActor(nullptr);
-				tile->changeOccupied(false);
-			}
-		}
-	}
-}
-
 //method that sets up the current variant
 void Tilemap::setAvailableVariant(TileVariant variant)
 {

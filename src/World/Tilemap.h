@@ -26,6 +26,5 @@ public:
 	sf::Vector2i getSelectedTileCoords() { return selectedTileCoords;	}
 	// takes in isometric coordinates and returns the tile closest to that point in world space
 	int unselectTiles(GameAssets const& ga);
-	void removePlayerTile();
 	void setAvailableVariant(TileVariant variant); //method that sets up the current variant
 };
