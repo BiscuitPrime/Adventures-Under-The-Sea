@@ -25,7 +25,6 @@ public:
 	int draw(sf::RenderWindow &window);
 	sf::Vector2i getSelectedTileCoords() { return selectedTileCoords;	}
 	// takes in isometric coordinates and returns the tile closest to that point in world space
-	Tile& findNearestTileISO(int isoX, int isoY);
 	Tile* getPlayerTile();
 	int unselectTiles(GameAssets const& ga);
 	void removePlayerTile();

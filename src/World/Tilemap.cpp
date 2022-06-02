@@ -162,25 +162,6 @@ int Tilemap::draw(sf::RenderWindow &window)
 	return 0;
 }
 
-
-// outdated
-Tile& Tilemap::findNearestTileISO(int isoX, int isoY)
-{
-	float minDistance = 9999999;
-	Tile& nearestTile =  tilemap[0][0];
-	for (int y = 0; y < lines; y++) {
-		for (int x = 0; x < columns; x++) {
-			sf::Vector2i isoTileCoords = tilemap[y][x].getIsometricCoords();
-			float newDistance = sqrtf(pow((isoTileCoords.x - isoX), 2) + pow((isoTileCoords.y - isoY), 2));
-			if (newDistance < minDistance) {
-				minDistance = newDistance;
-				nearestTile = tilemap[y][x];
-			}
-		}
-	}
-	return nearestTile;
-}
-
 //function that returns the tile where the player currently is :
 Tile* Tilemap::getPlayerTile()
 {
