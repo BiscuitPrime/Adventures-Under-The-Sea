@@ -3,6 +3,10 @@
 GameAssets::GameAssets() {
     std::string resourceDirectory = "resources/sprites/";
    
+    //entities
+    EldritchSquidRight.loadFromFile(resourceDirectory + "EldritchSquidRight.png");
+    EldritchSquidLeft.loadFromFile(resourceDirectory + "EldritchSquidLeft.png");
+
     // level 1 tiles (sand & algea)
     sandTile.loadFromFile(resourceDirectory + "sand.png");
     sandTallTile.loadFromFile(resourceDirectory + "sandTall.png");
