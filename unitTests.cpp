@@ -74,6 +74,6 @@ TEST(TestActor, TestEnemyStates) //test wether the enemy states are updated
     auto enemy = Enemy(enemyTexturePath);
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
     ASSERT_EQ(enemy.getState(),EnemyStates::STATE_IDLE) << "Enemy did not have its states setup at idle by default";
-    enemy.changeState(EnemyStates::STATE_MOVING);
+    enemy.setState(EnemyStates::STATE_MOVING);
     ASSERT_EQ(enemy.getState(), EnemyStates::STATE_MOVING) << "Enemy did not have its state updated";
 }

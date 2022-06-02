@@ -8,6 +8,7 @@
 #include <Assets/Definitions.h>
 #include <Actors/Enemy.h>
 #include <Assets/GameAssets.h>
+#include <GameManager.h>
 
 int myMain()
 {
@@ -34,6 +35,8 @@ int myMain()
     auto enemy = Enemy(enemyTexturePath);
     enemy.setIsoCoordinates(sf::Vector2f(200, 200));
     enemy.getSprite().setPosition(sf::Vector2f(200, 200));
+    //creating the associated enemy handler :
+    //auto enemyHandler = EnemyHandler();
 
     //Creating the tilemap :
     Tilemap tilemap;
@@ -42,18 +45,22 @@ int myMain()
 
     //setting up the player :
     inputHandler.setUpPlayer(&player, &tilemap);
+
+    //Creating the game manager :
+    auto gameManager = GameManager(&player, &enemy, &inputHandler, &tilemap, &window, &ga);
     //---------------------------------
 
     while (window.isOpen())
     {
-
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
+        // we call the game loop :
+        gameManager.gameLoop();
+        /*
         //-------------------
         window.clear(sf::Color::Black);
         //drawing the tilemap :
@@ -67,6 +74,7 @@ int myMain()
 
         window.display();
         //--------------------
+        */
     }
 
     return 0;

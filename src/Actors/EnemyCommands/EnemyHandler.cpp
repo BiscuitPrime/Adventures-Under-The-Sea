@@ -2,7 +2,6 @@
 /*
 *	Source code for the enemy handler class
 */
-#include <Actors/EnemyCommands/EnemyHandler.h>
 
 //constructor
 EnemyHandler::EnemyHandler() 
