@@ -38,11 +38,11 @@ int Tile::loadSelectedTextureVariant(GameAssets const& ga, TileVariant variant)
 		sprite.setTexture(getTexture());
 		return 0;
 	case ATTACK:
-		if (!tileIndexes.contains(stringTexture + 'A')) {
+		if (!tileIndexes.contains(stringTexture + 'a')) {
 			std::cout << "Error when drawing tile: texture \'" << stringTexture + 'a' << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
-		setTexture(tileIndexes.at(stringTexture + 'A'));
+		setTexture(tileIndexes.at(stringTexture + 'a'));
 		sprite.setTexture(getTexture());
 		return 0;
 	case MOVEMENT_SELECTED:
