@@ -9,3 +9,4 @@ PlayerMovingState PlayerStates::moving = PlayerMovingState();
 PlayerAttackState PlayerStates::attack = PlayerAttackState();
 PlayerMineAttackState PlayerStates::mine = PlayerMineAttackState();
 PlayerTorpedoAttackState PlayerStates::torpedo = PlayerTorpedoAttackState();
+

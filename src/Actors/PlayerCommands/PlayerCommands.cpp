@@ -19,17 +19,19 @@ void MoveCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* til
 {
 	std::cout << "Move command executed\n";
 	//we recuperate the appropriate coords :
-	sf::Vector2f worldCoords = Definitions::orthoToIsoWithOffset(sf::Vector2i(tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x)->getOrthogonalCoords().x, tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x)->getOrthogonalCoords().y));
+	sf::Vector2f worldCoords = Definitions::orthoToIsoWithOffset(tilemap->getSelectedTileCoords());
 	//we get the new player coords
 
 	tilemap->removePlayerTile(); //we remove the old status for the previously occupied tile
 
 	player->decreaseOxygen(1); //we decrease the player's oxygen
 	std::cout << "Player oxygen :" << player->getOxygen()<<'\n';
-	player->setPosition(worldCoords); //we move the player's position
+	player->setIsoCoordinates(worldCoords);
+	player->getSprite().setPosition(worldCoords);
+
 
 	//we update the tile properties :
-	Tile* selectedTile = tilemap->getTileRef(tilemap->getSelectedTileCoords()->y, tilemap->getSelectedTileCoords()->x);
+	Tile* selectedTile = tilemap->getTile(tilemap->getSelectedTileCoords());
 	selectedTile->changeCurrentActor(player);
 	selectedTile->changeOccupied(true);
 }

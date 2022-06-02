@@ -22,19 +22,6 @@ Actor::Actor(std::string texturePath) {
     health = HealthModule();
 }
 
-//method that changes the actor's position 
-void Actor::setPosition(sf::Vector2f position)
-{
-    actorPosition = position; //we change the actor object's position
-    actorSprite.setPosition(position); //we also update the sprite
-}
-
-//method that returns the health of an actor
-int Actor::getHealth()
-{
-    return health.getHealth();
-}
-
 //method that updates the actor's health module
 void Actor::takeDamage(int dmg)
 {
@@ -50,8 +37,3 @@ void Actor::death()
     std::cout << "Actor has died\n";
 }
 
-//method that returns the actor's type :
-ActorType Actor::getType()
-{
-    return actorType;
-}

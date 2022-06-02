@@ -150,12 +150,6 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 	return 0;
 }
 
-//get the selected Tile coords
-sf::Vector2i* Tilemap::getSelectedTileCoords()
-{
-	return &selectedTileCoords;
-}
-
 int Tilemap::draw(sf::RenderWindow &window)
 {
 	// run through the tilemap array and call Tile.draw() for each one
