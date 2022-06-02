@@ -99,7 +99,8 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 		tilemap->setAvailableVariant(ATTACK);
 		loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, ATTACK);
 	}
-	if (loadTextureVar < 0) {
+	if (loadTextureVar < 0) //HERE --------------------------------------------------------------------- < -- Current crash
+	{
 		std::cout << "Error when selecting tile: selected texture could not be loaded\n";
 		return -1;
 	}
