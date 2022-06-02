@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "Enemy.h"
+#include "Enemy.h"
 /*
 *	Source code of the Enemy class.
 */
@@ -23,6 +24,14 @@ void Enemy::death()
 EnemyStates Enemy::getState()
 {
 	return _state;
+}
+
+//method that returns the next state
+void Enemy::nextState()
+{
+	if (_state == STATE_IDLE) { _state = STATE_MOVING; }
+	else if (_state == STATE_MOVING) { _state = STATE_ATTACK; }
+	else if (_state == STATE_ATTACK) { _state = STATE_IDLE; }
 }
 
 //changes the enemy states to the inputted state

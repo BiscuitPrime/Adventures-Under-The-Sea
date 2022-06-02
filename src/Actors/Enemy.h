@@ -18,5 +18,6 @@ public:
 	Enemy(std::string texturePath);
 	void death() override;
 	EnemyStates getState();
+	void nextState();
 	void changeState(EnemyStates state);
 };
