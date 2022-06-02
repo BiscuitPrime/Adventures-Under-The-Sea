@@ -119,12 +119,12 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 			{
 				if (x >= 0 && x < lines && y >= 0 && y < columns) //we make sure that the selected tile is in bounds
 				{
-					selectedTile = tilemap->getTile(selectedCoords);
+					selectedTile = tilemap->getTile(selectedCoords); //we take the ref for the selected tile that we will load its variant :
 					if (_state == &PlayerStates::moving)
 					{
 						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
 					}
-					else if (_state == &PlayerStates::mine && _state == &PlayerStates::torpedo)
+					else if (_state == &PlayerStates::mine || _state == &PlayerStates::torpedo)
 					{
 						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, ATTACK);
 					}
