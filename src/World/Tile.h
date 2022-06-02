@@ -49,10 +49,10 @@ public:
 	void selectTile() { isSelected = true; }
 	void unselectTile() { isSelected = false; }
 	void draw(sf::RenderWindow& window);
-	void changeOccupied(bool status);
-	void changeCurrentActor(Actor* actor);
-	bool getOccupied();
-	Actor* getCurActor();
+	void setOccupied(bool status) {	isOccupied = status; }
+	void setCurrentActor(Actor* actor) { currentActor = actor; }
+	bool getOccupied() const { return isOccupied; }
+	Actor* getCurActor() const { return currentActor; }
 	void setAvailable(bool status) { isAvailable = status; }
 	bool getAvailable() const { return isAvailable; }
 };

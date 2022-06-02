@@ -162,63 +162,8 @@ int Tilemap::draw(sf::RenderWindow &window)
 	return 0;
 }
 
-
-// outdated
-Tile& Tilemap::findNearestTileISO(int isoX, int isoY)
-{
-	float minDistance = 9999999;
-	Tile& nearestTile =  tilemap[0][0];
-	for (int y = 0; y < lines; y++) {
-		for (int x = 0; x < columns; x++) {
-			sf::Vector2i isoTileCoords = tilemap[y][x].getIsometricCoords();
-			float newDistance = sqrtf(pow((isoTileCoords.x - isoX), 2) + pow((isoTileCoords.y - isoY), 2));
-			if (newDistance < minDistance) {
-				minDistance = newDistance;
-				nearestTile = tilemap[y][x];
-			}
-		}
-	}
-	return nearestTile;
-}
-
-//function that returns the tile where the player currently is :
-Tile* Tilemap::getPlayerTile()
-{
-	for (int y = 0; y < lines; y++) {
-		for (int x = 0; x < columns; x++) {
-			Tile* tile = &tilemap[y][x];
-			if (tile->getOccupied() == true && tile->getCurActor()!=nullptr && tile->getCurActor()->getType() == PLAYER)
-			{
-				return tile;
-			}
-		}
-	}
-	return nullptr;
-}
-
-//function that removes the player
-void Tilemap::removePlayerTile()
-{
-	for (int y = 0; y < lines; y++) {
-		for (int x = 0; x < columns; x++) {
-			Tile* tile = &tilemap[y][x];
-			if (tile->getOccupied() == true && tile->getCurActor() != nullptr && tile->getCurActor()->getType() == PLAYER)
-			{
-				tile->changeCurrentActor(nullptr);
-				tile->changeOccupied(false);
-			}
-		}
-	}
-}
-
-//method that sets up the current variant
-void Tilemap::setAvailableVariant(TileVariant variant)
-{
-	availableVariant = variant;
-}
-
 //function that unloads all the variants
-int Tilemap::unselectTiles(GameAssets const& ga) {
+int Tilemap::removeAllTileVariants(GameAssets const& ga) {
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			Tile* tile = &tilemap[y][x];
