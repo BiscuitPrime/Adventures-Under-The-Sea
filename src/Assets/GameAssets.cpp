@@ -6,6 +6,8 @@ GameAssets::GameAssets() {
     //entities
     EldritchSquidRight.loadFromFile(resourceDirectory + "EldritchSquidRight.png");
     EldritchSquidLeft.loadFromFile(resourceDirectory + "EldritchSquidLeft.png");
+    WyrmRight.loadFromFile(resourceDirectory + "WyrmRight.png");
+    WyrmLeft.loadFromFile(resourceDirectory + "WyrmLeft.png");
 
     // level 1 tiles (sand & algea)
     sandTile.loadFromFile(resourceDirectory + "sand.png");

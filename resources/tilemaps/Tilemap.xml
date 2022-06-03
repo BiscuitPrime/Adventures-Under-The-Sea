@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Tilemap label="level1" lines="10" columns="10">
-	<Tiletype type="sand">
+	<Tiletype type="sand" accessibility="true">
 		<Tile x="7" y="0"/>
 		<Tile x="6" y="1"/>
 		<Tile x="7" y="1"/>
@@ -58,14 +58,14 @@
 		<Tile x="3" y="8"/>
 		<Tile x="4" y="9"/>
 	</Tiletype>
-	<Tiletype type="sandTall">
+	<Tiletype type="sandTall" accessibility="false">
 		<Tile x="0" y="0"/>
 		<Tile x="0" y="1"/>
 		<Tile x="1" y="0"/>
 		<Tile x="0" y="9"/>
 		<Tile x="0" y="8"/>
 	</Tiletype>
-	<Tiletype type="sandAlgea">
+	<Tiletype type="sandAlgea" accessibility="true">
 		<Tile x="8" y="4"/>
 		<Tile x="8" y="5"/>
 		<Tile x="9" y="6"/>
@@ -81,7 +81,7 @@
 		<Tile x="3" y="2"/>
 		<Tile x="4" y="2"/>
 	</Tiletype>
-	<Tiletype type="sandAlgeaTall">
+	<Tiletype type="sandAlgeaTall" accessibility="false">
 		<Tile x="2" y="8"/>
 		<Tile x="2" y="9"/>
 		<Tile x="9" y="4"/>
@@ -90,7 +90,7 @@
 		<Tile x="4" y="0"/>
 		<Tile x="0" y="7"/>
 	</Tiletype>
-	<Tiletype type="sandAlgea2">
+	<Tiletype type="sandAlgea2" accessibility="true">
 		<Tile x="2" y="3"/>
 		<Tile x="3" y="3"/>
 		<Tile x="3" y="9"/>
@@ -103,7 +103,7 @@
 		<Tile x="0" y="6"/>
 		<Tile x="1" y="3"/>
 	</Tiletype>
-	<Tiletype type="sandAlgeaTall2">
+	<Tiletype type="sandAlgeaTall2" accessibility="false">
 		<Tile x="1" y="7"/>
 		<Tile x="1" y="1"/>
 		<Tile x="1" y="8"/>

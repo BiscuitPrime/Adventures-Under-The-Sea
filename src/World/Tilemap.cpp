@@ -18,7 +18,7 @@ label("")
 	availableVariant = MOVEMENT;
 }
 
-int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga)
+int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, bool accessibility, GameAssets const& ga)
 {
 	// sets ptr to a tile at its corresponding coordinate in the tilemap
 	if (x < 0 || x >= 10) {
@@ -33,6 +33,7 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, GameAss
 	// update tile properties
 	tile.setCoordinates(x, y);
 	tile.setIsometricCoordinates(isoX, isoY);
+	tile.setAccessibility(accessibility);
 	// generate sprite for the tile
 	sf::Sprite sprite;
 	sprite.setPosition(isoX, isoY);
@@ -130,6 +131,8 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 	}
 	for (auto tileTypeNode : tilemapNode.children("Tiletype")){
 		std::string tileTypeStr = tileTypeNode.attribute("type").as_string();
+		bool accessibility = tileTypeNode.attribute("accessibility").as_bool();
+		
 		for (auto tileNode : tileTypeNode.children("Tile")) {
 			// retrieve coordinates in xml file
 			float xCoord = tileNode.attribute("x").as_float();
@@ -142,7 +145,7 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 			sf::Vector2f worldCoords = Definitions::orthoToIsoWithOffset(sf::Vector2i(xCoord, yCoord));
 			
 			// set the tile in the tilemap
-			int rt = setTile(xCoord, yCoord, worldCoords.x, worldCoords.y, tileTypeStr, ga);
+			int rt = setTile(xCoord, yCoord, worldCoords.x, worldCoords.y, tileTypeStr, accessibility, ga);
 			// store isometric coordinates
 			if (rt < 0) return -1;
 		}

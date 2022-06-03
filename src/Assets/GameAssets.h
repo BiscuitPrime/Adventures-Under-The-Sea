@@ -13,6 +13,8 @@ public:
     // entities
     sf::Texture EldritchSquidRight;
     sf::Texture EldritchSquidLeft;
+    sf::Texture WyrmRight;
+    sf::Texture WyrmLeft;
 
     // level 1 tiles (sand & algea)
     sf::Texture sandTile;
