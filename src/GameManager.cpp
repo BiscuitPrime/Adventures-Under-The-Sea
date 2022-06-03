@@ -16,6 +16,7 @@ GameManager::GameManager(Player* play, Enemy en, InputHandler* input, Tilemap* t
 	//previousTimestamp = high_resolution_clock::now();
 	//lag = (duration<double>)0;
 	_turn = PLAYER_TURN;
+	currentEnemy = &en;
 }
 
 //function that handles the game loop :
@@ -36,7 +37,6 @@ void GameManager::gameLoop()
 	//drawing the tilemap :
 	tilemap->selectTile(*window, *gameAssets);
 
-
 	//we determine who's turn it is :
 	if (_turn == PLAYER_TURN)
 	{
@@ -44,7 +44,7 @@ void GameManager::gameLoop()
 		inputhandler->startPlayerLoop();
 
 		//we handle the player's input :
-		std::cout << "Player's turn !\n";
+		//std::cout << "Player's turn !\n";
 		inputhandler->handleInput(player, window, tilemap);
 
 		if (inputhandler->finishedPlayerLoop())
@@ -55,10 +55,10 @@ void GameManager::gameLoop()
 	}
 	else if (_turn == ENEMY_TURN)
 	{
-		Enemy* currentEnemy;
-		currentEnemy = &enemyGroup.front(); //FOR NOW the currently selected enemy will be the first of the list
+		if (currentEnemy->getEnemyLoopFinished()){ currentEnemy=selectRandomEnemy(); }
+
 		//we select the enemy that will perform the actions during this turn :
-		std::cout << "Enemy's turn !\n";
+		//std::cout << "Enemy's turn !\n";
 
 		//we start the enemy's turn :
 		currentEnemy->handleEnemy(window);
@@ -66,7 +66,7 @@ void GameManager::gameLoop()
 		//if the enemy has finished its actions :
 		if (currentEnemy->getEnemyLoopFinished())
 		{
-			std::cout << "Enemy's turn has ended!\n";
+			std::cout << "Enemy " << currentEnemy->getId()<<" turn has ended!\n";
 			_turn = changeTurn();
 		}
 	}
@@ -91,4 +91,28 @@ turnState GameManager::changeTurn()
 {
 	turnState _new_turn = _turn == PLAYER_TURN ? ENEMY_TURN : PLAYER_TURN;
 	return _new_turn;
+}
+
+//functions that adds an enemy to the group of enemies stored in the Game Manager.
+int GameManager::addEnemy(Enemy enemy)
+{
+	for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it) //we remove the possibility of the system possessing 2 enemies with the same id ( 2 same enemies)
+	{
+		if (it->getId() == enemy.getId()) 
+		{
+			std::cout << "Error when assigning enemy to Game Manager : enemy with existing id already exists in the manager unit\n";
+			return -1;
+		}
+	}
+	enemyGroup.push_back(enemy);
+	return 0;
+}
+
+//function that returns a random enemy of the game manager
+Enemy* GameManager::selectRandomEnemy()
+{
+	srand(time(0));  // Initialize random number generator.
+	int curSelector = (rand()%enemyGroup.size());
+	std::cout << "Selected enemy : " << enemyGroup.at(curSelector).getId() << "\n";
+	return &enemyGroup.at(curSelector);
 }

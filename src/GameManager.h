@@ -7,6 +7,8 @@
 #include <Actors/PlayerCommands/InputHandler.h>
 #include <Assets/GameAssets.h>
 #include "Actors/Enemy.h"
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 using namespace std::chrono;
@@ -28,11 +30,12 @@ private:
 	Tilemap* tilemap;
 	sf::RenderWindow* window;
 	GameAssets* gameAssets;
-	turnState _turn;
-	bool enemyLoop = false ;
+	turnState _turn; //indicates whose turn it is
+	Enemy* currentEnemy; //indicates the enemy concerned by the current gameplay loop
 public:
 	GameManager(Player* player, Enemy enemy, InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
-
 	void gameLoop();
 	turnState changeTurn();
+	int addEnemy(Enemy enemy);
+	Enemy* selectRandomEnemy();
 };

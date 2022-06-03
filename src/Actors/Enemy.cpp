@@ -3,8 +3,9 @@
 */
 #include <Actors/Enemy.h>
 
-Enemy::Enemy(std::string texturePath) : Actor{ texturePath } 
+Enemy::Enemy(int new_id,std::string texturePath) : Actor{ texturePath } 
 {
+	id = new_id;
 	actorType = ENEMY;
 	_state = EnemyStates::STATE_IDLE; //by default in idle state
 	health.setInitialHealth(10);
@@ -29,7 +30,6 @@ void Enemy::nextState()
 void Enemy::handleEnemy(sf::RenderWindow* window)
 {
 	std::cout << "Handling enemy !\n";
-	std::cout << "Current enemy state :" << _state << '\n';
 	if (_state == STATE_IDLE) {
 		nextState();
 	}
@@ -47,7 +47,6 @@ void Enemy::move()
 {
 	std::cout << "Enemy performing movement !\n";
 	nextState();
-	std::cout << "enemy state :" << _state<<'\n';
 }
 
 void Enemy::attack()

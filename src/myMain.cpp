@@ -30,7 +30,7 @@ int myMain()
 
     //Creating the basic enemy :
     std::string enemyTexturePath = "../../../../resources/Sprites/EldritchSquidRight.png";
-    auto enemy = Enemy(enemyTexturePath);
+    auto enemy = Enemy(1, enemyTexturePath);
 
     //Creating the tilemap :
     Tilemap tilemap;
@@ -42,6 +42,10 @@ int myMain()
 
     //Creating the game manager :
     auto gameManager = GameManager(&player, enemy, &inputHandler, &tilemap, &window, &ga);
+
+    //adding another enemy :
+    auto enemy2 = Enemy(2, enemyTexturePath);
+    gameManager.addEnemy(enemy);
     //---------------------------------
 
     while (window.isOpen())
