@@ -18,7 +18,7 @@ public:
 	Tilemap();
 	std::string getLabel() const { return label; }
 	void setLabel(std::string const& lbl) { label = lbl; }
-	int setTile(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga);
+	int setTile(int x, int y, int isoX, int isoY, std::string type, bool accessibility, GameAssets const& ga);
 	void selectTile(sf::RenderWindow& window, GameAssets const& ga);
 	Tile* getTile(sf::Vector2i coords) { return &tilemap[coords.y][coords.x]; }
 	sf::Vector2i getSelectedTileCoords() { return selectedTileCoords;	}
