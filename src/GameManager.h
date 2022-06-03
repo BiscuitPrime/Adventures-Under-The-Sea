@@ -32,6 +32,7 @@ private:
 	bool enemyLoop = false ;
 public:
 	GameManager(Player* player, Enemy enemy, InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
+
 	void gameLoop();
 	turnState changeTurn();
 };
