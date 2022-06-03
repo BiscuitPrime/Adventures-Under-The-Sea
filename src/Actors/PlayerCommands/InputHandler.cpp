@@ -15,7 +15,8 @@ InputHandler::InputHandler(GameAssets const& ga)
 //method that handles the player's inputs :
 void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && tilemap->getTile(tilemap->getSelectedTileCoords())->getAvailable()) //if the player is attempting to click and _state is moving -> we move the player
+	// get selected tile, if left click is pressed and selected tile is available && accessible --> move
+	if (auto selectedTile = tilemap->getTile(tilemap->getSelectedTileCoords()); sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && selectedTile->getAvailable() && selectedTile->getAccessibility()) //if the player is attempting to click and _state is moving -> we move the player
 	{
 		unselectAvailableTiles(tilemap); //we start by unloading any and all variants
 		if (_state == &PlayerStates::moving)
