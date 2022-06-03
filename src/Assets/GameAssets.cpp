@@ -3,11 +3,14 @@
 GameAssets::GameAssets() {
     std::string resourceDirectory = "resources/sprites/";
    
-    //entities
+    // actors
     EldritchSquidRight.loadFromFile(resourceDirectory + "EldritchSquidRight.png");
     EldritchSquidLeft.loadFromFile(resourceDirectory + "EldritchSquidLeft.png");
     WyrmRight.loadFromFile(resourceDirectory + "WyrmRight.png");
     WyrmLeft.loadFromFile(resourceDirectory + "WyrmLeft.png");
+
+    // entities
+    Bubble.loadFromFile(resourceDirectory + "Bubble.png");
 
     // level 1 tiles (sand & algea)
     sandTile.loadFromFile(resourceDirectory + "sand.png");
@@ -95,7 +98,6 @@ GameAssets::GameAssets() {
     sandRock2AlgeaTileMovementSelected.loadFromFile(resourceDirectory + "sandRockAlgea2ms.png");
     sandRock3TileMovementSelected.loadFromFile(resourceDirectory + "sandRock3ms.png");
     sandRock3AlgeaTileMovementSelected.loadFromFile(resourceDirectory + "sandRockAlgea3ms.png");
-    
 
     tileIndexes.insert({ "sand", sandTile });
     tileIndexes.insert({ "sanda", sandTileAttack });

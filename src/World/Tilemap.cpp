@@ -1,8 +1,9 @@
 #include "Tilemap.h"
-#include "Tilemap.h"
+#include "Entities/Entity.h"
 #include "pugixml.hpp"
 #include <iostream>
 #include <math.h>
+#include <Entities/Bubble.h>
 
 Tilemap::Tilemap():
 label("")
@@ -20,7 +21,7 @@ label("")
 
 int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, bool accessibility, GameAssets const& ga)
 {
-	// sets ptr to a tile at its corresponding coordinate in the tilemap
+	// sets properties of a tile at its corresponding coordinate in the tilemap
 	if (x < 0 || x >= 10) {
 		std::cout << "Could not set tile: x coordinate out of bounds\n";
 		return -1;
@@ -107,6 +108,28 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga) //TO RE
 	}
 }
 
+int Tilemap::setEntity(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga) {
+	// sets ptr to a tile at its corresponding coordinate in the tilemap
+	if (x < 0 || x >= 10) {
+		std::cout << "Could not set entity: x coordinate out of bounds\n";
+		return -1;
+	}
+	if (y < 0 || y >= 10) {
+		std::cout << "Could not set entity: y coordinate out of bounds\n";
+		return -1;
+	}
+	Tile& tile = tilemap[y][x];
+
+	// initialize the proper entity 
+	if (type == "bubble") {
+		auto orthoCoords = sf::Vector2i(x, y);
+		auto bubble = Bubble(orthoCoords, sf::Vector2f(isoX, isoY), ga);
+
+		tile.setBubbleState(true);
+		tile.setBubble(bubble);
+	}
+}
+
 int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 {
 	// build the tilemap array from a xml file (see format in resources/images/tilemap/..)
@@ -129,26 +152,30 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 		std::cerr << "Error when parsing xml file: line or column not equal to 10\n";
 		return -1;
 	}
+	// parse all <Tiletype type"sand" accessibility="true"> nodes
 	for (auto tileTypeNode : tilemapNode.children("Tiletype")){
 		std::string tileTypeStr = tileTypeNode.attribute("type").as_string();
 		bool accessibility = tileTypeNode.attribute("accessibility").as_bool();
 		
+		// parse all <Tile x="0" y="0"> nodes
 		for (auto tileNode : tileTypeNode.children("Tile")) {
 			// retrieve coordinates in xml file
-			float xCoord = tileNode.attribute("x").as_float();
-			float yCoord = tileNode.attribute("y").as_float();
-			if (xCoord < 0 || yCoord < 0 || xCoord >= columns || yCoord >= lines) {
-				std::cerr << "Error when parsing xml file: tile coordinates (" << xCoord << ", " << yCoord << ") exceed bounds\n";
-				return -1;
-			}
+			auto xCoord = tileNode.attribute("x").as_int();
+			auto yCoord = tileNode.attribute("y").as_int();
 			// process isometric coordinates
 			sf::Vector2f worldCoords = Definitions::orthoToIsoWithOffset(sf::Vector2i(xCoord, yCoord));
-			
 			// set the tile in the tilemap
 			int rt = setTile(xCoord, yCoord, worldCoords.x, worldCoords.y, tileTypeStr, accessibility, ga);
 			// store isometric coordinates
 			if (rt < 0) return -1;
 		}
+	}
+	for (auto entityNode : tilemapNode.children("Entity")) {
+		std::string entityType = entityNode.attribute("type").as_string();
+		auto xCoord = entityNode.attribute("x").as_int();
+		auto yCoord = entityNode.attribute("y").as_int();
+		sf::Vector2f worldCoords = Definitions::orthoToIsoWithOffset(sf::Vector2i(xCoord, yCoord));
+		setEntity(xCoord, yCoord, worldCoords.x, worldCoords.y, entityType, ga);
 	}
 	return 0;
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <Tilemap label="level1" lines="10" columns="10">
+	<!--Tiles-->
 	<Tiletype type="sand" accessibility="true">
 		<Tile x="7" y="0"/>
 		<Tile x="6" y="1"/>
@@ -113,4 +114,7 @@
 		<Tile x="2" y="1"/>
 		<Tile x="2" y="0"/>
 	</Tiletype>
+	<!--Entities-->
+	<Entity type="bubble" x="5" y="5"/>
+
 </Tilemap>

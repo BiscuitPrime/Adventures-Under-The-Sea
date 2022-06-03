@@ -81,6 +81,9 @@ int Tile::unloadSelectedTextureVariant(GameAssets const& ga) {
 void Tile::draw(sf::RenderWindow &window)
 {       // draw
         window.draw(sprite);
+		if (hasBubble) {
+			window.draw(getBubble().getSprite());
+		}
 }
 
 
