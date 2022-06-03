@@ -24,7 +24,8 @@ private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 	bool isSelected = false; 
-	bool isOccupied = false; //wether the tile is occupied by an entity
+	bool isAccessible = true; //whether the player can move on this tile or not
+	bool isOccupied = false; //whether the tile is occupied by an entity
 	bool isAvailable = false; //boolean indicating wether the tile should be displayed in an available manner or not
 	Actor* currentActor; //currentActor on the tile
 public:
@@ -53,6 +54,8 @@ public:
 	void setCurrentActor(Actor* actor) { currentActor = actor; }
 	bool getOccupied() const { return isOccupied; }
 	Actor* getCurActor() const { return currentActor; }
+	void setAccessibility(bool boolean) { isAccessible = boolean; }
+	bool getAccessibility() const { return isAccessible; }
 	void setAvailable(bool status) { isAvailable = status; }
 	bool getAvailable() const { return isAvailable; }
 };
