@@ -132,7 +132,7 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 	for (auto tileTypeNode : tilemapNode.children("Tiletype")){
 		std::string tileTypeStr = tileTypeNode.attribute("type").as_string();
 		bool accessibility = tileTypeNode.attribute("accessibility").as_bool();
-		std::cout << "Tile type: " << tileTypeStr << " || accessibility: " << accessibility << "\n";
+		
 		for (auto tileNode : tileTypeNode.children("Tile")) {
 			// retrieve coordinates in xml file
 			float xCoord = tileNode.attribute("x").as_float();

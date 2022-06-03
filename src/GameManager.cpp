@@ -43,7 +43,7 @@ void GameManager::gameLoop()
 		inputhandler->startPlayerLoop();
 
 		//we handle the player's input :
-		//std::cout << "Player's turn !\n";
+		std::cout << "Player's turn !\n";
 		inputhandler->handleInput(player, window, tilemap);
 
 		if (inputhandler->finishedPlayerLoop())
@@ -56,7 +56,7 @@ void GameManager::gameLoop()
 	{
 		Enemy* currentEnemy;
 		//we select the enemy that will perform the actions during this turn :
-		//std::cout << "Enemy's turn !\n";
+		std::cout << "Enemy's turn !\n";
 
 		currentEnemy = &enemyGroup.front(); //FOR NOW the currently selected enemy will be the first of the list
 
