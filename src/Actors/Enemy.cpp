@@ -20,7 +20,7 @@ void Enemy::death()
 //method that returns the next state
 void Enemy::nextState()
 {
-	if (_state == STATE_IDLE) { _state = STATE_MOVING; }
+	if (_state == STATE_IDLE) { _state = STATE_MOVING; isEnemyLoopFinished = false; }
 	else if (_state == STATE_MOVING) { _state = STATE_ATTACK; }
 	else if (_state == STATE_ATTACK) { _state = STATE_IDLE; }
 }
@@ -28,6 +28,11 @@ void Enemy::nextState()
 //method that handles the internal enemy logic :
 void Enemy::handleEnemy(sf::RenderWindow* window)
 {
+	std::cout << "Handling enemy !\n";
+	std::cout << "Current enemy state :" << _state << '\n';
+	if (_state == STATE_IDLE) {
+		nextState();
+	}
 	if (_state == STATE_MOVING)
 	{
 		move();
@@ -41,12 +46,13 @@ void Enemy::handleEnemy(sf::RenderWindow* window)
 void Enemy::move()
 {
 	std::cout << "Enemy performing movement !\n";
-	_state = STATE_ATTACK;
+	nextState();
+	std::cout << "enemy state :" << _state<<'\n';
 }
 
 void Enemy::attack()
 {
 	std::cout << "Enemy performing attack !\n";
-	_state = STATE_IDLE;
+	nextState();
 	isEnemyLoopFinished = true;
 }

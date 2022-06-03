@@ -36,6 +36,7 @@ void GameManager::gameLoop()
 	//drawing the tilemap :
 	tilemap->selectTile(*window, *gameAssets);
 
+
 	//we determine who's turn it is :
 	if (_turn == PLAYER_TURN)
 	{
@@ -55,18 +56,17 @@ void GameManager::gameLoop()
 	else if (_turn == ENEMY_TURN)
 	{
 		Enemy* currentEnemy;
+		currentEnemy = &enemyGroup.front(); //FOR NOW the currently selected enemy will be the first of the list
 		//we select the enemy that will perform the actions during this turn :
 		std::cout << "Enemy's turn !\n";
 
-		currentEnemy = &enemyGroup.front(); //FOR NOW the currently selected enemy will be the first of the list
-
 		//we start the enemy's turn :
-		currentEnemy->startEnemyLoop();
 		currentEnemy->handleEnemy(window);
 
 		//if the enemy has finished its actions :
 		if (currentEnemy->getEnemyLoopFinished())
 		{
+			std::cout << "Enemy's turn has ended!\n";
 			_turn = changeTurn();
 		}
 	}
@@ -74,13 +74,19 @@ void GameManager::gameLoop()
 
 
 	// RENDER FUNCTION (should be created) ---------------------- =>
-	tilemap->draw(*window);
-	window->draw(player->getSprite());
+	tilemap->draw(*window); //drawing the tilemap
+	window->draw(player->getSprite()); //drawing the player
+	//drawing the enemies :
+	for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it)
+	{
+		window->draw(it->getSprite());
+	}
 	//enemy not drawn
 	//we display the window :
 	window->display();
 }
 
+//method that returns the next turn depending on the current turn
 turnState GameManager::changeTurn()
 {
 	turnState _new_turn = _turn == PLAYER_TURN ? ENEMY_TURN : PLAYER_TURN;

@@ -15,7 +15,7 @@ using namespace std::chrono;
 
 enum turnState {
 	PLAYER_TURN,
-	ENEMY_TURN
+	ENEMY_TURN,
 };
 
 class GameManager {
@@ -29,6 +29,7 @@ private:
 	sf::RenderWindow* window;
 	GameAssets* gameAssets;
 	turnState _turn;
+	bool enemyLoop = false ;
 public:
 	GameManager(Player* player, Enemy enemy, InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
 	void gameLoop();

@@ -31,8 +31,11 @@ int myMain()
     //Creating the basic enemy :
     std::string enemyTexturePath = "../../../../resources/Sprites/EnemyPLACEHOLDER.png";
     auto enemy = Enemy(enemyTexturePath);
+    sf::Vector2i enPos;
+    enPos.x = 10;
+    enPos.y = 10;
+    enemy.setOrthoCoordinates(enPos);
     //creating the associated enemy handler :
-    //auto enemyHandler = EnemyHandler(enemyTexturePath, 200,200);
 
     //Creating the tilemap :
     Tilemap tilemap;
