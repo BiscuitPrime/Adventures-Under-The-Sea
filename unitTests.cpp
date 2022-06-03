@@ -2,7 +2,8 @@
 #include <Actors/Player.h>
 #include <Actors/PlayerCommands/InputHandler.h>
 #include <Actors/Enemy.h>
-#include <Actors/EnemyCommands/EnemyHandler.h>
+//#include <Actors/EnemyCommands/EnemyHandler.h>
+
 /*
 * File of the various tests of the program
 */
@@ -76,4 +77,11 @@ TEST(TestActor, TestEnemyStates) //test wether the enemy states are updated
     ASSERT_EQ(enemy.getState(),EnemyStates::STATE_IDLE) << "Enemy did not have its states setup at idle by default";
     enemy.setState(EnemyStates::STATE_MOVING);
     ASSERT_EQ(enemy.getState(), EnemyStates::STATE_MOVING) << "Enemy did not have its state updated";
+}
+
+TEST(TestActor, TestEnemyHandler) 
+{
+    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
+    auto enemy = Enemy(enemyTexturePath);
+    //auto enemyHandler = EnemyHandler(&enemy);
 }

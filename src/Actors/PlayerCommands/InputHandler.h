@@ -15,11 +15,14 @@ private:
 	TorpedoAttackCommand torpedoCommand;
 	GameAssets gameAssets;
 	//Tile* currentSelectedTile;
+	bool isPlayerLoopFinished = false;
 public:
 	explicit InputHandler(GameAssets const& ga);
 	void handleInput(Player* player, sf::RenderWindow* window, Tilemap* selectedTileCoords);
 	int selectAvailableTiles(Player* player, Tilemap* tilemap, int range, PlayerState* _state);
 	int unselectAvailableTiles(Tilemap* tilemap);
 	void setUpPlayer(Player* player, Tilemap* tilemap);
-	PlayerState* getState();
+	PlayerState* getState() { return _state; };
+	bool finishedPlayerLoop() { return isPlayerLoopFinished; };
+	void startPlayerLoop() { isPlayerLoopFinished = false; }
 };

@@ -4,10 +4,9 @@
 */
 #include <chrono>
 #include <iostream>
-#include "Actors/Player.h"
-#include "Actors/PlayerCommands/InputHandler.h"
+#include <Actors/PlayerCommands/InputHandler.h>
 #include <Assets/GameAssets.h>
-#include "Actors/EnemyCommands/EnemyHandler.h"
+#include "Actors/Enemy.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -18,18 +17,20 @@ enum turnState {
 	PLAYER_TURN,
 	ENEMY_TURN
 };
+
 class GameManager {
 private:
 	//duration<double> lag;
 	//high_resolution_clock::time_point previousTimestamp;
 	Player* player;
-	std::vector<EnemyHandler> enemyGroup;
+	std::vector<Enemy> enemyGroup;
 	InputHandler* inputhandler;
 	Tilemap* tilemap;
 	sf::RenderWindow* window;
 	GameAssets* gameAssets;
 	turnState _turn;
 public:
-	GameManager(Player* player, /*EnemyHandler enemy,*/ InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
+	GameManager(Player* player, Enemy enemy, InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
 	void gameLoop();
+	turnState changeTurn();
 };

@@ -5,10 +5,10 @@
 */
 
 //constructor of the game manager that handles the game.
-GameManager::GameManager(Player* play, /*EnemyHandler en,*/ InputHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga)
+GameManager::GameManager(Player* play, Enemy en, InputHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga)
 {
 	player = play;
-	//enemyGroup.push_back(en);
+	enemyGroup.push_back(en);
 	inputhandler = input;
 	window = wind;
 	tilemap = tilem;
@@ -39,21 +39,50 @@ void GameManager::gameLoop()
 	//we determine who's turn it is :
 	if (_turn == PLAYER_TURN)
 	{
+		//we start the player's turn :
+		inputhandler->startPlayerLoop();
+
 		//we handle the player's input :
+		std::cout << "Player's turn !\n";
 		inputhandler->handleInput(player, window, tilemap);
+
+		if (inputhandler->finishedPlayerLoop())
+		{
+			//we then change turn :
+			_turn = changeTurn();
+		}
 	}
 	else if (_turn == ENEMY_TURN)
 	{
-		/*for (auto enemy = enemyGroup.begin(); enemy != enemyGroup.end(); ++enemy)
+		Enemy* currentEnemy;
+		//we select the enemy that will perform the actions during this turn :
+		std::cout << "Enemy's turn !\n";
+
+		currentEnemy = &enemyGroup.front(); //FOR NOW the currently selected enemy will be the first of the list
+
+		//we start the enemy's turn :
+		currentEnemy->startEnemyLoop();
+		currentEnemy->handleEnemy(window);
+
+		//if the enemy has finished its actions :
+		if (currentEnemy->getEnemyLoopFinished())
 		{
-			enemy->handleEnemy(window);
+			_turn = changeTurn();
 		}
-		*/
 	}
+
+
 
 	// RENDER FUNCTION (should be created) ---------------------- =>
 	tilemap->draw(*window);
 	window->draw(player->getSprite());
+	//enemy not drawn
 	//we display the window :
 	window->display();
+}
+
+turnState GameManager::changeTurn()
+{
+	turnState _new_turn = _turn == PLAYER_TURN ? ENEMY_TURN : PLAYER_TURN;
+	return _new_turn;
 }

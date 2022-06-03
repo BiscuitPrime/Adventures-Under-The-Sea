@@ -1,15 +1,12 @@
+#include "myMain.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <World/Tilemap.h>
-#include "myMain.h"
 #include <SFML/Graphics.hpp>
 #include <Actors/Player.h>
-#include <Actors/PlayerCommands/InputHandler.h>
-//#include <Actors/EnemyCommands/EnemyHandler.h>
 #include <Assets/Definitions.h>
-#include <Actors/Enemy.h>
-#include <Assets/GameAssets.h>
 #include <GameManager.h>
+
 
 int myMain()
 {
@@ -34,10 +31,8 @@ int myMain()
     //Creating the basic enemy :
     std::string enemyTexturePath = "../../../../resources/Sprites/EnemyPLACEHOLDER.png";
     auto enemy = Enemy(enemyTexturePath);
-    enemy.setIsoCoordinates(sf::Vector2f(200, 200));
-    enemy.getSprite().setPosition(sf::Vector2f(200, 200));
     //creating the associated enemy handler :
-    //auto enemyHandler = EnemyHandler(&enemy);
+    //auto enemyHandler = EnemyHandler(enemyTexturePath, 200,200);
 
     //Creating the tilemap :
     Tilemap tilemap;
@@ -48,7 +43,7 @@ int myMain()
     inputHandler.setUpPlayer(&player, &tilemap);
 
     //Creating the game manager :
-    auto gameManager = GameManager(&player, /*enemyHandler,*/ &inputHandler, &tilemap, &window, &ga);
+    auto gameManager = GameManager(&player, enemy, &inputHandler, &tilemap, &window, &ga);
     //---------------------------------
 
     while (window.isOpen())

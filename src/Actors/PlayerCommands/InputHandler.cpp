@@ -1,3 +1,4 @@
+#include "InputHandler.h"
 /*
 * Source code for Input handler class
 */
@@ -28,12 +29,14 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 			_command = &mineCommand;
 			_command->execute(player, window, tilemap);
 			_state = &PlayerStates::idle;
+			isPlayerLoopFinished = true; //by that point the player has finished its loop
 		}
 		else if (_state == &PlayerStates::torpedo)
 		{
 			_command = &torpedoCommand;
 			_command->execute(player, window, tilemap);
 			_state = &PlayerStates::idle;
+			isPlayerLoopFinished = true; //by that point the player has finished its loop
 		}
 	}
 	//here we create a fake "change" that simulates the various game phases
@@ -160,10 +163,4 @@ void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 	//two lines below had getTile
 	tilemap->getTile(pos)->setCurrentActor(player);
 	tilemap->getTile(pos)->setOccupied(true);
-}
-
-//method that returns the current player state
-PlayerState* InputHandler::getState()
-{
-	return _state;
 }
