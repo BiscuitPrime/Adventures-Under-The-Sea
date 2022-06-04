@@ -14,7 +14,7 @@ class Player : public Actor
 private:
 	OxygenModule oxygen;
 public:
-	Player(std::string texturePath);
+	Player(int id, std::string texturePath);
 	void handleInput(int input);
 	void death() override;
 	int getOxygen();
