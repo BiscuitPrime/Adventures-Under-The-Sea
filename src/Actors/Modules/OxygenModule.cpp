@@ -6,23 +6,14 @@
 //increases the OxygenModule's value
 void OxygenModule::increaseOxygen(int value)
 {
-	oxygeneCounter += value;
+	oxygenCounter += value;
+	if (oxygenCounter > maximalOxygen) oxygenCounter = maximalOxygen;
 }
 
 //decreases the OxygenModule's value
 void OxygenModule::decreaseOxygen(int value)
 {
-	oxygeneCounter -= value;
+	oxygenCounter -= value;
+	if (oxygenCounter < 0) oxygenCounter = 0;
 }
 
-//returns the oxygen value
-int OxygenModule::getOxygen()
-{
-	return oxygeneCounter;
-}
-
-//defines the first value of the oxygen module at its initialization
-void OxygenModule::setInitialOxygen(int initialValue)
-{
-	oxygeneCounter = initialValue;
-}

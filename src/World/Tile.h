@@ -29,7 +29,7 @@ private:
 	bool isAccessible = true; //whether the player can move on this tile or not
 	bool isOccupied = false; //whether the tile is occupied by an entity
 	bool isAvailable = false; //boolean indicating wether the tile should be displayed in an available manner or not
-	bool hasBubble = false;
+	bool isOccupiedByBubble = false;
 	Actor* currentActor; //currentActor on the tile
 public:
 	Tile();
@@ -62,5 +62,6 @@ public:
 	void setAvailable(bool status) { isAvailable = status; }
 	bool getAvailable() const { return isAvailable; }
 	void setBubble(Bubble* bbl) { bubble = bbl;  }
-	void setBubbleState(bool status) { hasBubble = status; }
+	void setBubbleState(bool status) { isOccupiedByBubble = status; }
+	bool hasBubble() const { return isOccupiedByBubble;  }
 };
