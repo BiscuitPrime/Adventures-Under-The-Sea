@@ -147,3 +147,20 @@ TEST(TestTilemap, TestSetTile) {
     ASSERT_EQ(tile->getStringTexture(), "sand") << "Texture as stirng of tile (0, 0) not properly set";
     ASSERT_EQ(tile->getAccessibility(), true) << "Accessibility of tile (0, 0) not properly set";
 }
+
+// Definitions tests
+
+TEST(TestDefinition, TestOrthoToIso) {
+    auto orthoCoords = sf::Vector2i(5, 5);
+    auto isoCoords = Definitions::orthoToIso(orthoCoords);
+    ASSERT_EQ(isoCoords.x, 0) << "X coordinate is wrong";
+    ASSERT_EQ(isoCoords.y, 160) << "Y coordinate is wrong";
+}
+
+
+TEST(TestDefinition, TestIsoToOrtho) {
+    auto isoCoords = sf::Vector2i(0, 160);
+    auto orthoCoords = Definitions::isoToOrtho(isoCoords);
+    ASSERT_EQ(orthoCoords.x, 5) << "X coordinate is wrong (should be 5): " << orthoCoords.x;
+    ASSERT_EQ(orthoCoords.y, 5) << "Y coordinate is wrong (should be 5): " << orthoCoords.y;
+}
