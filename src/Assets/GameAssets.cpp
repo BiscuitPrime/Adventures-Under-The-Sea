@@ -10,7 +10,7 @@ GameAssets::GameAssets() {
     WyrmLeft.loadFromFile(resourceDirectory + "WyrmLeft.png");
 
     // entities
-    Bubble.loadFromFile(resourceDirectory + "Bubble.png");
+    Bubble.loadFromFile(resourceDirectory + "bubble.png");
 
     // level 1 tiles (sand & algea)
     sandTile.loadFromFile(resourceDirectory + "sand.png");
