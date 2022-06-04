@@ -28,7 +28,14 @@ void MoveCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* til
 	tile->setCurrentActor(nullptr);
 	tile->setOccupied(false);
 
-	player->decreaseOxygen(1); //we decrease the player's oxygen
+	// oxygen management
+	if (tile->hasBubble()) {
+		player->increaseOxygen(5);
+		tile->setBubbleState(false);
+	}
+	else {
+		player->decreaseOxygen(1); //we decrease the player's oxygen
+	}
 	std::cout << "Player oxygen :" << player->getOxygen()<<'\n';
 	// set player new positions
 	player->setOrthoCoordinates(selectedTileCoords);

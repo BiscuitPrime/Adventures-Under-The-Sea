@@ -1,15 +1,17 @@
 #pragma once
+#include <Assets/Definitions.h>
 /*
 *	Header used for the Oxygen module used by the Player
 */
 
 class OxygenModule {
 private:
-	int oxygeneCounter;
+	int oxygenCounter = 5;
+	int maximalOxygen = maxOxygen;
 public:
-	OxygenModule() {};
+	OxygenModule() = default;
 	void increaseOxygen(int value);
 	void decreaseOxygen(int value);
-	int getOxygen();
-	void setInitialOxygen(int initialValue);
+	int getOxygen() const { return oxygenCounter;	}
+	void setInitialOxygen(int initialValue)	{ oxygenCounter = initialValue; }
 };

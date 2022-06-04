@@ -8,6 +8,7 @@
 #define columns 10				// how many columns of tiles the tilemap has 
 #define windowWidth 1920		// width of the render window
 #define windowHeight 1080		//height of the render window
+#define maxOxygen 5				// max oxygen value
 
 class Definitions {
 public:

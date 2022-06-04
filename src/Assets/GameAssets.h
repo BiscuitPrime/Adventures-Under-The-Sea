@@ -10,11 +10,14 @@ public:
     // string to tile correspondence
     std::map<std::string, sf::Texture> tileIndexes;
 
-    // entities
+    // actors
     sf::Texture EldritchSquidRight;
     sf::Texture EldritchSquidLeft;
     sf::Texture WyrmRight;
     sf::Texture WyrmLeft;
+
+    // entities
+    sf::Texture Bubble;
 
     // level 1 tiles (sand & algea)
     sf::Texture sandTile;
