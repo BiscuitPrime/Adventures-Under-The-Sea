@@ -42,11 +42,15 @@ TEST(TestActor, TestOxygenPlayer) //test wether or not the player's Oxygen is in
 {
     std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
     auto player = Player(0,playerTexturePath);
-    ASSERT_EQ(player.getOxygen(),20) << "Player oxygen has not initialized correctly";
+    ASSERT_EQ(player.getOxygen(),5) << "Player oxygen has not initialized correctly";
     player.decreaseOxygen(2);
-    ASSERT_EQ(player.getOxygen(), 18) << "Player oxygen has not decreased correctly";
+    ASSERT_EQ(player.getOxygen(), 3) << "Player oxygen has not decreased correctly";
     player.increaseOxygen(1);
-    ASSERT_EQ(player.getOxygen(), 19) << "Player oxygen has not increased correctly";
+    ASSERT_EQ(player.getOxygen(), 4) << "Player oxygen has not increased correctly";
+    player.increaseOxygen(10);
+    ASSERT_EQ(player.getOxygen(), 5) << "Player oxygen is not maxed";
+    player.decreaseOxygen(10);
+    ASSERT_EQ(player.getOxygen(), 0) << "Player oxygen is not floored";
 }
 
 TEST(TestActor, TestHealthEnemy) //test wether or not the enemy's Health is initialized correctly AND is correctly updated //TO REWRITE
@@ -100,4 +104,46 @@ TEST(TestGameLogic, TestAddingEnemy) //test wether or not gameManager's adding e
     auto enemy2 = Enemy(1, enemyTexturePath);
     ASSERT_EQ(gameManager.addEnemy(enemy2), -1)<< "Both enemies have id as 1, GameManager's defense should return -1 -> Did not return -1 here";
     */
+}
+
+// Tilemap tests
+
+TEST(TestTilemap, TestBuildTilemap) {
+    Tilemap tilemap;
+    GameAssets ga;
+    auto* fileName = (char*)"../../../../projet-cpp/resources/tilemaps/TilemapForTesting.xml";
+    int rt = tilemap.buildTilemap(fileName, ga); // mettre dans le test
+    ASSERT_EQ(rt, 0) << "Method not properly executed";
+    ASSERT_EQ(tilemap.getLabel(), "level1") << "Label not properly parsed";
+
+    // test on tile 0, 0 of the tilemap
+    sf::Vector2i orthoCoords = sf::Vector2i(0, 0);
+    sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(orthoCoords);
+    Tile* tile = tilemap.getTile(orthoCoords);
+    ASSERT_EQ(tile->getOrthogonalCoords().x, orthoCoords.x) << "Orthogonal coords of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getOrthogonalCoords().y, orthoCoords.y) << "Orthogonal coords of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getIsometricCoords().x, isoCoords.x) << "Isometric coords of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getIsometricCoords().y, isoCoords.y) << "Isometric coords of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getStringTexture(), "sandTall") << "Texture as stirng of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getAccessibility(), false) << "Accessibility of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getAvailable(), false) << "Availability of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->hasBubble(), false) << "Bubble wrongly set on tile (0, 0)";
+    ASSERT_EQ(tile->getOccupied(), false) << "Tile (0, 0) wrongly occupied";
+}
+
+TEST(TestTilemap, TestSetTile) {
+    Tilemap tilemap;
+    GameAssets ga;
+    auto* fileName = (char*)"../../../../projet-cpp/resources/tilemaps/TilemapForTesting.xml";
+    tilemap.buildTilemap(fileName, ga); // mettre dans le test
+    sf::Vector2i orthoCoords = sf::Vector2i(0, 0);
+    sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(orthoCoords);
+    tilemap.setTile(0, 0, isoCoords.x, isoCoords.y, "sand", true, ga);
+    Tile* tile = tilemap.getTile(orthoCoords);
+    ASSERT_EQ(tile->getOrthogonalCoords().x, orthoCoords.x) << "Orthogonal coords of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getOrthogonalCoords().y, orthoCoords.y) << "Orthogonal coords of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getIsometricCoords().x, isoCoords.x) << "Isometric coords of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getIsometricCoords().y, isoCoords.y) << "Isometric coords of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getStringTexture(), "sand") << "Texture as stirng of tile (0, 0) not properly set";
+    ASSERT_EQ(tile->getAccessibility(), true) << "Accessibility of tile (0, 0) not properly set";
 }

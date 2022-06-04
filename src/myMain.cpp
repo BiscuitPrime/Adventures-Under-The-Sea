@@ -29,7 +29,7 @@ int myMain()
 
     //Creating the tilemap :
     Tilemap tilemap;
-    auto* fileName = (char*)"Tilemap.xml";
+    auto* fileName = (char*)"resources/tilemaps/Tilemap.xml";
     tilemap.buildTilemap(fileName, ga); // mettre dans le test
 
     //Creating the basic enemy :

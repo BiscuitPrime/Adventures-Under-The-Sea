@@ -62,6 +62,7 @@ public:
 	void setAvailable(bool status) { isAvailable = status; }
 	bool getAvailable() const { return isAvailable; }
 	void setBubble(Bubble* bbl) { bubble = bbl;  }
+	Bubble* getBubble() const { return bubble; }
 	void setBubbleState(bool status) { isOccupiedByBubble = status; }
 	bool hasBubble() const { return isOccupiedByBubble;  }
 };

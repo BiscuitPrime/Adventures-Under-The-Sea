@@ -41,7 +41,7 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, bool ac
 
 	std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
 	if (!tileIndexes.contains(type)) {
-		std::cout << "Error when drawing tile: texture \'" << type << "\' could not be found\n"; 
+		std::cout << "Error when setting tile: texture \'" << type << "\' could not be found\n"; 
 		return -1;
 	}
 	tile.setStringTexture(type);
@@ -129,6 +129,7 @@ int Tilemap::setEntity(int x, int y, int isoX, int isoY, std::string type, GameA
 		tile.setBubbleState(true);
 		tile.setBubble(&bubble);
 	}
+	return 0;
 }
 
 int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
@@ -137,10 +138,7 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 
 	// loads xml file
 	pugi::xml_document doc;
-	char filePath[400];
-	strcpy(filePath, "resources/tilemaps/");
-	strcat(filePath, fileName);
-	pugi::xml_parse_result result = doc.load_file(filePath);
+	pugi::xml_parse_result result = doc.load_file(fileName);
 	if (!result)
 	{
 		std::cerr << "Could not open file because " << result.description() << std::endl;
