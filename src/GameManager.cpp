@@ -81,7 +81,6 @@ void GameManager::gameLoop()
 	//drawing the enemies :
 	for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it)
 	{
-		std::cout << "Drawing enemy " << it->getId()<<'\n';
 		window->draw(it->getSprite());
 	}
 	//enemy not drawn

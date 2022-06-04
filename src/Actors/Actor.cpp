@@ -8,7 +8,8 @@
 #include <iostream>
 
 //Constructor of the actor class
-Actor::Actor(std::string texturePath) {
+Actor::Actor(int nid, std::string texturePath) {
+    id = nid;
     //we allocate the appropriate sprite for the approcpriate actor :
     bool actorSpriteLoad = actorTexture.loadFromFile(texturePath);
     if (!actorSpriteLoad)

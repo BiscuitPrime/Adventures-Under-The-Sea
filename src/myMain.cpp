@@ -22,7 +22,7 @@ int myMain()
 
     //Creating the player :
     std::string playerTexturePath = "../../../../resources/Sprites/Player.png";
-    auto player = Player(playerTexturePath); //the player is created as a unique pointer
+    auto player = Player(0,playerTexturePath); //the player is created as a unique pointer
 
     //Creating the input handler associated to the player :
     auto inputHandler = InputHandler(ga);

@@ -15,7 +15,6 @@ enum EnemyStates {
 
 class Enemy : public Actor {
 private:
-	int id;
 	EnemyStates _state;
 	bool isEnemyLoopFinished=true;
 	Tilemap* tilemap;
@@ -30,7 +29,6 @@ public:
 	void attackEnemyCommand();
 	bool getEnemyLoopFinished() const { return isEnemyLoopFinished; };
 	void startEnemyLoop() { isEnemyLoopFinished = false; }
-	int getId() const { return id; }
 	void spawn(sf::Vector2i spawnPoint); //method that will spawn the enemy at a given place on the tilemap
 	void setUpEnemyOnTilemap(); //method that will tell the tilemap that an enemy is on one of her tiles
 	void removeEnemyOnTilemap(); //method that will tell the tilemap that an enemy is not on one of her tiles

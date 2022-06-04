@@ -18,11 +18,12 @@ private:
 	sf::Sprite actorSprite;
 	sf::Vector2i orthoCoords;
 	sf::Vector2f isoCoords;
+	int id;
 protected:
 	ActorType actorType;
 	HealthModule health;
 public:
-	Actor(std::string texturePath);
+	Actor(int id, std::string texturePath);
 	sf::Vector2i getCoordinates() const { return orthoCoords; }
 	void setOrthoCoordinates(sf::Vector2i coords) { orthoCoords = coords; }
 	sf::Vector2f getIsometricCoordinates() const { return isoCoords; }
@@ -31,5 +32,6 @@ public:
 	virtual int getHealth()	{ return health.getHealth(); }
 	virtual void takeDamage(int dmg);
 	virtual void death();
+	int getId() const { return id; }
 	ActorType getType() const { return actorType; };
 };

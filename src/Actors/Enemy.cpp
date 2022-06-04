@@ -8,12 +8,11 @@
 #include <Actors/Enemy.h>
 
 
-Enemy::Enemy(int new_id,std::string texturePath, Tilemap* tilem) : Actor{ texturePath } 
+Enemy::Enemy(int id,std::string texturePath, Tilemap* tilem) : Actor{ id, texturePath } 
 {
-	id = new_id;
 	actorType = ENEMY;
 	_state = EnemyStates::STATE_IDLE; //by default in idle state
-	health.setInitialHealth(10);
+	health.setInitialHealth(1);
 	tilemap = tilem;
 }
 
@@ -22,6 +21,7 @@ Enemy::Enemy(int new_id,std::string texturePath, Tilemap* tilem) : Actor{ textur
 void Enemy::death() 
 {
 	std::cout << "Enemy has died.\n";
+	exit(500);
 }
 
 //method that returns the next state
@@ -71,6 +71,7 @@ void Enemy::moveEnemyCommand()
 	setIsoCoordinates(Definitions::orthoToIsoWithOffset(newEnemyPos)); //set isometric coordinates
 	getSprite().setPosition(getIsometricCoordinates()); //set sprite position
 
+	std::cout << "Enemy now on " << getCoordinates().x << " , " << getCoordinates().y;
 	setUpEnemyOnTilemap(); //we tell the new occupied tile that it is occupied by an enemy
 
 	nextState();
@@ -97,6 +98,7 @@ void Enemy::spawn(sf::Vector2i spawnPoint)
 void Enemy::setUpEnemyOnTilemap()
 {
 	tilemap->getTile(getCoordinates())->setCurrentActor(this);
+	std::cout << "Tile " << tilemap->getTile(getCoordinates())->getOrthogonalCoords().x << " , " << tilemap->getTile(getCoordinates())->getOrthogonalCoords().y << " now contains ref towards " << tilemap->getTile(getCoordinates())->getCurActor()->getId()<<'\n';
 	tilemap->getTile(getCoordinates())->setOccupied(true);
 }
 

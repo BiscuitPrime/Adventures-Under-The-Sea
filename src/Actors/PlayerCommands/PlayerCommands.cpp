@@ -43,14 +43,27 @@ void MoveCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* til
 }
 
 //---------------------------------------------------
-//Player's AttackCommand class :
+//Player's MineAttackCommand class :
 
 void MineAttackCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* tilemap)
 {
 	std::cout << "Mine Attack command executed\n";
+	sf::Vector2i selectedTileCoords = tilemap->getSelectedTileCoords();
+	if (tilemap->getTile(selectedTileCoords)->getOccupied() && tilemap->getTile(selectedTileCoords)->getCurActor()->getType() == ENEMY) //if tile is occupied and contains an enemy, we attack that enemy
+	{
+		tilemap->getTile(selectedTileCoords)->getCurActor()->takeDamage(3);
+	}
 }
+
+//---------------------------------------------------
+//Player's MineAttackCommand class :
 
 void TorpedoAttackCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* tilemap)
 {
 	std::cout << "Torpedo Attack command executed\n";
+	sf::Vector2i selectedTileCoords = tilemap->getSelectedTileCoords();
+	if (tilemap->getTile(selectedTileCoords)->getOccupied() && tilemap->getTile(selectedTileCoords)->getCurActor()->getType() == ENEMY) //if tile is occupied and contains an enemy, we attack that enemy
+	{
+		tilemap->getTile(selectedTileCoords)->getCurActor()->takeDamage(1);
+	}
 }
