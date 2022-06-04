@@ -9,6 +9,8 @@
 #include "Actors/Enemy.h"
 #include <ctime>
 #include <cstdlib>
+#include <../imgui/imgui.h>
+#include <../imgui/imgui-SFML.h>
 
 using namespace std;
 using namespace std::chrono;

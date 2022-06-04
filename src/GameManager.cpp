@@ -40,6 +40,17 @@ void GameManager::gameLoop()
 	//drawing the tilemap :
 	tilemap->selectTile(*window, *gameAssets);
 
+	//IMGUI -----------------------------------------------------------------------------
+	ImGui::Begin("Choose Action :");
+	if (ImGui::Button("Begin MINE")) {
+		cout << "Confirmed order : mine\n";
+	}
+	else if (ImGui::Button("Begin TORPEDO"))
+	{
+		cout << "Confirmed order : torpedo\n";
+	}
+	ImGui::End();
+
 	//we determine who's turn it is :
 	if (_turn == PLAYER_TURN)
 	{
@@ -83,8 +94,6 @@ void GameManager::gameLoop()
 		}
 	}
 
-
-
 	// RENDER FUNCTION (should be created) ---------------------- =>
 	tilemap->draw(*window); //drawing the tilemap
 	window->draw(player->getSprite()); //drawing the player
@@ -95,6 +104,7 @@ void GameManager::gameLoop()
 	}
 	//enemy not drawn
 	//we display the window :
+	ImGui::SFML::Render(*window);
 	window->display();
 }
 

@@ -5,4 +5,4 @@ add_library(src ${SOURCES}  "Assets/GameAssets.h" "World/Tile.h" "World/Tile.cpp
 
 target_include_directories(src PUBLIC ./)
 
-target_link_libraries(src PUBLIC pugixml sfml-graphics)
+target_link_libraries(src PUBLIC pugixml sfml-graphics imgui)
