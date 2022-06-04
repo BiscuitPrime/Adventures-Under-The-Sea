@@ -13,7 +13,7 @@ sf::Vector2f Definitions::orthoToIsoWithOffset(sf::Vector2i orthoCoords) {
 }
 
 sf::Vector2f Definitions::isoToOrtho(sf::Vector2i isoCoords) {
-	auto orthoCoords = sf::Vector2f( ((isoCoords.x + (2 * isoCoords.y)) / spriteSize), (((2 * isoCoords.y) - isoCoords.x) / spriteSize) );
+	auto orthoCoords = sf::Vector2f(((isoCoords.x + (2 * isoCoords.y)) / spriteSize), (((2 * isoCoords.y) - isoCoords.x) / spriteSize));
 	return orthoCoords;
 }
 
