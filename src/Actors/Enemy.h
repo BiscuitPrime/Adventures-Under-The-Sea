@@ -10,7 +10,8 @@
 enum EnemyStates {
 	STATE_IDLE,
 	STATE_MOVING,
-	STATE_ATTACK
+	STATE_ATTACK,
+	STATE_DEAD
 };
 
 class Enemy : public Actor {

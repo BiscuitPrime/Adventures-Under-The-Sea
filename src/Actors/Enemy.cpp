@@ -21,7 +21,9 @@ Enemy::Enemy(int id,std::string texturePath, Tilemap* tilem) : Actor{ id, textur
 void Enemy::death() 
 {
 	std::cout << "Enemy has died.\n";
-	exit(500);
+	_state = STATE_DEAD;
+	removeEnemyOnTilemap();
+	//exit(500);
 }
 
 //method that returns the next state

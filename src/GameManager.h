@@ -38,4 +38,5 @@ public:
 	turnState changeTurn();
 	int addEnemy(Enemy enemy);
 	Enemy* selectRandomEnemy();
+	bool isEnemyDead(Enemy enemy);
 };

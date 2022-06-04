@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "GameManager.h"
 #include <GameManager.h>
 
 /*
@@ -54,6 +55,15 @@ void GameManager::gameLoop()
 			//we then change turn :
 			_turn = changeTurn();
 		}
+		//at the end of the player's turn, we remove the eventually dead enemies :
+		for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it)
+		{
+			if (it->getState() == STATE_DEAD)
+			{
+				enemyGroup.erase(it);
+				break;
+			}
+		}
 	}
 	else if (_turn == ENEMY_TURN)
 	{
@@ -106,7 +116,7 @@ int GameManager::addEnemy(Enemy enemy)
 		}
 	}
 	enemyGroup.push_back(enemy); //we add the enemy to the list of enemies in the level
-	enemy.setUpEnemyOnTilemap(); //we tell the tilemap that it is occupied
+	enemy.setUpEnemyOnTilemap(); //we tell the tilemap that it is occupied //PUT THIS INSIDE SPAWN FUNCTION OF ENEMY
 	return 0;
 }
 
@@ -117,4 +127,12 @@ Enemy* GameManager::selectRandomEnemy()
 	int curSelector = (rand()%enemyGroup.size());
 	std::cout << "Selected enemy : " << enemyGroup.at(curSelector).getId() << "\n";
 	return &enemyGroup.at(curSelector);
+}
+
+bool GameManager::isEnemyDead(Enemy enemy)
+{
+	if (enemy.getState() == STATE_DEAD) {
+		return true;
+	}
+	return false;
 }
