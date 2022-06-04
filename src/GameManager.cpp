@@ -1,3 +1,4 @@
+#include "GameManager.h"
 #include <GameManager.h>
 
 /*
@@ -17,6 +18,7 @@ GameManager::GameManager(Player* play, Enemy en, InputHandler* input, Tilemap* t
 	//lag = (duration<double>)0;
 	_turn = PLAYER_TURN;
 	currentEnemy = &en;
+	en.setUpEnemyOnTilemap();
 }
 
 //function that handles the game loop :
@@ -79,6 +81,7 @@ void GameManager::gameLoop()
 	//drawing the enemies :
 	for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it)
 	{
+		std::cout << "Drawing enemy " << it->getId()<<'\n';
 		window->draw(it->getSprite());
 	}
 	//enemy not drawn
@@ -89,8 +92,7 @@ void GameManager::gameLoop()
 //method that returns the next turn depending on the current turn
 turnState GameManager::changeTurn()
 {
-	turnState _new_turn = _turn == PLAYER_TURN ? ENEMY_TURN : PLAYER_TURN;
-	return _new_turn;
+	return _turn == PLAYER_TURN ? ENEMY_TURN : PLAYER_TURN;
 }
 
 //functions that adds an enemy to the group of enemies stored in the Game Manager.
@@ -104,7 +106,8 @@ int GameManager::addEnemy(Enemy enemy)
 			return -1;
 		}
 	}
-	enemyGroup.push_back(enemy);
+	enemyGroup.push_back(enemy); //we add the enemy to the list of enemies in the level
+	enemy.setUpEnemyOnTilemap(); //we tell the tilemap that it is occupied
 	return 0;
 }
 

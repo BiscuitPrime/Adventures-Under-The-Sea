@@ -160,7 +160,7 @@ int InputHandler::unselectAvailableTiles(Tilemap* tilemap)
 void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 {
 	sf::Vector2i pos = sf::Vector2i(0, 0);
-	sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(pos);
+	//sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(pos);
 	//two lines below had getTile
 	tilemap->getTile(pos)->setCurrentActor(player);
 	tilemap->getTile(pos)->setOccupied(true);
