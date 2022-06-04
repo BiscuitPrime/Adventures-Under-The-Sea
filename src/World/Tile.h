@@ -24,7 +24,7 @@ private:
 	std::string stringTexture;
 	sf::Texture texture;
 	sf::Sprite sprite;
-	Bubble bubble;
+	Bubble* bubble;
 	bool isSelected = false; 
 	bool isAccessible = true; //whether the player can move on this tile or not
 	bool isOccupied = false; //whether the tile is occupied by an entity
@@ -61,7 +61,6 @@ public:
 	bool getAccessibility() const { return isAccessible; }
 	void setAvailable(bool status) { isAvailable = status; }
 	bool getAvailable() const { return isAvailable; }
-	void setBubble(Bubble bbl) { bubble = bbl;  }
-	Bubble& getBubble() { return bubble; }
+	void setBubble(Bubble* bbl) { bubble = bbl;  }
 	void setBubbleState(bool status) { hasBubble = status; }
 };

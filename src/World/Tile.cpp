@@ -82,7 +82,7 @@ void Tile::draw(sf::RenderWindow &window)
 {       // draw
         window.draw(sprite);
 		if (hasBubble) {
-			window.draw(getBubble().getSprite());
+			window.draw(bubble->getSprite());
 		}
 }
 
