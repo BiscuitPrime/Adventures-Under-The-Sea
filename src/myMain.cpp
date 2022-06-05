@@ -9,7 +9,6 @@
 #include <../imgui/imgui.h>
 #include <../imgui/imgui-SFML.h>
 #include <Levels/Level.h>
-#include "Levels/LevelManager.h"
 #include "Levels/StartLevel.h"
 
 Level* _currentLevel;
