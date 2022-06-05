@@ -164,3 +164,13 @@ TEST(TestDefinition, TestIsoToOrtho) {
     ASSERT_EQ(orthoCoords.x, 5) << "X coordinate is wrong (should be 5): " << orthoCoords.x;
     ASSERT_EQ(orthoCoords.y, 5) << "Y coordinate is wrong (should be 5): " << orthoCoords.y;
 }
+
+TEST(TestDefinition, TestManhattanDistance) {
+    auto distance = Definitions::manhattanDistance(sf::Vector2i(0, 0), sf::Vector2(10, 5));
+    ASSERT_EQ(distance, 15) << "Distance false";
+    distance = Definitions::manhattanDistance(sf::Vector2i(0, 0), sf::Vector2(0, 0));
+    ASSERT_EQ(distance, 0) << "Distance false";
+    distance = Definitions::manhattanDistance(sf::Vector2i(0, 0), sf::Vector2(-10, 0));
+    ASSERT_EQ(distance, 10) << "Distance false";
+
+}

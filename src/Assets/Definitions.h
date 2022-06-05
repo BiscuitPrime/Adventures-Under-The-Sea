@@ -16,5 +16,6 @@ public:
 	static sf::Vector2f orthoToIsoWithOffset(sf::Vector2i orthoCoords);
 	static sf::Vector2f isoToOrtho(sf::Vector2i isoCoords);
 	static sf::Vector2f isoToOrthoWithOffset(sf::Vector2i isoCoords);
+	static int manhattanDistance(sf::Vector2i A, sf::Vector2i B);
 	static sf::Vector2i getRandomDirection();
 };
