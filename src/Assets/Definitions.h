@@ -3,12 +3,13 @@
 #include <utility>
 #include <SFML/Graphics.hpp>
 
-#define spriteSize 64			// size in px for the sprites
-#define lines 10				// how many lines of tiles the tilemap has
-#define columns 10				// how many columns of tiles the tilemap has 
-#define windowWidth 1920		// width of the render window
-#define windowHeight 1080		//height of the render window
-#define MAX_OXYGEN 5				// max oxygen value
+#define spriteSize 64							// size in px for the sprites
+#define lines 10								// how many lines of tiles the tilemap has
+#define columns 10								// how many columns of tiles the tilemap has 
+#define windowWidth 1920						// width of the render window
+#define windowHeight 1080						//height of the render window
+#define MAX_OXYGEN 5							// max oxygen value
+#define GAME_NAME "ADVENTURES UNDER THE SEA"	//name of the game
 
 class Definitions {
 public:

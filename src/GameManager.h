@@ -26,6 +26,7 @@ class GameManager {
 private:
 	//duration<double> lag;
 	//high_resolution_clock::time_point previousTimestamp;
+	int id;
 	Player* player;
 	std::vector<Enemy> enemyGroup;
 	InputHandler* inputhandler;
@@ -35,7 +36,8 @@ private:
 	turnState _turn; //indicates whose turn it is
 	Enemy* currentEnemy; //indicates the enemy concerned by the current gameplay loop
 public:
-	GameManager(Player* player, Enemy enemy, InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
+	GameManager(int id,Player* player, Enemy enemy, InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
+	int getId() const { return id; };
 	void gameLoop();
 	turnState changeTurn();
 	int addEnemy(Enemy enemy);

@@ -7,8 +7,9 @@
 */
 
 //constructor of the game manager that handles the game.
-GameManager::GameManager(Player* play, Enemy en, InputHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga)
+GameManager::GameManager(int nid, Player* play, Enemy en, InputHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga)
 {
+	id = nid;
 	player = play;
 	enemyGroup.push_back(en);
 	inputhandler = input;
@@ -25,23 +26,8 @@ GameManager::GameManager(Player* play, Enemy en, InputHandler* input, Tilemap* t
 //function that handles the game loop :
 void GameManager::gameLoop()
 {
-	/*
-	//we calculate the elapsed time and lag to allow the game loop to take into accounts for various os's performances per the "Game Loop" Programming pattern
-	high_resolution_clock::time_point currentTimestamp = high_resolution_clock::now();
-	duration<double> elapsedTime = duration_cast<duration<double>>(currentTimestamp - previousTimestamp);
-	previousTimestamp = currentTimestamp;
-	lag += elapsedTime;
-	std::cout << "lag : "<<lag<<'\n';
-	*/
-
-	//we clear the window :
-	window->clear(sf::Color::Black);
-
 	//drawing the tilemap :
 	tilemap->selectTile(*window, *gameAssets);
-
-	//IMGUI -----------------------------------------------------------------------------
-
 
 	//we determine who's turn it is :
 	if (_turn == PLAYER_TURN)
