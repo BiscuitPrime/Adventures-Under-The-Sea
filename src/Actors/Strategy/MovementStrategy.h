@@ -1,6 +1,5 @@
 #pragma once
 #include "Strategy.h"
-#include <SFML/Graphics.hpp>
 #include <Actors/Player.h>
 #include <Actors/Enemy.h>
 

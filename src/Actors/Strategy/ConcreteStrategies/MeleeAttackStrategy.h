@@ -3,5 +3,5 @@
 
 class MeleeAttackStrategy : public AttackStrategy {
 public:
-	MeleeAttackStrategy() = default;
+	MeleeAttackStrategy(); 
 };

@@ -5,7 +5,6 @@ class PursuitStrategy : public MovementStrategy {
 public:
 	PursuitStrategy(){};
 	sf::Vector2i execute(sf::Vector2i enemyPos, sf::Vector2i playerPos, Tilemap* tilemap, int movementRange) override {
-		std::cout << "Start pursuit strategy\n";
 		std::vector<sf::Vector2i> positions;
 		sf::Vector2i currentEnnemyPos = enemyPos;
 		// inital ennemy position is stored in case the ennemy won't move
@@ -25,7 +24,6 @@ public:
 				// test each adjacent tile
 				for (auto neighborPos : neighboringTiles) {
 					sf::Vector2i potentialPos = currentEnnemyPos + neighborPos;
-					std::cout << "Try position (" << potentialPos.x << ", " << potentialPos.y << ") for move n°" << moves << "\n";
 					if (Definitions::positionIsWithinTilemapBounds(potentialPos)) {
 						int potentialDistance = Definitions::manhattanDistance(playerPos, potentialPos);
 						// check if the tile is accessible, has no bubble and is further away from the player

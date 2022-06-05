@@ -46,7 +46,8 @@ void Enemy::handleEnemy(Player* player)
 	}
 	else if (_state == STATE_ATTACK)
 	{
-		attackEnemyCommand();
+		int damage = attackStrategy->execute(getCoordinates(), player->getCoordinates());
+		attackEnemyCommand(damage, player);
 	}
 }
 
@@ -81,10 +82,11 @@ void Enemy::moveEnemyCommand(sf::Vector2i movement)
 }
 
 //method that makes the enemy attack
-void Enemy::attackEnemyCommand()
+void Enemy::attackEnemyCommand(int damage, Player* player)
 {
-	std::cout << "Enemy performing attack !\n";
-	/* TODO ATTACK */
+	std::cout << "Enemy performing attack ! Deal " << damage << " hp\n";
+
+	player->takeDamage(damage);
 	nextState();
 	isEnemyLoopFinished = true;
 }
@@ -93,15 +95,15 @@ void Enemy::setStrategies(sf::Vector2i playerPos)
 {
 	if (Definitions::manhattanDistance(playerPos, getCoordinates()) > fleeRange) {
 		// set flee behavior
-		auto mstrategy = FleeStrategy();
+		auto static mstrategy = FleeStrategy();
 		movementStrategy = &mstrategy;
-		auto astrategy = RangeAttackStrategy();
+		auto static astrategy = RangeAttackStrategy();
 		attackStrategy = &astrategy;
 	}
 	else {
-		auto mstrategy = PursuitStrategy();
+		auto static mstrategy = PursuitStrategy();
 		movementStrategy = &mstrategy;
-		auto astrategy = MeleeAttackStrategy();
+		auto static astrategy = MeleeAttackStrategy();
 		attackStrategy = &astrategy;
 	}
 }

@@ -4,6 +4,7 @@
 #include <World/Tilemap.h>
 #include <Actors/Strategy/MovementStrategy.h>
 #include <Actors/Strategy/AttackStrategy.h>
+#include <Actors/Strategy/ConcreteStrategies/MeleeAttackStrategy.h>
 /*
 * Enemy class
 */
@@ -20,8 +21,8 @@ private:
 	int movementRange = 3;
 	int fleeRange = 2;
 	EnemyStates _state;
-	MovementStrategy* movementStrategy = nullptr;
-	AttackStrategy* attackStrategy = nullptr;
+	MovementStrategy* movementStrategy;
+	AttackStrategy* attackStrategy;
 	bool isEnemyLoopFinished = true;
 	Tilemap* tilemap;
 public:
@@ -33,7 +34,7 @@ public:
 	void setState(EnemyStates state) { _state = state; };
 	void handleEnemy(Player* player);
 	void moveEnemyCommand(sf::Vector2i movement);
-	void attackEnemyCommand();
+	void attackEnemyCommand(int damage, Player* player);
 	void setStrategies(sf::Vector2i playerPos);
 	bool getEnemyLoopFinished() const { return isEnemyLoopFinished; };
 	void startEnemyLoop() { isEnemyLoopFinished = false; }
