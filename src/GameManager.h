@@ -35,6 +35,7 @@ private:
 	GameAssets* gameAssets;
 	turnState _turn; //indicates whose turn it is
 	Enemy* currentEnemy; //indicates the enemy concerned by the current gameplay loop
+	bool isFinished = false;
 public:
 	GameManager(int id,Player* player, Enemy enemy, InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
 	int getId() const { return id; };
@@ -43,4 +44,5 @@ public:
 	int addEnemy(Enemy enemy);
 	Enemy* selectRandomEnemy();
 	bool isEnemyDead(Enemy enemy);
+	bool getFinishedStatus() { return isFinished; };
 };

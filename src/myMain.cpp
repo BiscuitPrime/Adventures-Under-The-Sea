@@ -10,6 +10,16 @@
 #include <../imgui/imgui-SFML.h>
 #include <Levels/Level.h>
 #include "Levels/LevelManager.h"
+#include "Levels/StartLevel.h"
+
+Level* _currentLevel;
+Level levelOne = Level(1,nullptr);
+Level levelTwo = Level(2, nullptr);
+
+static void endLevel()
+{
+    _currentLevel = &levelTwo;
+}
 
 int myMain()
 {
@@ -18,7 +28,7 @@ int myMain()
     int height = 1080;
     sf::RenderWindow window(sf::VideoMode(width, height), GAME_NAME);
     ImGui::SFML::Init(window);
-    Level* _currentLevel;
+
     // ------------------------------------------ Creating the game elements for the level 1 ------------------------------------------------------------------
 
     //Creating the game assets :
@@ -63,10 +73,13 @@ int myMain()
     //Creating the game manager :
     auto gameManager2 = GameManager(1, &player, enemy3, &inputHandler, &tilemap, &window, &ga);
 
+    // ------------------------------------------ Creating the game elements for the level 0 (start level) ----------------------------------------------------
+    auto levelZero = StartLevel(0, &gameManager);
+
     // ------------------------------------------ Creating the levels ------------------------------------------------------------------
     //we create the level system that will control our game :
-    Level levelOne = Level(1,&gameManager);
-    Level levelTwo = Level(2,&gameManager2);
+    levelOne = Level(1,&gameManager);
+    levelTwo = Level(2,&gameManager2);
     _currentLevel = &levelOne;
 
     sf::Clock deltaClock;
@@ -82,8 +95,9 @@ int myMain()
         window.clear(sf::Color::Black);
         ImGui::SFML::Update(window, deltaClock.restart());
 
-        // we call the game loop :
+        //we call the game loop :
         _currentLevel->getGameManager()->gameLoop();
+        if (_currentLevel->getGameManager()->getFinishedStatus()) { endLevel(); }
 
     }
 

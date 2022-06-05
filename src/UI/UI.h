@@ -12,4 +12,5 @@ public:
 	UI();
 	static void displayStatisticsUI(int hp,int oxygenLeft);
 	static void warning(std::string str);
+	static int startUI();
 };

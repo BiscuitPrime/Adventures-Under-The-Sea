@@ -1,4 +1,5 @@
 #include "UI.h"
+#include "UI.h"
 /*
 *	Source code for the UI class
 */
@@ -30,4 +31,16 @@ void UI::warning(std::string str)
 	std::string display = str + " low, please advise quickly";
 	ImGui::Text(display.c_str());
 	ImGui::End();
+}
+
+int UI::startUI()
+{
+	ImGui::SetNextWindowPos(ImVec2(windowWidth / 2, windowHeight / 2));
+	ImGui::Begin("");
+	if (ImGui::Button("START GAME"))
+	{
+		return 0;
+	}
+	ImGui::End();
+	return -1;
 }

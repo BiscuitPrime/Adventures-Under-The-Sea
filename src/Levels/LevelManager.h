@@ -6,7 +6,7 @@ private:
 	GameManager* _currentLevel;
 	std::vector<GameManager> levels;
 public:
-	LevelManager(sf::RenderWindow* window);
-	int changeLevel();
+	LevelManager();
+	static int changeLevel();
 	GameManager* getCurrentLevel();
 };
