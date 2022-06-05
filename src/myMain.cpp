@@ -58,14 +58,17 @@ int myMain()
         sf::Event event;
         while (window.pollEvent(event))
         {
+            ImGui::SFML::ProcessEvent(event);
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        window.clear(sf::Color::Black);
         ImGui::SFML::Update(window, deltaClock.restart());
-        
+
         // we call the game loop :
         gameManager.gameLoop();
     }
+
     ImGui::SFML::Shutdown();
     return 0;
 }

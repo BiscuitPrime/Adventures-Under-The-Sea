@@ -7,7 +7,7 @@
 class OxygenModule {
 private:
 	int oxygenCounter = 5;
-	int maximalOxygen = maxOxygen;
+	int maximalOxygen = MAX_OXYGEN;
 public:
 	OxygenModule() = default;
 	void increaseOxygen(int value);

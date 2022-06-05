@@ -41,15 +41,7 @@ void GameManager::gameLoop()
 	tilemap->selectTile(*window, *gameAssets);
 
 	//IMGUI -----------------------------------------------------------------------------
-	ImGui::Begin("Choose Action :");
-	if (ImGui::Button("Begin MINE")) {
-		cout << "Confirmed order : mine\n";
-	}
-	else if (ImGui::Button("Begin TORPEDO"))
-	{
-		cout << "Confirmed order : torpedo\n";
-	}
-	ImGui::End();
+
 
 	//we determine who's turn it is :
 	if (_turn == PLAYER_TURN)
