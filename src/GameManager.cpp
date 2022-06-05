@@ -73,7 +73,7 @@ void GameManager::gameLoop()
 		//std::cout << "Enemy's turn !\n";
 
 		//we start the enemy's turn :
-		currentEnemy->handleEnemy(window);
+		currentEnemy->handleEnemy(player);
 
 		//if the enemy has finished its actions :
 		if (currentEnemy->getEnemyLoopFinished())

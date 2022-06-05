@@ -1,6 +1,7 @@
 #pragma once
-#include <AttackStrategy.h>
+#include <Actors/Strategy/AttackStrategy.h>
 
 class MeleeAttackStrategy : public AttackStrategy {
-
-}
+public:
+	MeleeAttackStrategy() = default;
+};

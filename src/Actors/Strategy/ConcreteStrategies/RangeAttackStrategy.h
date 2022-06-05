@@ -1,5 +1,7 @@
 #pragma once
-#include <Strategy/AttackStrategy.h>
+#include <Actors/Strategy/AttackStrategy.h>
 
 class RangeAttackStrategy : public AttackStrategy {
-}
+public:
+	RangeAttackStrategy() = default;
+};

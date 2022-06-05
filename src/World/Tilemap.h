@@ -21,7 +21,7 @@ public:
 	int setTile(int x, int y, int isoX, int isoY, std::string type, bool accessibility, GameAssets const& ga);
 	int setEntity(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga);
 	void selectTile(sf::RenderWindow& window, GameAssets const& ga);
-	Tile* getTile(sf::Vector2i coords) { return &tilemap[coords.y][coords.x]; }
+	Tile* getTile(sf::Vector2i coords);
 	sf::Vector2i getSelectedTileCoords() { return selectedTileCoords;	}
 	void setAvailableVariant(TileVariant variant) { availableVariant = variant; }; //method that sets up the current variant
 	int buildTilemap(char fileName[], GameAssets const& ga);

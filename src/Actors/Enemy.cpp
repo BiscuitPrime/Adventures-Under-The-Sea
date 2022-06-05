@@ -1,12 +1,15 @@
 #include "Enemy.h"
+#include <Actors/Strategy/ConcreteStrategies/FleeStrategy.h>
+#include <Actors/Strategy/ConcreteStrategies/RangeAttackStrategy.h>
+#include <Actors/Strategy/ConcreteStrategies/PursuitStrategy.h>
+#include <Actors/Strategy/ConcreteStrategies/MeleeAttackStrategy.h>
 
 
-Enemy::Enemy(int id,std::string texturePath, Tilemap* tilem, Context ctxt) : Actor{ id, texturePath } 
+Enemy::Enemy(int id,std::string texturePath, Tilemap* tilem) : Actor{ id, texturePath }
 {
 	actorType = ENEMY;
 	_state = EnemyStates::STATE_IDLE; //by default in idle state
 	health.setInitialHealth(1);
-	context = ctxt;
 	tilemap = tilem;
 }
 
@@ -29,7 +32,7 @@ void Enemy::nextState()
 }
 
 //method that handles the internal enemy logic :
-void Enemy::handleEnemy(sf::RenderWindow* window)
+void Enemy::handleEnemy(Player* player)
 {
 	std::cout << "Handling enemy !\n";
 	if (_state == STATE_IDLE) {
@@ -37,7 +40,9 @@ void Enemy::handleEnemy(sf::RenderWindow* window)
 	}
 	if (_state == STATE_MOVING)
 	{
-		//moveEnemyCommand();
+		setStrategies(player->getCoordinates());
+		auto movement = movementStrategy->execute(getCoordinates(), player->getCoordinates(), tilemap, movementRange);
+		moveEnemyCommand(movement);
 	}
 	else if (_state == STATE_ATTACK)
 	{
@@ -53,7 +58,7 @@ void Enemy::moveEnemyCommand(sf::Vector2i movement)
 	removeEnemyOnTilemap(); //we remove the enemy's reference from the currently occupied tile
 
 	//we physically move the enemy :
-	sf::Vector2i newEnemyPos = getCoordinates() + movement;
+	sf::Vector2i newEnemyPos = movement;
 	
 	/*int tries = 0;
 	while (testNewPositionValidity(newEnemyPos) == -1 && tries<=5) {
@@ -82,6 +87,23 @@ void Enemy::attackEnemyCommand()
 	/* TODO ATTACK */
 	nextState();
 	isEnemyLoopFinished = true;
+}
+
+void Enemy::setStrategies(sf::Vector2i playerPos)
+{
+	if (Definitions::manhattanDistance(playerPos, getCoordinates()) > fleeRange) {
+		// set flee behavior
+		auto mstrategy = FleeStrategy();
+		movementStrategy = &mstrategy;
+		auto astrategy = RangeAttackStrategy();
+		attackStrategy = &astrategy;
+	}
+	else {
+		auto mstrategy = PursuitStrategy();
+		movementStrategy = &mstrategy;
+		auto astrategy = MeleeAttackStrategy();
+		attackStrategy = &astrategy;
+	}
 }
 
 //method that will spawn the enemy at a given place entered as a parameter

@@ -2,5 +2,6 @@
 #include "Strategy.h"
 
 class AttackStrategy : public Strategy {
-
+public:
+	AttackStrategy(){};
 };
