@@ -5,6 +5,7 @@
 #include <Actors/PlayerCommands/PlayerCommands.h>
 #include <World/Tile.h>
 #include <World/Tilemap.h>
+#include <UI/UI.h>
 
 static class InputHandler {
 private:
@@ -25,4 +26,5 @@ public:
 	PlayerState* getState() { return _state; };
 	bool finishedPlayerLoop() { return isPlayerLoopFinished; };
 	void startPlayerLoop() { isPlayerLoopFinished = false; }
+	void warningDisplay(Player* player);
 };

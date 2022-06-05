@@ -1,8 +1,10 @@
 #include "InputHandler.h"
+#include "InputHandler.h"
 /*
 * Source code for Input handler class
 */
 #include <Actors/PlayerCommands/InputHandler.h>
+#include <imgui.h>
 
 //constructor of the input handler :
 InputHandler::InputHandler(GameAssets const& ga)
@@ -40,11 +42,19 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 			isPlayerLoopFinished = true; //by that point the player has finished its loop
 		}
 	}
-	//here we create a fake "change" that simulates the various game phases
-	//We simulate the following state setup :
-	// idle -> click A -> moving -> click mouse -> performs movement -> attack -> click M/T -> mine/torpedo -> click mouse -> perform attack -> idle
-	// In the end product, the "click A" etc will be replaced by decisions made by the game system
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //TO BE REMOVED EVENTUALLY
+
+	// ------------------------------------ IMGUI SEGMENT --------------------------------------------------
+	
+	// STATISTICS UI :
+	UI::displayOxygenUI(player->getOxygen());
+	UI::displayHealthUI(player->getHealth());
+
+	// WARNING UI :
+	warningDisplay(player);
+
+	//ACTION UI :
+	ImGui::Begin("Choose Action :");
+	if (ImGui::Button("Begin MOVEMENT"))
 	{
 		if (_state == &PlayerStates::idle) //if the player can move (A has been pressed) -> move if player can move
 		{
@@ -53,10 +63,9 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
-	//same here
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) //TO BE REMOVED EVENTUALLY
+	else if (ImGui::Button("Begin MINE")) 
 	{
-		std::cout << "M pressed\n";
+		std::cout << "Confirmed order : mine\n";
 		if (_state == &PlayerStates::attack)
 		{
 			_state = &PlayerStates::mine;
@@ -65,10 +74,9 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
-	//same here
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))//TO BE REMOVED EVENTUALLY
+	else if (ImGui::Button("Begin TORPEDO"))
 	{
-		//std::cout << "T pressed\n";
+		std::cout << "Confirmed order : torpedo\n";
 		if (_state == &PlayerStates::attack)
 		{
 			_state = &PlayerStates::torpedo;
@@ -77,6 +85,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
+	ImGui::End();
 }
 
 //method that will select the Available tiles dependant on the current player _state :
@@ -164,4 +173,19 @@ void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 	//two lines below had getTile
 	tilemap->getTile(pos)->setCurrentActor(player);
 	tilemap->getTile(pos)->setOccupied(true);
+}
+
+//method that will test wether or not the player needs to have a warning displayed
+void InputHandler::warningDisplay(Player* player)
+{
+	if (player->getOxygen() <= 2)
+	{
+		std::string warningStr = "Oxygen";
+		UI::warning(warningStr);
+	}
+	if (player->getHealth() <= 3)
+	{
+		std::string warningStr = "Health";
+		UI::warning(warningStr);
+	}
 }

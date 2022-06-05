@@ -40,6 +40,9 @@ void GameManager::gameLoop()
 	//drawing the tilemap :
 	tilemap->selectTile(*window, *gameAssets);
 
+	//IMGUI -----------------------------------------------------------------------------
+
+
 	//we determine who's turn it is :
 	if (_turn == PLAYER_TURN)
 	{
@@ -83,8 +86,6 @@ void GameManager::gameLoop()
 		}
 	}
 
-
-
 	// RENDER FUNCTION (should be created) ---------------------- =>
 	tilemap->draw(*window); //drawing the tilemap
 	window->draw(player->getSprite()); //drawing the player
@@ -95,6 +96,7 @@ void GameManager::gameLoop()
 	}
 	//enemy not drawn
 	//we display the window :
+	ImGui::SFML::Render(*window);
 	window->display();
 }
 

@@ -6,14 +6,15 @@
 #include <Actors/Player.h>
 #include <Assets/Definitions.h>
 #include <GameManager.h>
-
+#include <../imgui/imgui.h>
+#include <../imgui/imgui-SFML.h>
 
 int myMain()
 {
     int width = 1920;
     int height = 1080;
     sf::RenderWindow window(sf::VideoMode(width, height), "SFML window");
-
+    ImGui::SFML::Init(window);
     //---------------------------------
     //Creating the game elements :
     
@@ -51,32 +52,23 @@ int myMain()
     if (ret == -1) { exit(0); }
     //---------------------------------
 
+    sf::Clock deltaClock;
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
+            ImGui::SFML::ProcessEvent(event);
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        window.clear(sf::Color::Black);
+        ImGui::SFML::Update(window, deltaClock.restart());
+
         // we call the game loop :
         gameManager.gameLoop();
-        /*
-        //-------------------
-        window.clear(sf::Color::Black);
-        //drawing the tilemap :
-        tilemap.selectTile(window, ga);
-        tilemap.draw(window);
-        //sf::Vector2i selectedTileCoords = tilemap.getSelectedTileCoords(); //we obtain the currently selected tile
-
-        inputHandler.handleInput(&player, &window, &tilemap); //each frame we call the inputhandler's handle input that will analyse the inputted data and perform the appropriate player's action
-        window.draw(enemy.getSprite());
-        window.draw(player.getSprite());
-
-        window.display();
-        //--------------------
-        */
     }
 
+    ImGui::SFML::Shutdown();
     return 0;
 }
