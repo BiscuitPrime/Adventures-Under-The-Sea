@@ -1,5 +1,5 @@
 #pragma once
-#include <Strategy/AttackStrategy.h>
+#include <AttackStrategy.h>
 
 class MeleeAttackStrategy : public AttackStrategy {
 

@@ -3,6 +3,7 @@
 #include <Assets/Definitions.h>
 #include <World/Tilemap.h>
 #include <iostream>
+#include <Actors/Strategy/Context.h>
 /*
 * Enemy class
 */
@@ -16,17 +17,20 @@ enum EnemyStates {
 
 class Enemy : public Actor {
 private:
+	int movementRange = 3;
 	EnemyStates _state;
+	Context context;
 	bool isEnemyLoopFinished=true;
 	Tilemap* tilemap;
 public:
-	explicit Enemy(int id,std::string texturePath, Tilemap* tilemap);
+	explicit Enemy(int id,std::string texturePath, Tilemap* tilemap, Context ctxt);
 	void death() override;
+	int getMovementRange() { return movementRange; }
 	EnemyStates getState() const { return _state; };
 	void nextState();
 	void setState(EnemyStates state) { _state = state; };
 	void handleEnemy(sf::RenderWindow* window);
-	void moveEnemyCommand();
+	void moveEnemyCommand(sf::Vector2i movement);
 	void attackEnemyCommand();
 	bool getEnemyLoopFinished() const { return isEnemyLoopFinished; };
 	void startEnemyLoop() { isEnemyLoopFinished = false; }

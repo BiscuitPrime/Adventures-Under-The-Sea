@@ -34,7 +34,8 @@ int myMain()
 
     //Creating the basic enemy :
     std::string enemyTexturePath = "../../../../resources/Sprites/EldritchSquidRight.png";
-    auto enemy = Enemy(1, enemyTexturePath, &tilemap);
+    Context context = Context();
+    auto enemy = Enemy(1, enemyTexturePath, &tilemap, context);
     enemy.spawn(sf::Vector2i(4, 5));
 
     //setting up the player :
@@ -45,7 +46,8 @@ int myMain()
 
     //adding another enemy :
     std::string enemyTexturePath2 = "../../../../resources/Sprites/EldritchSquidLeft.png";
-    auto enemy2 = Enemy(2, enemyTexturePath, &tilemap);
+    Context context2 = Context();
+    auto enemy2 = Enemy(2, enemyTexturePath, &tilemap, context2);
     enemy2.spawn(sf::Vector2i(7, 7));
     int ret = gameManager.addEnemy(enemy2);
     if (ret == -1) { exit(0); }
