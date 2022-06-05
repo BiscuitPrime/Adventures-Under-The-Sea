@@ -1,26 +1,23 @@
+#include "UI.h"
 /*
 *	Source code for the UI class
 */
 #include <UI/UI.h>
+
 
 //constructor
 UI::UI()
 {}
 
 //method used to display the oxygen of the player
-void UI::displayOxygenUI(int oxygenLeft)
+void UI::displayStatisticsUI(int hp, int oxygenLeft)
 {
+	ImGui::SetNextWindowPos(ImVec2(20,20));
+	ImGui::SetNextWindowSize(ImVec2(170, 100));
 	ImGui::Begin("Player Statictics");
 	ImGui::Text("Oxygen levels :");
 	ImGui::Text(std::to_string(oxygenLeft).c_str());
-	ImGui::End();
-}
-
-//method used to display the health of the player
-void UI::displayHealthUI(int hp)
-{
-	ImGui::Begin("Player Statictics");
-	ImGui::Text("HP :",sf::Color::Blue);
+	ImGui::Text("HP :", sf::Color::Blue);
 	ImGui::Text(std::to_string(hp).c_str());
 	ImGui::End();
 }

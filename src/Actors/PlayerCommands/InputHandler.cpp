@@ -46,13 +46,14 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 	// ------------------------------------ IMGUI SEGMENT --------------------------------------------------
 	
 	// STATISTICS UI :
-	UI::displayOxygenUI(player->getOxygen());
-	UI::displayHealthUI(player->getHealth());
+	UI::displayStatisticsUI(player->getHealth(), player->getOxygen());
 
 	// WARNING UI :
 	warningDisplay(player);
 
 	//ACTION UI :
+	ImGui::SetNextWindowPos(ImVec2(200, 20));
+	ImGui::SetNextWindowSize(ImVec2(170, 100));
 	ImGui::Begin("Choose Action :");
 	if (ImGui::Button("Begin MOVEMENT"))
 	{

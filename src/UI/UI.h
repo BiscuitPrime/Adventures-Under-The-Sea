@@ -5,11 +5,11 @@
 #include <iostream>
 #include <../imgui/imgui.h>
 #include <../imgui/imgui-SFML.h>
+#include <Assets/Definitions.h>
 
 class UI {
 public:
 	UI();
-	static void displayOxygenUI(int oxygenLeft);
-	static void displayHealthUI(int hp);
+	static void displayStatisticsUI(int hp,int oxygenLeft);
 	static void warning(std::string str);
 };
