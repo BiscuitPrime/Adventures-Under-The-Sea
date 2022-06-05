@@ -9,7 +9,6 @@
 #include <../imgui/imgui.h>
 #include <../imgui/imgui-SFML.h>
 #include <Levels/Level.h>
-#include "Levels/StartLevel.h"
 
 Level* _currentLevel;
 Level levelOne = Level(1,nullptr);
@@ -71,9 +70,6 @@ int myMain()
 
     //Creating the game manager :
     auto gameManager2 = GameManager(1, &player, enemy3, &inputHandler, &tilemap, &window, &ga);
-
-    // ------------------------------------------ Creating the game elements for the level 0 (start level) ----------------------------------------------------
-    auto levelZero = StartLevel(0, &gameManager);
 
     // ------------------------------------------ Creating the levels ------------------------------------------------------------------
     //we create the level system that will control our game :
