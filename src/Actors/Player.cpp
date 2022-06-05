@@ -7,8 +7,8 @@
 Player::Player(int id, std::string texturePath) : Actor{ id,texturePath }
 {
 	actorType = PLAYER;
-	setOrthoCoordinates(sf::Vector2i(0, 0)); //set orthogonal coordinates
-	setIsoCoordinates(Definitions::orthoToIsoWithOffset(sf::Vector2i(0, 0))); //set isometric coordinates
+	setOrthoCoordinates(sf::Vector2i(0, 5)); //set orthogonal coordinates
+	setIsoCoordinates(Definitions::orthoToIsoWithOffset(sf::Vector2i(0, 5))); //set isometric coordinates
 	getSprite().setPosition(getIsometricCoordinates()); //set sprite position
 	health.setInitialHealth(10); //we set up the life at 10 for the player
 	oxygen.setInitialOxygen(MAX_OXYGEN); //we set up the player's oxygen at 20 

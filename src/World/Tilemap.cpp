@@ -1,4 +1,5 @@
 #include "Tilemap.h"
+#include "Tilemap.h"
 #include "Entities/Entity.h"
 #include "pugixml.hpp"
 #include <iostream>
@@ -177,6 +178,15 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 		setEntity(xCoord, yCoord, worldCoords.x, worldCoords.y, entityType, ga);
 	}
 	return 0;
+}
+
+Tile* Tilemap::getTile(sf::Vector2i coords)
+{
+	if (Definitions::positionIsWithinTilemapBounds(coords)) {
+		return &tilemap[coords.y][coords.x];
+	}
+	std::cout << "Error when getting tile: out of bounds\n";
+	//exit(-1);
 }
 
 int Tilemap::draw(sf::RenderWindow &window)

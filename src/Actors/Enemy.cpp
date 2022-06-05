@@ -1,14 +1,11 @@
 #include "Enemy.h"
-#include "Enemy.h"
-#include "Enemy.h"
-#include "Enemy.h"
-/*
-*	Source code of the Enemy class.
-*/
-#include <Actors/Enemy.h>
+#include <Actors/Strategy/ConcreteStrategies/FleeStrategy.h>
+#include <Actors/Strategy/ConcreteStrategies/RangeAttackStrategy.h>
+#include <Actors/Strategy/ConcreteStrategies/PursuitStrategy.h>
+#include <Actors/Strategy/ConcreteStrategies/MeleeAttackStrategy.h>
 
 
-Enemy::Enemy(int id,std::string texturePath, Tilemap* tilem) : Actor{ id, texturePath } 
+Enemy::Enemy(int id,std::string texturePath, Tilemap* tilem) : Actor{ id, texturePath }
 {
 	actorType = ENEMY;
 	_state = EnemyStates::STATE_IDLE; //by default in idle state
@@ -35,7 +32,7 @@ void Enemy::nextState()
 }
 
 //method that handles the internal enemy logic :
-void Enemy::handleEnemy(sf::RenderWindow* window)
+void Enemy::handleEnemy(Player* player)
 {
 	std::cout << "Handling enemy !\n";
 	if (_state == STATE_IDLE) {
@@ -43,24 +40,28 @@ void Enemy::handleEnemy(sf::RenderWindow* window)
 	}
 	if (_state == STATE_MOVING)
 	{
-		moveEnemyCommand();
+		setStrategies(player->getCoordinates());
+		auto movement = movementStrategy->execute(getCoordinates(), player->getCoordinates(), tilemap, movementRange);
+		moveEnemyCommand(movement);
 	}
 	else if (_state == STATE_ATTACK)
 	{
-		attackEnemyCommand();
+		int damage = attackStrategy->execute(getCoordinates(), player->getCoordinates());
+		attackEnemyCommand(damage, player);
 	}
 }
 
 //method that moves the enemy
-void Enemy::moveEnemyCommand()
+void Enemy::moveEnemyCommand(sf::Vector2i movement)
 {
 	std::cout << "Enemy performing movement !\n";
 
 	removeEnemyOnTilemap(); //we remove the enemy's reference from the currently occupied tile
 
 	//we physically move the enemy :
-	sf::Vector2i newEnemyPos = getCoordinates() + Definitions::getRandomDirection(); //LATER : REMOVE sf::VECTOR2i(1,0) by a call to a function that will determine the direction
-	int tries = 0;
+	sf::Vector2i newEnemyPos = movement;
+	
+	/*int tries = 0;
 	while (testNewPositionValidity(newEnemyPos) == -1 && tries<=5) {
 		newEnemyPos = getCoordinates() + Definitions::getRandomDirection();
 		tries += 1;
@@ -68,7 +69,8 @@ void Enemy::moveEnemyCommand()
 	if (tries == 6) //if a new valid position could not be found, the enemy stays on his position
 	{
 		newEnemyPos = getCoordinates();
-	}
+	}*/
+
 	setOrthoCoordinates(newEnemyPos); //set orthogonal coordinates
 	setIsoCoordinates(Definitions::orthoToIsoWithOffset(newEnemyPos)); //set isometric coordinates
 	getSprite().setPosition(getIsometricCoordinates()); //set sprite position
@@ -80,12 +82,30 @@ void Enemy::moveEnemyCommand()
 }
 
 //method that makes the enemy attack
-void Enemy::attackEnemyCommand()
+void Enemy::attackEnemyCommand(int damage, Player* player)
 {
-	std::cout << "Enemy performing attack !\n";
-	/* TODO ATTACK */
+	std::cout << "Enemy performing attack ! Deal " << damage << " hp\n";
+
+	player->takeDamage(damage);
 	nextState();
 	isEnemyLoopFinished = true;
+}
+
+void Enemy::setStrategies(sf::Vector2i playerPos)
+{
+	if (Definitions::manhattanDistance(playerPos, getCoordinates()) > fleeRange) {
+		// set flee behavior
+		auto static mstrategy = FleeStrategy();
+		movementStrategy = &mstrategy;
+		auto static astrategy = RangeAttackStrategy();
+		attackStrategy = &astrategy;
+	}
+	else {
+		auto static mstrategy = PursuitStrategy();
+		movementStrategy = &mstrategy;
+		auto static astrategy = MeleeAttackStrategy();
+		attackStrategy = &astrategy;
+	}
 }
 
 //method that will spawn the enemy at a given place entered as a parameter

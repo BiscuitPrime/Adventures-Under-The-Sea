@@ -115,6 +115,6 @@
 		<Tile x="2" y="0"/>
 	</Tiletype>
 	<!--Entities-->
-	<Entity type="bubble" x="5" y="5"/>
+	<Entity type="bubble" x="8 " y="5"/>
 
 </Tilemap>
