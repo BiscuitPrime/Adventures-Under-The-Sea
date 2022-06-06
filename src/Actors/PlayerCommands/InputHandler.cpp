@@ -3,8 +3,9 @@
 #include <imgui.h>
 
 //constructor of the input handler :
-InputHandler::InputHandler(GameAssets const& ga)
+InputHandler::InputHandler(GameAssets const& ga, UI* const& nui)
 {
+	ui = nui;
 	gameAssets = ga;
 	_state = &PlayerStates::idle; //by default, in idle state
 	_command = &moveCommand; //by default, command is given to move command
@@ -43,7 +44,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 	// ------------------------------------ IMGUI SEGMENT --------------------------------------------------
 	
 	// STATISTICS UI :
-	UI::displayStatisticsUI(player->getHealth(), player->getOxygen());
+	ui->displayStatisticsUI(player->getHealth(), player->getOxygen());
 
 	// WARNING UI :
 	warningDisplay(player);
@@ -218,11 +219,11 @@ void InputHandler::warningDisplay(Player* player)
 	if (player->getOxygen() <= 2)
 	{
 		std::string warningStr = "Oxygen";
-		UI::warning(warningStr);
+		ui->warning(warningStr);
 	}
 	if (player->getHealth() <= 3)
 	{
 		std::string warningStr = "Health";
-		UI::warning(warningStr);
+		ui->warning(warningStr);
 	}
 }

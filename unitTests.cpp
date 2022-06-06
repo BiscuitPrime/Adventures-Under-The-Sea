@@ -94,7 +94,7 @@ TEST(TestGameLogic, TestAddingEnemy) //test wether or not gameManager's adding e
     GameAssets ga;
     std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
     auto player = Player(0,playerTexturePath);
-    auto inputHandler = InputHandler(ga);
+    //auto inputHandler = InputHandler(ga);
     std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/EldritchSquidRight.png";
     /*
     auto enemy = Enemy(1, enemyTexturePath);

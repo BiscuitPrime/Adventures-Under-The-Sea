@@ -31,13 +31,15 @@ int myMain()
     
     //Creating the game assets :
     auto ga = GameAssets();
+    // Creating the UI :
+    auto ui = UI(ga);
 
     //Creating the player :
     std::string playerTexturePath = "../../../../resources/Sprites/Player.png";
     auto player = Player(0, playerTexturePath); //the player is created as a unique pointer
 
     //Creating the input handler associated to the player :
-    auto inputHandler = InputHandler(ga);
+    auto inputHandler = InputHandler(ga,&ui);
 
     // ------------------------------------------ Creating the game elements for the level 1 ------------------------------------------------------------------
 

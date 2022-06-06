@@ -6,9 +6,12 @@
 #include <UI/UI.h>
 
 
+
 //constructor
-UI::UI()
-{}
+UI::UI(GameAssets gameAssets)
+{
+	ga = gameAssets;
+}
 
 //method used to display the oxygen of the player
 void UI::displayStatisticsUI(int hp, int oxygenLeft)
@@ -27,13 +30,11 @@ void UI::displayStatisticsUI(int hp, int oxygenLeft)
 void UI::warning(std::string str)
 {
 	ImGui::SetNextWindowPos(ImVec2(500, 20));
-	ImGui::SetNextWindowSize(ImVec2(500, 70));
+	ImGui::SetNextWindowSize(ImVec2(500, 150));
 	ImGui::Begin("WARNING");
-	sf::Texture warningTexture;
-	std::string textPath = "../../resources/sprites/AlertHealth.png";
-	if (bool ret = warningTexture.loadFromFile(textPath)) { std::cout << "Error (UI.cpp) : failed to load warning texture\n"; exit(300); }
+	sf::Texture warningtext = ga.AlertOxygen;
 	sf::Sprite sprite;
-	sprite.setTexture(warningTexture);
+	sprite.setTexture(warningtext);
 	ImGui::Image(sprite);
 	std::string display = str + " low, please advise quickly";
 	ImGui::Text(display.c_str());

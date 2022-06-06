@@ -6,11 +6,14 @@
 #include <../imgui/imgui.h>
 #include <../imgui/imgui-SFML.h>
 #include <Assets/Definitions.h>
+#include <Assets/GameAssets.h>
 
 class UI {
+private:
+	GameAssets ga;
 public:
-	UI();
-	static void displayStatisticsUI(int hp,int oxygenLeft);
-	static void warning(std::string str);
-	static int startUI();
+	UI(GameAssets gameAssets);
+	void displayStatisticsUI(int hp,int oxygenLeft);
+	void warning(std::string str);
+	int startUI();
 };

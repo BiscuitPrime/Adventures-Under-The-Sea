@@ -17,8 +17,9 @@ private:
 	GameAssets gameAssets;
 	//Tile* currentSelectedTile;
 	bool isPlayerLoopFinished = false;
+	UI* ui;
 public:
-	explicit InputHandler(GameAssets const& ga);
+	explicit InputHandler(GameAssets const& ga, UI* const& ui);
 	void handleInput(Player* player, sf::RenderWindow* window, Tilemap* selectedTileCoords);
 	int selectAvailableTiles(Player* player, Tilemap* tilemap, int range, PlayerState* _state);
 	int selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant);
