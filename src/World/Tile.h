@@ -44,12 +44,14 @@ public:
 	}
 	std::string getStringTexture() const { return baseTexture; }
 	void setStringTexture(std::string str) { baseTexture = str; }
+	TileVariant getVariant() const { return currentVariant; }
+	void setVariant(TileVariant variant) { currentVariant = variant;  }
 	sf::Texture& getTexture() { return texture; }
 	void setTexture(sf::Texture txtr) { texture = txtr; }
 	sf::Sprite& getSprite() { return sprite; }
 	void setSprite(sf::Sprite sprt) { sprite = sprt; }
-	int loadSelectedTextureVariant(GameAssets const& ga, TileVariant tileVariant);
-	int unloadSelectedTextureVariant(GameAssets const& ga);
+	int loadTextureVariant(GameAssets const& ga);
+	int unloadTextureVariant(GameAssets const& ga);
 	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
 	sf::Vector2i getIsometricCoords() const { return isometricCoords; }
 	void selectTile() { isSelected = true; }

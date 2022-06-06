@@ -18,10 +18,18 @@ baseTexture(str)
 }
 
 //method that loads a variant texture :
-int Tile::loadSelectedTextureVariant(GameAssets const& ga, TileVariant variant)
+int Tile::loadTextureVariant(GameAssets const& ga)
 {
 	std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
-	switch (variant) {
+	switch (currentVariant) {
+	case VANILLA:
+		if (!tileIndexes.contains(baseTexture)) {
+			std::cout << "Error when drawing tile: texture \'" << baseTexture + 's' << "\' could not be found (origin:Tile.cpp)\n";
+			return -1;
+		}
+		setTexture(tileIndexes.at(baseTexture));
+		sprite.setTexture(getTexture());
+		return 0;
 	case SELECTED:
 		if (!tileIndexes.contains(baseTexture + 's')) {
 			std::cout << "Error when drawing tile: texture \'" << baseTexture + 's' << "\' could not be found (origin:Tile.cpp)\n";
@@ -66,7 +74,7 @@ int Tile::loadSelectedTextureVariant(GameAssets const& ga, TileVariant variant)
 	return -1;
 }
 
-int Tile::unloadSelectedTextureVariant(GameAssets const& ga) {
+int Tile::unloadTextureVariant(GameAssets const& ga) {
 
 	std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
 
