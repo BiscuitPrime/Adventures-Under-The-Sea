@@ -13,7 +13,6 @@ private:
 	std::string label;
 	Tile tilemap[columns][lines];
 	sf::Vector2i selectedTileCoords; // coordinates of the current selected tile (ORTHOGONAL)
-	TileVariant availableVariant;
 public:
 	Tilemap();
 	std::string getLabel() const { return label; }
@@ -23,7 +22,6 @@ public:
 	void selectTile(sf::RenderWindow& window, GameAssets const& ga);
 	Tile* getTile(sf::Vector2i coords);
 	sf::Vector2i getSelectedTileCoords() { return selectedTileCoords;	}
-	void setAvailableVariant(TileVariant variant) { availableVariant = variant; }; //method that sets up the current variant
 	int buildTilemap(char fileName[], GameAssets const& ga);
 	int draw(sf::RenderWindow &window);
 	int removeAllTileVariants(GameAssets const& ga);

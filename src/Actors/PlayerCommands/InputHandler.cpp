@@ -1,9 +1,5 @@
 #include "InputHandler.h"
-#include "InputHandler.h"
-/*
-* Source code for Input handler class
-*/
-#include <Actors/PlayerCommands/InputHandler.h>
+#include "Assets/TilePatterns.h"
 #include <imgui.h>
 
 //constructor of the input handler :
@@ -17,6 +13,7 @@ InputHandler::InputHandler(GameAssets const& ga)
 //method that handles the player's inputs :
 void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
 {
+	TilePattern tilePatterns = TilePattern();
 	// get selected tile, if left click is pressed and selected tile is available && accessible --> move
 	if (auto selectedTile = tilemap->getTile(tilemap->getSelectedTileCoords()); sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && selectedTile->getAvailable() && selectedTile->getAccessibility()) //if the player is attempting to click and _state is moving -> we move the player
 	{
@@ -60,7 +57,8 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		if (_state == &PlayerStates::idle) //if the player can move (A has been pressed) -> move if player can move
 		{
 			_state = &PlayerStates::moving;
-			int selectTiles = selectAvailableTiles(player, tilemap, 3, _state); //we display the selectable tiles
+			int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.sphere3, tilemap, MOVEMENT);
+			//int selectTiles = selectAvailableTiles(player, tilemap, 3, _state); //we display the selectable tiles
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
@@ -71,7 +69,8 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		{
 			_state = &PlayerStates::mine;
 			std::cout << "Selecting mine tiles\n";
-			int selectTiles = selectAvailableTiles(player, tilemap, 1, _state); //we display the selectable tiles
+			int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.adjacentTiles, tilemap, ATTACK);
+			//int selectTiles = selectAvailableTiles(player, tilemap, 1, _state); //we display the selectable tiles
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
@@ -82,7 +81,8 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		{
 			_state = &PlayerStates::torpedo;
 			std::cout << "Selecting torpedo tiles\n";
-			int selectTiles = selectAvailableTiles(player, tilemap, 2, _state); //we display the selectable tiles
+			int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.cross3, tilemap, ATTACK);
+			//int selectTiles = selectAvailableTiles(player, tilemap, 2, _state); //we display the selectable tiles
 			if (selectTiles == -1) { exit(0); }
 		}
 	}
@@ -92,7 +92,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 //method that will select the Available tiles dependant on the current player _state :
 int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int range, PlayerState* _state)
 {
-	if (_state == &PlayerStates::idle) //test wether we are in correct state
+	/*if (_state == &PlayerStates::idle) //test wether we are in correct state
 	{
 		std::cout << "Error : attempting to select available tiles in idle state\n";
 		return -1;
@@ -107,12 +107,12 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 	if (_state==&PlayerStates::moving)
 	{
 		tilemap->setAvailableVariant(MOVEMENT);
-		loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+		loadTextureVar = selectedTile->loadTextureVariant(gameAssets, MOVEMENT);
 	}
 	else if (_state == &PlayerStates::mine || _state == &PlayerStates::torpedo)
 	{
 		tilemap->setAvailableVariant(ATTACK);
-		loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, ATTACK);
+		loadTextureVar = selectedTile->loadTextureVariant(gameAssets, ATTACK);
 	}
 
 	if (loadTextureVar < 0) 
@@ -139,17 +139,53 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 					selectedTile = tilemap->getTile(playerNeighborCoords);
 					if (_state == &PlayerStates::moving)
 					{
-						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+						loadTextureVar = selectedTile->loadTextureVariant(gameAssets, MOVEMENT);
 					}
 					else if (_state == &PlayerStates::mine || _state == &PlayerStates::torpedo)
 					{
-						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, ATTACK);
+						loadTextureVar = selectedTile->loadTextureVariant(gameAssets, ATTACK);
 					}
 					if (loadTextureVar < 0) {
 						std::cout << "Error when selecting tile: selected texture could not be loaded\n";
 					}
 					selectedTile->setAvailable(true);
 				}
+			}
+		}
+	}*/
+	return 0;
+}
+
+//method that will select the Available tiles dependant on the current player _state :
+int InputHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant)
+{
+	if (_state == &PlayerStates::idle) //test wether we are in correct state
+	{
+		std::cout << "Error when selecting available tiles : attempting to select available tiles in idle state\n";
+		return -1;
+	}
+	if (relativeArea.size() <= 0) {
+		std::cout << "Error when selecting available tiles : attempting to select null area\n";
+		return -1;
+	}
+	if (variant != MOVEMENT && variant != ATTACK) {
+		std::cout << "Error when selecting available tiles : only basic non Vanilla variants are allowed\n";
+		return -1;
+	}
+
+	int loadTextureVar;
+	for (auto pos : relativeArea) {
+		auto target = actorPos + pos;
+		if (target.x >= 0 && target.x < lines && target.y >= 0 && target.y < columns) {
+			Tile* availableTile = tilemap->getTile(actorPos + pos);
+
+			availableTile->setAvailable(true);
+			availableTile->setVariant(variant);
+			loadTextureVar = availableTile->loadTextureVariant(gameAssets);
+			if (loadTextureVar < 0)
+			{
+				std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+				return -1;
 			}
 		}
 	}
