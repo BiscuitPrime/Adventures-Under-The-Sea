@@ -7,7 +7,7 @@
 #include <World/Tilemap.h>
 #include <UI/UI.h>
 
-static class InputHandler {
+class InputHandler {
 private:
 	PlayerState* _state; //state of the player
 	PlayerCommand* _command; //USELESS FOR NOW
