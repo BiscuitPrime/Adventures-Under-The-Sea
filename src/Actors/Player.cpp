@@ -19,11 +19,16 @@ Player::Player(int id, std::string texturePath) : Actor{ id,texturePath }
 void Player::death() 
 {
 	std::cout << "Player has died\n";
+	exit(0);
 }
 
 //returns the oxygen Module's value
 int Player::getOxygen()
 {
+	if (oxygen.getOxygen() == 0) //if the player's oxygen reaches 0, we call it's death function
+	{
+		death();
+	}
 	return oxygen.getOxygen();
 }
 

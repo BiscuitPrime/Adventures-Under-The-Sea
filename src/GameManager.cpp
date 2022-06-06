@@ -8,15 +8,10 @@
 */
 
 //constructor of the game manager that handles the game.
-GameManager::GameManager(int nid, Player* play, Enemy en, InputHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga)
+GameManager::GameManager(int nid, Player* play, Enemy en, InputHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga) :
+	id{nid},player{play},inputhandler{input},tilemap{tilem}, window{wind},gameAssets{ga}
 {
-	id = nid;
-	player = play;
 	enemyGroup.push_back(en);
-	inputhandler = input;
-	window = wind;
-	tilemap = tilem;
-	gameAssets = ga;
 	//previousTimestamp = high_resolution_clock::now();
 	//lag = (duration<double>)0;
 	_turn = PLAYER_TURN;

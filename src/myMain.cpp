@@ -60,9 +60,7 @@ int myMain()
     std::string enemyTexturePath2 = "../../../../resources/Sprites/EldritchSquidLeft.png";
     auto enemy2 = Enemy(2, enemyTexturePath, &tilemap);
     enemy2.spawn(sf::Vector2i(7, 7));
-    int ret = gameManager.addEnemy(enemy2);
-    if (ret == -1) { exit(0); }
-
+    if (int ret = gameManager.addEnemy(enemy2); ret == -1) { exit(0); }
 
     // ------------------------------------------ Creating the game elements for the level 2 ------------------------------------------------------------------
     //Creating the basic enemy :
@@ -93,6 +91,8 @@ int myMain()
         }
         window.clear(sf::Color::Black);
         ImGui::SFML::Update(window, deltaClock.restart());
+
+        //we create the game button :
         ImGui::Begin("Starting game");
         if(ImGui::Button("StartGame"))
         {
@@ -118,8 +118,7 @@ int myMain()
 
         //we call the game loop :
         _currentLevel->getGameManager()->gameLoop();
-        if (_currentLevel->getGameManager()->getFinishedStatus()) { endLevel(); }
-
+        if (_currentLevel->getGameManager()->getFinishedStatus()) { endLevel(); } //we test wether or not the level is finished
     }
 
     ImGui::SFML::Shutdown();

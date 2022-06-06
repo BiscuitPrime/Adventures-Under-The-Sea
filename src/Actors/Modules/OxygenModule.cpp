@@ -14,6 +14,10 @@ void OxygenModule::increaseOxygen(int value)
 void OxygenModule::decreaseOxygen(int value)
 {
 	oxygenCounter -= value;
-	if (oxygenCounter < 0) oxygenCounter = 0;
+	if (oxygenCounter < 0) 
+	{ 
+		oxygenCounter = 0;
+		outOfOxygen = true;
+	}
 }
 
