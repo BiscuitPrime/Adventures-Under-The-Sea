@@ -2,6 +2,10 @@
 
 GameAssets::GameAssets() {
     std::string resourceDirectory = "resources/sprites/";
+
+    // UI
+    AlertHealth.loadFromFile(resourceDirectory + "AlertHealth.png");
+    AlertOxygen.loadFromFile(resourceDirectory + "AlertOxygen.png");
    
     // actors
     EldritchSquidRight.loadFromFile(resourceDirectory + "EldritchSquidRight.png");
