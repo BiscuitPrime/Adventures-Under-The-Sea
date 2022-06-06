@@ -3,16 +3,17 @@
 #include <iostream>
 
 Tile::Tile() :
-orthogonalCoords(sf::Vector2i(0, 0)),
-isometricCoords(sf::Vector2i(0, 0)),
-stringTexture("sand")
+	orthogonalCoords(sf::Vector2i(0, 0)),
+	isometricCoords(sf::Vector2i(0, 0)),
+	baseTexture("sand"),
+	currentVariant(TileVariant::VANILLA)
 {
 }
 
 Tile::Tile(int x, int y, std::string str): 
 orthogonalCoords(sf::Vector2i(x, y)),
 isometricCoords(sf::Vector2i(0, 0)),
-stringTexture(str)
+baseTexture(str)
 {
 }
 
@@ -22,43 +23,43 @@ int Tile::loadSelectedTextureVariant(GameAssets const& ga, TileVariant variant)
 	std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
 	switch (variant) {
 	case SELECTED:
-		if (!tileIndexes.contains(stringTexture + 's')) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + 's' << "\' could not be found (origin:Tile.cpp)\n";
+		if (!tileIndexes.contains(baseTexture + 's')) {
+			std::cout << "Error when drawing tile: texture \'" << baseTexture + 's' << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
-		setTexture(tileIndexes.at(stringTexture + 's'));
+		setTexture(tileIndexes.at(baseTexture + 's'));
 		sprite.setTexture(getTexture());
 		return 0;
 	case MOVEMENT:
-		if (!tileIndexes.contains(stringTexture + 'm')) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + 'm' << "\' could not be found (origin:Tile.cpp)\n";
+		if (!tileIndexes.contains(baseTexture + 'm')) {
+			std::cout << "Error when drawing tile: texture \'" << baseTexture + 'm' << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
-		setTexture(tileIndexes.at(stringTexture + 'm'));
+		setTexture(tileIndexes.at(baseTexture + 'm'));
 		sprite.setTexture(getTexture());
 		return 0;
 	case ATTACK:
-		if (!tileIndexes.contains(stringTexture + 'a')) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + 'a' << "\' could not be found (origin:Tile.cpp)\n";
+		if (!tileIndexes.contains(baseTexture + 'a')) {
+			std::cout << "Error when drawing tile: texture \'" << baseTexture + 'a' << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
-		setTexture(tileIndexes.at(stringTexture + 'a'));
+		setTexture(tileIndexes.at(baseTexture + 'a'));
 		sprite.setTexture(getTexture());
 		return 0;
 	case MOVEMENT_SELECTED:
-		if (!tileIndexes.contains(stringTexture + "ms")) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + "ms" << "\' could not be found (origin:Tile.cpp)\n";
+		if (!tileIndexes.contains(baseTexture + "ms")) {
+			std::cout << "Error when drawing tile: texture \'" << baseTexture + "ms" << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
-		setTexture(tileIndexes.at(stringTexture + "ms"));
+		setTexture(tileIndexes.at(baseTexture + "ms"));
 		sprite.setTexture(getTexture());
 		return 0;
 	case ATTACK_SELECTED:
-		if (!tileIndexes.contains(stringTexture + "as")) {
-			std::cout << "Error when drawing tile: texture \'" << stringTexture + "as" << "\' could not be found (origin:Tile.cpp)\n";
+		if (!tileIndexes.contains(baseTexture + "as")) {
+			std::cout << "Error when drawing tile: texture \'" << baseTexture + "as" << "\' could not be found (origin:Tile.cpp)\n";
 			return -1;
 		}
-		setTexture(tileIndexes.at(stringTexture + "as"));
+		setTexture(tileIndexes.at(baseTexture + "as"));
 		sprite.setTexture(getTexture());
 		return 0;
 	}
@@ -69,11 +70,13 @@ int Tile::unloadSelectedTextureVariant(GameAssets const& ga) {
 
 	std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
 
-	if (!tileIndexes.contains(stringTexture)) {
-		std::cout << "Error when drawing tile: texture \'" << stringTexture << "\' could not be found\n";
+	if (!tileIndexes.contains(baseTexture)) {
+		std::cout << "Error when drawing tile: texture \'" << baseTexture << "\' could not be found\n";
 		return -1;
 	}
-	setTexture(tileIndexes.at(stringTexture));
+
+	texture = tileIndexes.at(baseTexture);
+	currentVariant = VANILLA;
 	sprite.setTexture(getTexture());
 	return 0;
 }

@@ -156,6 +156,76 @@ int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int ran
 	return 0;
 }
 
+//method that will select the Available tiles dependant on the current player _state :
+int InputHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant)
+{
+	/*if (_state == &PlayerStates::idle) //test wether we are in correct state
+	{
+		std::cout << "Error chen selecting available tiles : attempting to select available tiles in idle state\n";
+		return -1;
+	}
+	if (relativeArea.size() <= 0) {
+		std::cout << "Error when seleting available tiles : attempting to select null area\n";
+		return -1;
+	}
+	//we select the tile where the player currently is :
+
+	Tile* selectedTile = tilemap->getTile(actorPos);
+	
+	//we choose the current texture dependent on the state :
+	int loadTextureVar;
+	if (_state == &PlayerStates::moving)
+	{
+		tilemap->setAvailableVariant(MOVEMENT);
+		loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+	}
+	else if (_state == &PlayerStates::mine || _state == &PlayerStates::torpedo)
+	{
+		tilemap->setAvailableVariant(ATTACK);
+		loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, ATTACK);
+	}
+
+	if (loadTextureVar < 0)
+	{
+		std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+		return -1;
+	}
+
+	selectedTile->setAvailable(true); //set's the tile availability
+
+	//we will then select every tile around the player :
+	for (int indX = -range; indX < range + 1; indX++)
+	{
+		for (int indY = -range; indY < range + 1; indY++)
+		{
+			int y = player->getCoordinates().y + indY;
+			int x = player->getCoordinates().x + indX;
+			sf::Vector2i playerNeighborCoords = sf::Vector2i(x, y);
+			std::cout << x << " , " << y << '\n';
+			if ((std::abs(x - player->getCoordinates().x) + std::abs(y - player->getCoordinates().y)) <= range)
+			{
+				if (x >= 0 && x < lines && y >= 0 && y < columns) //we make sure that the selected tile is in bounds
+				{
+					selectedTile = tilemap->getTile(playerNeighborCoords);
+					if (_state == &PlayerStates::moving)
+					{
+						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, MOVEMENT);
+					}
+					else if (_state == &PlayerStates::mine || _state == &PlayerStates::torpedo)
+					{
+						loadTextureVar = selectedTile->loadSelectedTextureVariant(gameAssets, ATTACK);
+					}
+					if (loadTextureVar < 0) {
+						std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+					}
+					selectedTile->setAvailable(true);
+				}
+			}
+		}
+	}*/
+	return 0;
+}
+
 //method that will unselect the Available tiles dependant on the current player _state :
 int InputHandler::unselectAvailableTiles(Tilemap* tilemap)
 {
