@@ -6,6 +6,7 @@
 #include <Entities/Bubble.h>
 
 enum TileVariant {
+	VANILLA,
 	SELECTED,
 	MOVEMENT,
 	ATTACK,
@@ -21,7 +22,8 @@ class Tile {
 private:
 	sf::Vector2i orthogonalCoords;
 	sf::Vector2i isometricCoords;
-	std::string stringTexture;
+	std::string baseTexture;
+	TileVariant currentVariant;
 	sf::Texture texture;
 	sf::Sprite sprite;
 	Bubble* bubble;
@@ -40,14 +42,16 @@ public:
 	void setIsometricCoordinates(int x, int y) {
 		isometricCoords = sf::Vector2i(x, y);
 	}
-	std::string getStringTexture() const { return stringTexture; }
-	void setStringTexture(std::string str) { stringTexture = str; }
+	std::string getStringTexture() const { return baseTexture; }
+	void setStringTexture(std::string str) { baseTexture = str; }
+	TileVariant getVariant() const { return currentVariant; }
+	void setVariant(TileVariant variant) { currentVariant = variant;  }
 	sf::Texture& getTexture() { return texture; }
 	void setTexture(sf::Texture txtr) { texture = txtr; }
 	sf::Sprite& getSprite() { return sprite; }
 	void setSprite(sf::Sprite sprt) { sprite = sprt; }
-	int loadSelectedTextureVariant(GameAssets const& ga, TileVariant tileVariant);
-	int unloadSelectedTextureVariant(GameAssets const& ga);
+	int loadTextureVariant(GameAssets const& ga);
+	int unloadTextureVariant(GameAssets const& ga);
 	sf::Vector2i getOrthogonalCoords() const { return orthogonalCoords; }
 	sf::Vector2i getIsometricCoords() const { return isometricCoords; }
 	void selectTile() { isSelected = true; }

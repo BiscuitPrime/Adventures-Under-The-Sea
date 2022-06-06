@@ -17,7 +17,6 @@ label("")
 			tilemap[y][x] = tile;
 		}
 	}
-	availableVariant = MOVEMENT;
 }
 
 int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, bool accessibility, GameAssets const& ga)
@@ -55,7 +54,7 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, bool ac
 }
 
 //method that selects a tile under the mouse cursor
-void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga) //TO REWRITE
+void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 {
 	// convert isometric mouse coordinates to orthogonal normalized ones to get tile position in array
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
@@ -74,32 +73,34 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga) //TO RE
 			Tile& previouslySelectedTile = tilemap[selectedTileCoords.y][selectedTileCoords.x];
 			int rt;
 			// set the right textures
-			if (previouslySelectedTile.getAvailable()) //if the previously selected tile is available, we let it remain available
+			if (previouslySelectedTile.getAvailable())
 			{
-				if (availableVariant == MOVEMENT) 
-				{
-					rt = previouslySelectedTile.loadSelectedTextureVariant(ga, MOVEMENT);
+				// in case the tile must be unselected yet remain highlighted we reload the texture variant stored in the tile
+				if (previouslySelectedTile.getVariant() == MOVEMENT_SELECTED) {
+					previouslySelectedTile.setVariant(MOVEMENT);
 				}
-				else if (availableVariant == ATTACK)
-				{
-					rt = previouslySelectedTile.loadSelectedTextureVariant(ga, ATTACK);
+				else if (previouslySelectedTile.getVariant() == ATTACK_SELECTED) {
+					previouslySelectedTile.setVariant(ATTACK);
 				}
-				if (rt < 0) {
-					std::cout << "Error when selecting tile: selected texture could not be unloaded \n";
+				else {
+					std::cout << "Error when selecting tiles: previously selected tile has not the variant selected\n";
 				}
+				previouslySelectedTile.loadTextureVariant(ga);
 			} 
 			else 
 			{
-				rt = previouslySelectedTile.unloadSelectedTextureVariant(ga);
-				if (rt < 0) {
-					std::cout << "Error when selecting tile: selected texture could not be unloaded (origin:Tilemap.cpp)\n";
-				}
+				// unload texture and set it back to base texture
+				previouslySelectedTile.unloadTextureVariant(ga);
 			}
 
-			rt = newlySelectedTile.loadSelectedTextureVariant(ga,variant);
-			if (rt < 0) {
-				std::cout << "Error when selecting tile: selected texture could not be loaded (origin:Tilemap.cpp)\n";
-			}
+			// Add 'selected' to the tile variant
+			TileVariant newlySelectedTileVariant = newlySelectedTile.getVariant();
+			if (newlySelectedTileVariant == VANILLA) newlySelectedTile.setVariant(SELECTED);
+			else if (newlySelectedTileVariant == MOVEMENT) newlySelectedTile.setVariant(MOVEMENT_SELECTED);
+			else if (newlySelectedTileVariant == ATTACK) newlySelectedTile.setVariant(ATTACK_SELECTED);
+			// reload the textures
+			newlySelectedTile.loadTextureVariant(ga);
+			previouslySelectedTile.loadTextureVariant(ga);
 			// store info regarding newly selected tile
 			selectedTileCoords = newlySelectedTile.getOrthogonalCoords();
 			
@@ -206,7 +207,7 @@ int Tilemap::removeAllTileVariants(GameAssets const& ga) {
 	for (int y = 0; y < lines; y++) {
 		for (int x = 0; x < columns; x++) {
 			Tile* tile = &tilemap[y][x];
-			int unload = tile->unloadSelectedTextureVariant(ga);
+			int unload = tile->unloadTextureVariant(ga);
 			if (unload == -1)
 			{
 				std::cout << "Error while unloading the texture\n";
