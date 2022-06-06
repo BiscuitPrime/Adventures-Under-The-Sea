@@ -8,22 +8,34 @@
 #include <GameManager.h>
 #include <../imgui/imgui.h>
 #include <../imgui/imgui-SFML.h>
+#include <Levels/Level.h>
+
+Level* _currentLevel;
+Level levelOne = Level(1,nullptr);
+Level levelTwo = Level(2, nullptr);
+
+static void endLevel()
+{
+    _currentLevel = &levelTwo;
+    _currentLevel->initializeLevel();
+}
 
 int myMain()
 {
+    //setting up the scene : // MAYBE MOVE THIS PART TO A SPECIAL SCENE SETTER ?
     int width = 1920;
     int height = 1080;
-    sf::RenderWindow window(sf::VideoMode(width, height), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(width, height), GAME_NAME);
     ImGui::SFML::Init(window);
-    //---------------------------------
-    //Creating the game elements :
-    
+
+    // ------------------------------------------ Creating the game elements for the level 1 ------------------------------------------------------------------
+
     //Creating the game assets :
     auto ga = GameAssets();
 
     //Creating the player :
     std::string playerTexturePath = "../../../../resources/Sprites/Player.png";
-    auto player = Player(0,playerTexturePath); //the player is created as a unique pointer
+    auto player = Player(0, playerTexturePath); //the player is created as a unique pointer
 
     //Creating the input handler associated to the player :
     auto inputHandler = InputHandler(ga);
@@ -42,17 +54,56 @@ int myMain()
     inputHandler.setUpPlayer(&player, &tilemap);
 
     //Creating the game manager :
-    auto gameManager = GameManager(&player, enemy, &inputHandler, &tilemap, &window, &ga);
+    auto gameManager = GameManager(1, &player, enemy, &inputHandler, &tilemap, &window, &ga);
 
     //adding another enemy :
-    /*std::string enemyTexturePath2 = "../../../../resources/Sprites/EldritchSquidLeft.png";
+    std::string enemyTexturePath2 = "../../../../resources/Sprites/EldritchSquidLeft.png";
     auto enemy2 = Enemy(2, enemyTexturePath, &tilemap);
     enemy2.spawn(sf::Vector2i(7, 7));
     int ret = gameManager.addEnemy(enemy2);
-    if (ret == -1) { exit(0); }*/
-    //---------------------------------
+    if (ret == -1) { exit(0); }
 
+
+    // ------------------------------------------ Creating the game elements for the level 2 ------------------------------------------------------------------
+    //Creating the basic enemy :
+    std::string enemyTexturePath3 = "../../../../resources/Sprites/EnemyPLACEHOLDER.png";
+    auto enemy3 = Enemy(3, enemyTexturePath3, &tilemap);
+    enemy3.spawn(sf::Vector2i(7, 7));
+
+    //Creating the game manager :
+    auto gameManager2 = GameManager(1, &player, enemy3, &inputHandler, &tilemap, &window, &ga);
+
+    // ------------------------------------------ Creating the levels ------------------------------------------------------------------
+    //we create the level system that will control our game :
+    levelOne = Level(1,&gameManager);
+    levelTwo = Level(2,&gameManager2);
+    _currentLevel = &levelOne;
+    bool started = false;
+
+    //THE START MENU LOOP :
     sf::Clock deltaClock;
+    while (window.isOpen() && started==false)
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            ImGui::SFML::ProcessEvent(event);
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        window.clear(sf::Color::Black);
+        ImGui::SFML::Update(window, deltaClock.restart());
+        ImGui::Begin("Starting game");
+        if(ImGui::Button("StartGame"))
+        {
+            started = true;
+        }
+        ImGui::End();
+        ImGui::SFML::Render(window);
+        window.display();
+    }
+
+    //THE MAIN GAME LOOP :
     while (window.isOpen())
     {
         sf::Event event;
@@ -65,8 +116,10 @@ int myMain()
         window.clear(sf::Color::Black);
         ImGui::SFML::Update(window, deltaClock.restart());
 
-        // we call the game loop :
-        gameManager.gameLoop();
+        //we call the game loop :
+        _currentLevel->getGameManager()->gameLoop();
+        if (_currentLevel->getGameManager()->getFinishedStatus()) { endLevel(); }
+
     }
 
     ImGui::SFML::Shutdown();
