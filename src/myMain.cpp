@@ -27,9 +27,8 @@ int myMain()
     int height = 1080;
     sf::RenderWindow window(sf::VideoMode(width, height), GAME_NAME);
     ImGui::SFML::Init(window);
-
-    // ------------------------------------------ Creating the game elements for the level 1 ------------------------------------------------------------------
-
+    // ------------------------------------------ Creating the game elements that exists outside of levels ----------------------------------------------------
+    
     //Creating the game assets :
     auto ga = GameAssets();
 
@@ -39,6 +38,8 @@ int myMain()
 
     //Creating the input handler associated to the player :
     auto inputHandler = InputHandler(ga);
+
+    // ------------------------------------------ Creating the game elements for the level 1 ------------------------------------------------------------------
 
     //Creating the tilemap :
     Tilemap tilemap;

@@ -30,7 +30,8 @@ void UI::warning(std::string str)
 	ImGui::SetNextWindowSize(ImVec2(500, 70));
 	ImGui::Begin("WARNING");
 	sf::Texture warningTexture;
-	if (bool ret = warningTexture.loadFromFile("../../../resources/Sprites/AlertOxygen.png")) { std::cout << "Error (UI.cpp) : failed to load warning texture\n"; exit(300); }
+	std::string textPath = "../../resources/sprites/AlertHealth.png";
+	if (bool ret = warningTexture.loadFromFile(textPath)) { std::cout << "Error (UI.cpp) : failed to load warning texture\n"; exit(300); }
 	sf::Sprite sprite;
 	sprite.setTexture(warningTexture);
 	ImGui::Image(sprite);
