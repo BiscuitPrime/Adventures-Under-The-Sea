@@ -17,7 +17,6 @@ label("")
 			tilemap[y][x] = tile;
 		}
 	}
-	availableVariant = MOVEMENT;
 }
 
 int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, bool accessibility, GameAssets const& ga)

@@ -173,7 +173,6 @@ int InputHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vec
 		return -1;
 	}
 
-	tilemap->setAvailableVariant(variant);
 	int loadTextureVar;
 	for (auto pos : relativeArea) {
 		auto target = actorPos + pos;
