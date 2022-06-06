@@ -14,5 +14,5 @@ public:
 	Level(int id, GameManager* gameManager);
 	int getId() { return id; }
 	GameManager* getGameManager() { return gameManager; };
-	virtual void startLoop(sf::RenderWindow* window){};
+	int initializeLevel();
 };

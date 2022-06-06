@@ -45,4 +45,5 @@ public:
 	Enemy* selectRandomEnemy();
 	bool isEnemyDead(Enemy enemy);
 	bool getFinishedStatus() { return isFinished; };
+	int initializePlayer();
 };

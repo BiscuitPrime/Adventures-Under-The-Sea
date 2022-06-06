@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "GameManager.h"
+#include "GameManager.h"
 #include <GameManager.h>
 
 /*
@@ -127,4 +128,10 @@ bool GameManager::isEnemyDead(Enemy enemy)
 		return true;
 	}
 	return false;
+}
+
+//method that spawns the player at a given position
+int GameManager::initializePlayer()
+{
+	return 0;
 }

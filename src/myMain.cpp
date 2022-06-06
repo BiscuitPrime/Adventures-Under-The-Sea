@@ -17,6 +17,7 @@ Level levelTwo = Level(2, nullptr);
 static void endLevel()
 {
     _currentLevel = &levelTwo;
+    _currentLevel->initializeLevel();
 }
 
 int myMain()
@@ -76,8 +77,32 @@ int myMain()
     levelOne = Level(1,&gameManager);
     levelTwo = Level(2,&gameManager2);
     _currentLevel = &levelOne;
+    bool started = false;
 
+    //THE START MENU LOOP :
     sf::Clock deltaClock;
+    while (window.isOpen() && started==false)
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            ImGui::SFML::ProcessEvent(event);
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+        window.clear(sf::Color::Black);
+        ImGui::SFML::Update(window, deltaClock.restart());
+        ImGui::Begin("Starting game");
+        if(ImGui::Button("StartGame"))
+        {
+            started = true;
+        }
+        ImGui::End();
+        ImGui::SFML::Render(window);
+        window.display();
+    }
+
+    //THE MAIN GAME LOOP :
     while (window.isOpen())
     {
         sf::Event event;
