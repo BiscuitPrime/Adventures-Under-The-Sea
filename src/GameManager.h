@@ -45,5 +45,5 @@ public:
 	Enemy* selectRandomEnemy();
 	bool isEnemyDead(Enemy enemy);
 	bool getFinishedStatus() { return isFinished; };
-	int initializePlayer();
+	int spawnPlayer(sf::Vector2i position);
 };

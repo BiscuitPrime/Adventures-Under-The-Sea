@@ -20,4 +20,5 @@ public:
 	int getOxygen();
 	void decreaseOxygen(int value);
 	void increaseOxygen(int value);
+	void spawnPlayer(sf::Vector2i position);
 };

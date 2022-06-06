@@ -131,7 +131,8 @@ bool GameManager::isEnemyDead(Enemy enemy)
 }
 
 //method that spawns the player at a given position
-int GameManager::initializePlayer()
+int GameManager::spawnPlayer(sf::Vector2i position)
 {
+	player->spawnPlayer(position);
 	return 0;
 }

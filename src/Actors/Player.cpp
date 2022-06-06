@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Player.h"
 /*
 * We define the code of the Player class here :
 */
@@ -36,4 +37,12 @@ void Player::decreaseOxygen(int value)
 void Player::increaseOxygen(int value)
 {
 	oxygen.increaseOxygen(value);
+}
+
+//method that spawns the player for a given level
+void Player::spawnPlayer(sf::Vector2i position)
+{
+	setOrthoCoordinates(position); //set orthogonal coordinates
+	setIsoCoordinates(Definitions::orthoToIsoWithOffset(position)); //set isometric coordinates
+	getSprite().setPosition(getIsometricCoordinates()); //set sprite position
 }

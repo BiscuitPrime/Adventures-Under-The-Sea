@@ -11,8 +11,8 @@
 #include <Levels/Level.h>
 
 Level* _currentLevel;
-Level levelOne = Level(1,nullptr);
-Level levelTwo = Level(2, nullptr);
+Level levelOne = Level(1,nullptr, sf::Vector2i(0,0));
+Level levelTwo = Level(2, nullptr, sf::Vector2i(0, 0));
 
 static void endLevel()
 {
@@ -75,8 +75,8 @@ int myMain()
 
     // ------------------------------------------ Creating the levels ------------------------------------------------------------------
     //we create the level system that will control our game :
-    levelOne = Level(1,&gameManager);
-    levelTwo = Level(2,&gameManager2);
+    levelOne = Level(1,&gameManager, sf::Vector2i(0,5));
+    levelTwo = Level(2,&gameManager2, sf::Vector2i(0, 5));
     _currentLevel = &levelOne;
     bool started = false;
 
