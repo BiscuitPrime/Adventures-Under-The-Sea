@@ -10,6 +10,10 @@ public:
     // string to tile correspondence
     std::map<std::string, sf::Texture> tileIndexes;
 
+    // ui 
+    sf::Texture AlertHealth;
+    sf::Texture AlertOxygen;
+
     // actors
     sf::Texture EldritchSquidRight;
     sf::Texture EldritchSquidLeft;
