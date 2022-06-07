@@ -15,20 +15,20 @@ enum ActorType {
 class Actor {
 private:
 	sf::Texture actorTexture;
-	sf::Sprite actorSprite;
 	sf::Vector2i orthoCoords;
 	sf::Vector2f isoCoords;
+	sf::Sprite actorSprite;
 	int id;
 protected:
 	ActorType actorType;
 	HealthModule health;
 public:
-	Actor(int id, std::string texturePath);
+	Actor(int id, sf::Texture texture);
 	sf::Vector2i getCoordinates() const { return orthoCoords; }
 	void setOrthoCoordinates(sf::Vector2i coords) { orthoCoords = coords; }
 	sf::Vector2f getIsometricCoordinates() const { return isoCoords; }
 	void setIsoCoordinates(sf::Vector2f coords) { isoCoords = coords; }
-	sf::Sprite& getSprite() { return actorSprite; }
+	sf::Sprite& getSprite() { actorSprite.setTexture(actorTexture); return actorSprite; }
 	virtual int getHealth()	{ return health.getHealth(); }
 	virtual void takeDamage(int dmg);
 	virtual void death();

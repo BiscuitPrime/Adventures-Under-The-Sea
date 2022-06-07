@@ -8,19 +8,8 @@
 #include <iostream>
 
 //Constructor of the actor class
-Actor::Actor(int nid, std::string texturePath) {
-    id = nid;
-    //we allocate the appropriate sprite for the approcpriate actor :
-    bool actorSpriteLoad = actorTexture.loadFromFile(texturePath);
-    if (!actorSpriteLoad)
-    {
-        std::cout << "Error on img load for actor\n";
-        exit(0);
-    }
-    actorSprite.setTexture(actorTexture);
-
-    //we define its health module :
-    health = HealthModule();
+Actor::Actor(int nid, sf::Texture texture) : id{ nid }, health { HealthModule() }, actorTexture{texture}
+{
 }
 
 //method that updates the actor's health module

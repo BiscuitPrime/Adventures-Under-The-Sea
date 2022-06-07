@@ -35,8 +35,9 @@ int myMain()
     auto ui = UI(ga.AlertOxygen, ga.AlertHealth);
 
     //Creating the player :
-    std::string playerTexturePath = "../../../../resources/Sprites/Player.png";
-    auto player = Player(0, playerTexturePath); //the player is created as a unique pointer
+    sf::Texture playerTexture;
+    if(bool ret = playerTexture.loadFromFile("../../../../resources/Sprites/Player.png"); ret==-1){std::cout<<"Failed to load Player texture (myMain.cpp)\n"; exit(300); };
+    auto player = Player(0, playerTexture); //the player is created as a unique pointer
 
     //Creating the input handler associated to the player :
     auto inputHandler = InputHandler(ga,&ui);
@@ -49,8 +50,8 @@ int myMain()
     tilemap.buildTilemap(fileName, ga); // mettre dans le test
 
     //Creating the basic enemy :
-    std::string enemyTexturePath = "../../../../resources/Sprites/WyrmLeft.png";
-    auto enemy = Enemy(1, enemyTexturePath, &tilemap);
+    sf::Texture enemyTexture = ga.EldritchSquidLeft;
+    auto enemy = Enemy(1, enemyTexture, &tilemap);
     enemy.spawn(sf::Vector2i(7, 5));
 
     //setting up the player :
@@ -60,15 +61,15 @@ int myMain()
     auto gameManager = GameManager(1, &player, enemy, &inputHandler, &tilemap, &window, &ga);
 
     //adding another enemy :
-    std::string enemyTexturePath2 = "../../../../resources/Sprites/EldritchSquidLeft.png";
-    auto enemy2 = Enemy(2, enemyTexturePath2, &tilemap);
+    sf::Texture enemyTexture2 = ga.WyrmRight;
+    auto enemy2 = Enemy(2, enemyTexture2, &tilemap);
     enemy2.spawn(sf::Vector2i(7, 7));
     if (int ret = gameManager.addEnemy(enemy2); ret == -1) { exit(0); }
 
     // ------------------------------------------ Creating the game elements for the level 2 ------------------------------------------------------------------
     //Creating the basic enemy :
-    std::string enemyTexturePath3 = "../../../../resources/Sprites/EnemyPLACEHOLDER.png";
-    auto enemy3 = Enemy(3, enemyTexturePath3, &tilemap);
+    sf::Texture enemyTexture3 = ga.EldritchSquidRight;
+    auto enemy3 = Enemy(3, enemyTexture3, &tilemap);
     enemy3.spawn(sf::Vector2i(7, 7));
 
     //Creating the game manager :

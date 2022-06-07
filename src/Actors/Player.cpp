@@ -5,7 +5,7 @@
 */
 #include <Actors/PlayerCommands/InputHandler.h>
 
-Player::Player(int id, std::string texturePath) : Actor{ id,texturePath }
+Player::Player(int id, sf::Texture texture) : Actor{ id,texture }
 {
 	actorType = PLAYER;
 	setOrthoCoordinates(sf::Vector2i(0, 5)); //set orthogonal coordinates

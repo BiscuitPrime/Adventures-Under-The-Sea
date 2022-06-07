@@ -5,12 +5,11 @@
 #include <Actors/Strategy/ConcreteStrategies/MeleeAttackStrategy.h>
 
 
-Enemy::Enemy(int id,std::string texturePath, Tilemap* tilem) : Actor{ id, texturePath }
+Enemy::Enemy(int id, sf::Texture texture, Tilemap* tilem) : Actor{ id, texture }, tilemap{ tilem }
 {
 	actorType = ENEMY;
 	_state = EnemyStates::STATE_IDLE; //by default in idle state
 	health.setInitialHealth(1);
-	tilemap = tilem;
 }
 
 
