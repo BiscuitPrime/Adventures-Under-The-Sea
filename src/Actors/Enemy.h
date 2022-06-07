@@ -26,7 +26,7 @@ private:
 	bool isEnemyLoopFinished = true;
 	Tilemap* tilemap;
 public:
-	explicit Enemy(int id,std::string texturePath, Tilemap* tilemap);
+	explicit Enemy(int id, std::string texturePath, Tilemap* tilemap);
 	void death() override;
 	int getMovementRange() const { return movementRange; }
 	EnemyStates getState() const { return _state; };
