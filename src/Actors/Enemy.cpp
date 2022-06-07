@@ -104,6 +104,7 @@ void Enemy::spawn(sf::Vector2i spawnPoint)
 	setOrthoCoordinates(spawnPoint); //set orthogonal coordinates
 	setIsoCoordinates(Definitions::orthoToIsoWithOffset(spawnPoint)); //set isometric coordinates
 	getSprite().setPosition(getIsometricCoordinates()); //set sprite position
+	setUpEnemyOnTilemap();
 }
 
 //methods that tell the currently occupied tile that it is, indeed, occupied by the enemy

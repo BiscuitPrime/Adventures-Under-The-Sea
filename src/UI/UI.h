@@ -17,6 +17,6 @@ public:
 	UI(sf::Texture oxygenTexture, sf::Texture healthTexture);
 	void displayStatisticsUI(int hp,int oxygenLeft);
 	void warningOxygen();
-	void warningHealth();
+	void warningHealth(bool oxy);
 	int startUI();
 };

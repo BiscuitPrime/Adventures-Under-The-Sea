@@ -32,7 +32,7 @@ void UI::warningOxygen()
 {
 	ImGui::SetNextWindowPos(ImVec2(500, 20));
 	ImGui::SetNextWindowSize(ImVec2(500, 150));
-	ImGui::Begin("WARNING");
+	ImGui::Begin("WARNING OXYGEN");
 	sf::Sprite sprite;
 	sprite.setTexture(warningOxygenTexture);
 	ImGui::Image(sprite);
@@ -42,11 +42,12 @@ void UI::warningOxygen()
 }
 
 //method used to display a warning message in case of low oxygen
-void UI::warningHealth()
+void UI::warningHealth(bool oxy)
 {
-	ImGui::SetNextWindowPos(ImVec2(500, 20));
+	if(oxy==true){ ImGui::SetNextWindowPos(ImVec2(500, 180)); }
+	else{ ImGui::SetNextWindowPos(ImVec2(500, 20)); }
 	ImGui::SetNextWindowSize(ImVec2(500, 150));
-	ImGui::Begin("WARNING");
+	ImGui::Begin("WARNING HEALTH");
 	sf::Sprite sprite;
 	sprite.setTexture(warningHealthTexture);
 	ImGui::Image(sprite);

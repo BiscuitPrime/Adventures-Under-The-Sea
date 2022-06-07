@@ -23,6 +23,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		{
 			_command = &moveCommand;
 			_command->execute(player, window, tilemap);
+			player->takeDamage(2);
 			_state = &PlayerStates::attack;
 		}
 		else if (_state == &PlayerStates::mine)
@@ -149,14 +150,14 @@ void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 //method that will test wether or not the player needs to have a warning displayed
 void InputHandler::warningDisplay(Player* player)
 {
-	if (player->getOxygen() <= 2)
+	if (player->getOxygen() <= OXYGEN_THRESHOLD)
 	{
 		std::string warningStr = "Oxygen";
 		ui->warningOxygen();
 	}
-	if (player->getHealth() <= 3)
+	if (player->getHealth() <= HEALTH_THRESHOLD)
 	{
 		std::string warningStr = "Health";
-		ui->warningHealth();
+		ui->warningHealth((player->getOxygen()<= OXYGEN_THRESHOLD));
 	}
 }

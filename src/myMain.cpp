@@ -51,7 +51,7 @@ int myMain()
     //Creating the basic enemy :
     std::string enemyTexturePath = "../../../../resources/Sprites/WyrmLeft.png";
     auto enemy = Enemy(1, enemyTexturePath, &tilemap);
-    enemy.spawn(sf::Vector2i(4, 5));
+    enemy.spawn(sf::Vector2i(7, 5));
 
     //setting up the player :
     inputHandler.setUpPlayer(&player, &tilemap);
