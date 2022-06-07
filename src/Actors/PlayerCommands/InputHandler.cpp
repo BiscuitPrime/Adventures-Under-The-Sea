@@ -23,6 +23,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		{
 			_command = &moveCommand;
 			_command->execute(player, window, tilemap);
+			player->takeDamage(2);
 			_state = &PlayerStates::attack;
 		}
 		else if (_state == &PlayerStates::mine)
@@ -91,73 +92,6 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 }
 
 //method that will select the Available tiles dependant on the current player _state :
-int InputHandler::selectAvailableTiles(Player* player, Tilemap* tilemap, int range, PlayerState* _state)
-{
-	/*if (_state == &PlayerStates::idle) //test wether we are in correct state
-	{
-		std::cout << "Error : attempting to select available tiles in idle state\n";
-		return -1;
-	}
-	//we select the tile where the player currently is :
-	
-	Tile* selectedTile = tilemap->getTile(player->getCoordinates());
-	std::cout << "Current selected player tile : " << player->getCoordinates().x << " , " << player->getCoordinates().y << '\n';
-	
-	//we choose the current texture dependent on the state :
-	int loadTextureVar;
-	if (_state==&PlayerStates::moving)
-	{
-		tilemap->setAvailableVariant(MOVEMENT);
-		loadTextureVar = selectedTile->loadTextureVariant(gameAssets, MOVEMENT);
-	}
-	else if (_state == &PlayerStates::mine || _state == &PlayerStates::torpedo)
-	{
-		tilemap->setAvailableVariant(ATTACK);
-		loadTextureVar = selectedTile->loadTextureVariant(gameAssets, ATTACK);
-	}
-
-	if (loadTextureVar < 0) 
-	{
-		std::cout << "Error when selecting tile: selected texture could not be loaded\n";
-		return -1;
-	}
-
-	selectedTile->setAvailable(true); //set's the tile availability
-
-	//we will then select every tile around the player :
-	for (int indX = -range; indX < range+1; indX++) 
-	{
-		for (int indY = -range; indY < range+1; indY++)
-		{
-			int y = player->getCoordinates().y + indY;
-			int x = player->getCoordinates().x + indX;
-			sf::Vector2i playerNeighborCoords = sf::Vector2i(x, y);
-			std::cout << x << " , " << y<<'\n';
-			if ((std::abs(x - player->getCoordinates().x) + std::abs(y - player->getCoordinates().y)) <= range)
-			{
-				if (x >= 0 && x < lines && y >= 0 && y < columns) //we make sure that the selected tile is in bounds
-				{
-					selectedTile = tilemap->getTile(playerNeighborCoords);
-					if (_state == &PlayerStates::moving)
-					{
-						loadTextureVar = selectedTile->loadTextureVariant(gameAssets, MOVEMENT);
-					}
-					else if (_state == &PlayerStates::mine || _state == &PlayerStates::torpedo)
-					{
-						loadTextureVar = selectedTile->loadTextureVariant(gameAssets, ATTACK);
-					}
-					if (loadTextureVar < 0) {
-						std::cout << "Error when selecting tile: selected texture could not be loaded\n";
-					}
-					selectedTile->setAvailable(true);
-				}
-			}
-		}
-	}*/
-	return 0;
-}
-
-//method that will select the Available tiles dependant on the current player _state :
 int InputHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant)
 {
 	if (_state == &PlayerStates::idle) //test wether we are in correct state
@@ -216,14 +150,14 @@ void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 //method that will test wether or not the player needs to have a warning displayed
 void InputHandler::warningDisplay(Player* player)
 {
-	if (player->getOxygen() <= 2)
+	if (player->getOxygen() <= OXYGEN_THRESHOLD)
 	{
 		std::string warningStr = "Oxygen";
-		ui->warning(warningStr);
+		ui->warningOxygen();
 	}
-	if (player->getHealth() <= 3)
+	if (player->getHealth() <= HEALTH_THRESHOLD)
 	{
 		std::string warningStr = "Health";
-		ui->warning(warningStr);
+		ui->warningHealth((player->getOxygen()<= OXYGEN_THRESHOLD));
 	}
 }

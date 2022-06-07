@@ -15,8 +15,8 @@ GameManager::GameManager(int nid, Player* play, Enemy en, InputHandler* input, T
 	//previousTimestamp = high_resolution_clock::now();
 	//lag = (duration<double>)0;
 	_turn = PLAYER_TURN;
-	currentEnemy = &en;
-	en.setUpEnemyOnTilemap();
+	currentEnemy = nullptr;
+	//en.setUpEnemyOnTilemap();
 }
 
 //function that handles the game loop :
@@ -46,7 +46,7 @@ void GameManager::gameLoop()
 			if (it->getState() == STATE_DEAD)
 			{
 				enemyGroup.erase(it);
-				if(enemyGroup.size() == 0) //if this triggers, it means the player killed all the enemies : we must end the level
+				if(enemyGroup.empty()) //if this triggers, it means the player killed all the enemies : we must end the level
 				{ 
 					isFinished = true;
 				}
@@ -56,10 +56,8 @@ void GameManager::gameLoop()
 	}
 	else if (_turn == ENEMY_TURN)
 	{
-		if (currentEnemy->getEnemyLoopFinished()){ currentEnemy=selectRandomEnemy(); }
-
-		//we select the enemy that will perform the actions during this turn :
-		//std::cout << "Enemy's turn !\n";
+		//we start the enemy's turn :
+		if (currentEnemy == nullptr || currentEnemy->getEnemyLoopFinished()){ currentEnemy=selectRandomEnemy(); }
 
 		//we start the enemy's turn :
 		currentEnemy->handleEnemy(player);
@@ -72,7 +70,7 @@ void GameManager::gameLoop()
 		}
 	}
 
-	// RENDER FUNCTION (should be created) ---------------------- =>
+	// ------------------------------- RENDER FUNCTION (should be created) ---------------------- =>
 	tilemap->draw(*window); //drawing the tilemap
 	window->draw(player->getSprite()); //drawing the player
 	//drawing the enemies :
@@ -104,7 +102,7 @@ int GameManager::addEnemy(Enemy enemy)
 		}
 	}
 	enemyGroup.push_back(enemy); //we add the enemy to the list of enemies in the level
-	enemy.setUpEnemyOnTilemap(); //we tell the tilemap that it is occupied //PUT THIS INSIDE SPAWN FUNCTION OF ENEMY
+	//enemy.setUpEnemyOnTilemap(); //we tell the tilemap that it is occupied //PUT THIS INSIDE SPAWN FUNCTION OF ENEMY
 	return 0;
 }
 

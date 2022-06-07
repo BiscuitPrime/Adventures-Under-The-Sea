@@ -11,9 +11,12 @@
 class UI {
 private:
 	GameAssets ga;
+	sf::Texture warningOxygenTexture;
+	sf::Texture warningHealthTexture;
 public:
-	UI(GameAssets gameAssets);
+	UI(sf::Texture oxygenTexture, sf::Texture healthTexture);
 	void displayStatisticsUI(int hp,int oxygenLeft);
-	void warning(std::string str);
+	void warningOxygen();
+	void warningHealth(bool oxy);
 	int startUI();
 };

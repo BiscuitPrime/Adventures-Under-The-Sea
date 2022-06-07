@@ -8,9 +8,10 @@
 
 
 //constructor
-UI::UI(GameAssets gameAssets)
+UI::UI(sf::Texture oxytext, sf::Texture healthtext)
 {
-	ga = gameAssets;
+	warningOxygenTexture = oxytext;
+	warningHealthTexture = healthtext;
 }
 
 //method used to display the oxygen of the player
@@ -27,16 +28,30 @@ void UI::displayStatisticsUI(int hp, int oxygenLeft)
 }
 
 //method used to display a warning message in case of low oxygen
-void UI::warning(std::string str)
+void UI::warningOxygen()
 {
 	ImGui::SetNextWindowPos(ImVec2(500, 20));
 	ImGui::SetNextWindowSize(ImVec2(500, 150));
-	ImGui::Begin("WARNING");
-	sf::Texture warningtext = ga.AlertOxygen;
+	ImGui::Begin("WARNING OXYGEN");
 	sf::Sprite sprite;
-	sprite.setTexture(warningtext);
+	sprite.setTexture(warningOxygenTexture);
 	ImGui::Image(sprite);
-	std::string display = str + " low, please advise quickly";
+	std::string display = "Oxygen low, please advise quickly";
+	ImGui::Text(display.c_str());
+	ImGui::End();
+}
+
+//method used to display a warning message in case of low oxygen
+void UI::warningHealth(bool oxy)
+{
+	if(oxy==true){ ImGui::SetNextWindowPos(ImVec2(500, 180)); }
+	else{ ImGui::SetNextWindowPos(ImVec2(500, 20)); }
+	ImGui::SetNextWindowSize(ImVec2(500, 150));
+	ImGui::Begin("WARNING HEALTH");
+	sf::Sprite sprite;
+	sprite.setTexture(warningHealthTexture);
+	ImGui::Image(sprite);
+	std::string display = "Health low, please advise quickly";
 	ImGui::Text(display.c_str());
 	ImGui::End();
 }
