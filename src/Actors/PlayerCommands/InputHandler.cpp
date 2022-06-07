@@ -23,7 +23,6 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		{
 			_command = &moveCommand;
 			_command->execute(player, window, tilemap);
-			player->takeDamage(2);
 			_state = &PlayerStates::attack;
 		}
 		else if (_state == &PlayerStates::mine)
