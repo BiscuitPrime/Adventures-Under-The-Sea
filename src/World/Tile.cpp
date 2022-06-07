@@ -92,8 +92,8 @@ int Tile::unloadTextureVariant(GameAssets const& ga) {
 void Tile::draw(sf::RenderWindow &window)
 {       // draw
         window.draw(sprite);
-		if (isOccupiedByBubble) {
-			window.draw(bubble->getSprite());
+		if(isOccupiedByBubble) {
+			window.draw(bubbleSprite);
 		}
 }
 

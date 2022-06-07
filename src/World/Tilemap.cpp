@@ -1,10 +1,8 @@
 #include "Tilemap.h"
 #include "Tilemap.h"
-#include "Entities/Entity.h"
 #include "pugixml.hpp"
 #include <iostream>
 #include <math.h>
-#include <Entities/Bubble.h>
 
 Tilemap::Tilemap():
 label("")
@@ -124,12 +122,15 @@ int Tilemap::setEntity(int x, int y, int isoX, int isoY, std::string type, GameA
 
 	// initialize the proper entity 
 	if (type == "bubble") {
+		std::cout << "Print Bubble\n";
 		auto orthoCoords = sf::Vector2i(x, y);
 		// create static bubble --> how to destroy the bubble once used ? 
-		auto static bubble = Bubble(orthoCoords, sf::Vector2f(isoX, isoY), ga);
-
+		//auto static bubble = Bubble(orthoCoords, sf::Vector2f(isoX, isoY), ga);
+		sf::Sprite bubbleSprite;
+		bubbleSprite.setTexture(ga.Bubble);
+		bubbleSprite.setPosition((sf::Vector2f) tile.getIsometricCoords());
+		tile.setBubbleSprite(bubbleSprite);
 		tile.setBubbleState(true);
-		tile.setBubble(&bubble);
 	}
 	return 0;
 }

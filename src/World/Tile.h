@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <Actors/Actor.h>
-#include <Entities/Bubble.h>
 
 enum TileVariant {
 	VANILLA,
@@ -26,7 +25,8 @@ private:
 	TileVariant currentVariant;
 	sf::Texture texture;
 	sf::Sprite sprite;
-	Bubble* bubble;
+	sf::Sprite bubbleSprite;
+	//Bubble bubble;
 	bool isSelected = false; 
 	bool isAccessible = true; //whether the player can move on this tile or not
 	bool isOccupied = false; //whether the tile is occupied by an entity
@@ -65,8 +65,8 @@ public:
 	bool getAccessibility() const { return isAccessible; }
 	void setAvailable(bool status) { isAvailable = status; }
 	bool getAvailable() const { return isAvailable; }
-	void setBubble(Bubble* bbl) { bubble = bbl;  }
-	Bubble* getBubble() const { return bubble; }
+	void setBubbleSprite(sf::Sprite sprt) { bubbleSprite = sprt; }
+	sf::Sprite& getBubbleSprite() { return bubbleSprite; }
 	void setBubbleState(bool status) { isOccupiedByBubble = status; }
 	bool hasBubble() const { return isOccupiedByBubble;  }
 };
