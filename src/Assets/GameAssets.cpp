@@ -8,6 +8,7 @@ GameAssets::GameAssets() {
     AlertOxygen.loadFromFile(resourceDirectory + "AlertOxygen.png");
    
     // actors
+    Player.loadFromFile(resourceDirectory + "player.png");
     EldritchSquidRight.loadFromFile(resourceDirectory + "EldritchSquidRight.png");
     EldritchSquidLeft.loadFromFile(resourceDirectory + "EldritchSquidLeft.png");
     WyrmRight.loadFromFile(resourceDirectory + "WyrmRight.png");

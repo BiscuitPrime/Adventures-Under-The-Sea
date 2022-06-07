@@ -15,6 +15,7 @@ public:
     sf::Texture AlertOxygen;
 
     // actors
+    sf::Texture Player;
     sf::Texture EldritchSquidRight;
     sf::Texture EldritchSquidLeft;
     sf::Texture WyrmRight;
