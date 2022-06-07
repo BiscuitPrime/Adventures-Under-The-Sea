@@ -1,6 +1,3 @@
-#include "Actor.h"
-#include "Actor.h"
-#include "Actor.h"
 /*
 * We define the code of the Actor class here :
 */
@@ -8,7 +5,7 @@
 #include <iostream>
 
 //Constructor of the actor class
-Actor::Actor(int nid, sf::Texture texture) : id{ nid }, health { HealthModule() }, actorTexture{texture}
+Actor::Actor(int nid, sf::Texture texture) : id{ nid }, health{ HealthModule() }, actorTexture{ texture }
 {
 }
 

@@ -7,12 +7,13 @@
 
 Player::Player(int id, sf::Texture texture) : Actor{ id,texture }
 {
+	oxygen = OxygenModule();
 	actorType = PLAYER;
 	setOrthoCoordinates(sf::Vector2i(0, 5)); //set orthogonal coordinates
 	setIsoCoordinates(Definitions::orthoToIsoWithOffset(sf::Vector2i(0, 5))); //set isometric coordinates
 	getSprite().setPosition(getIsometricCoordinates()); //set sprite position
-	health.setInitialHealth(10); //we set up the life at 10 for the player
-	oxygen.setInitialOxygen(MAX_OXYGEN); //we set up the player's oxygen at 20 
+	health.setInitialValue(10); //we set up the life at 10 for the player
+	oxygen.setInitialValue(MAX_OXYGEN); //we set up the player's oxygen at 20 
 }
 
 //method that handles the player's death :
@@ -25,11 +26,11 @@ void Player::death()
 //returns the oxygen Module's value
 int Player::getOxygen()
 {
-	if (oxygen.getOxygen() == 0) //if the player's oxygen reaches 0, we call it's death function
+	if (oxygen.getValue() == 0) //if the player's oxygen reaches 0, we call it's death function
 	{
 		death();
 	}
-	return oxygen.getOxygen();
+	return oxygen.getValue();
 }
 
 //decrease's the oxygen's module value

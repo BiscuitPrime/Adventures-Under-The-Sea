@@ -1,7 +1,11 @@
 #include "OxygenModule.h"
+#include "OxygenModule.h"
 /*
 * source code of the Oxygen Module
 */
+
+OxygenModule::OxygenModule()
+{}
 
 //increases the OxygenModule's value
 void OxygenModule::increaseOxygen(int value)
@@ -17,7 +21,6 @@ void OxygenModule::decreaseOxygen(int value)
 	if (oxygenCounter < 0) 
 	{ 
 		oxygenCounter = 0;
-		outOfOxygen = true;
 	}
 }
 

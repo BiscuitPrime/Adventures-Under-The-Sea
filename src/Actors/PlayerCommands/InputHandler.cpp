@@ -157,6 +157,6 @@ void InputHandler::warningDisplay(Player* player)
 	if (player->getHealth() <= HEALTH_THRESHOLD)
 	{
 		std::string warningStr = "Health";
-		ui->warningHealth((player->getOxygen()<= OXYGEN_THRESHOLD));
+		ui->warningHealth((player->getOxygen()<= OXYGEN_THRESHOLD)); //we call the warning and indicate wether or not the other warning is also displayed
 	}
 }

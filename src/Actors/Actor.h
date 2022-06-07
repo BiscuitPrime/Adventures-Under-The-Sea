@@ -29,7 +29,7 @@ public:
 	sf::Vector2f getIsometricCoordinates() const { return isoCoords; }
 	void setIsoCoordinates(sf::Vector2f coords) { isoCoords = coords; }
 	sf::Sprite& getSprite() { actorSprite.setTexture(actorTexture); return actorSprite; }
-	virtual int getHealth()	{ return health.getHealth(); }
+	virtual int getHealth()	{ return health.getValue(); }
 	virtual void takeDamage(int dmg);
 	virtual void death();
 	int getId() const { return id; }
