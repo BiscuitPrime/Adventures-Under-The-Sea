@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<Tilemap label="level1" lines="10" columns="10">
+	<!--Player in x="4" y="0"-->
+	<!--Monster in x="1" y="8"-->
+	<!--Monster in x="5" y="9"-->
+	<!--Monster in x="9" y="6"-->
+	<!--Tiles-->
+	<Tiletype type="sand" accessibility="true">
+		<Tile x="4" y="0"/>
+		<Tile x="5" y="0"/>
+		<Tile x="6" y="0"/>
+		<Tile x="4" y="1"/>
+		<Tile x="5" y="1"/>
+		<Tile x="6" y="1"/>
+		<Tile x="3" y="2"/>
+		<Tile x="4" y="2"/>
+		<Tile x="5" y="2"/>
+		<Tile x="6" y="2"/>
+		<Tile x="0" y="3"/>
+		<Tile x="1" y="3"/>
+		<Tile x="2" y="3"/>
+		<Tile x="4" y="3"/>
+		<Tile x="5" y="3"/>
+		<Tile x="6" y="3"/>	
+		<Tile x="0" y="4"/>
+		<Tile x="2" y="4"/>
+		<Tile x="3" y="4"/>
+		<Tile x="4" y="4"/>
+		<Tile x="6" y="4"/>
+		<Tile x="7" y="4"/>
+		<Tile x="8" y="4"/>
+		<Tile x="9" y="4"/>		
+		<Tile x="1" y="5"/>
+		<Tile x="2" y="5"/>
+		<Tile x="3" y="5"/>
+		<Tile x="4" y="5"/>
+		<Tile x="7" y="5"/>
+		<Tile x="8" y="5"/>
+		<Tile x="9" y="5"/>		
+		<Tile x="2" y="6"/>
+		<Tile x="3" y="6"/>
+		<Tile x="4" y="6"/>
+		<Tile x="8" y="6"/>
+		<Tile x="9" y="6"/>		
+		<Tile x="0" y="7"/>
+		<Tile x="1" y="7"/>
+		<Tile x="3" y="7"/>
+		<Tile x="4" y="7"/>
+		<Tile x="5" y="7"/>
+		<Tile x="6" y="7"/>
+		<Tile x="7" y="7"/>
+		<Tile x="8" y="7"/>
+		<Tile x="0" y="8"/>
+		<Tile x="1" y="8"/>
+		<Tile x="2" y="8"/>
+		<Tile x="3" y="8"/>
+		<Tile x="4" y="8"/>
+		<Tile x="6" y="8"/>
+		<Tile x="7" y="8"/>
+		<Tile x="2" y="9"/>
+		<Tile x="3" y="9"/>
+		<Tile x="5" y="9"/>
+	</Tiletype>
+	<Tiletype type="sandTall" accessibility="false">
+		<Tile x="0" y="1"/>
+		<Tile x="0" y="0"/>
+		<Tile x="1" y="0"/>
+		<Tile x="5" y="6"/>
+		<Tile x="5" y="5"/>
+		<Tile x="6" y="5"/>
+		<Tile x="6" y="6"/>
+		<Tile x="0" y="9"/>
+		<Tile x="1" y="9"/>
+	</Tiletype>
+	<Tiletype type="sandAlgea" accessibility="true">
+		<Tile x="1" y="1"/>
+		<Tile x="2" y="1"/>
+		<Tile x="3" y="1"/>
+		<Tile x="0" y="2"/>
+		<Tile x="1" y="2"/>
+		<Tile x="2" y="2"/>
+		<Tile x="7" y="9"/>
+		<Tile x="8" y="9"/>
+		<Tile x="9" y="9"/>
+		<Tile x="6" y="4"/>
+		<Tile x="9" y="3"/>
+		<Tile x="8" y="0"/>
+		<Tile x="9" y="0"/>
+		<Tile x="8" y="1"/>
+		<Tile x="9" y="1"/>
+	</Tiletype>
+	<Tiletype type="sandAlgea2" accessibility="true">
+		<Tile x="6" y="9"/>
+		<Tile x="8" y="8"/>
+		<Tile x="9" y="8"/>
+		<Tile x="3" y="0"/>
+		<Tile x="7" y="3"/>
+		<Tile x="8" y="2"/>
+		<Tile x="7" y="4"/>
+		<Tile x="8" y="4"/>
+	</Tiletype>
+	<Tiletype type="sandRock" accessibility="false">
+		<Tile x="3" y="3"/>
+		<Tile x="1" y="4"/>
+	</Tiletype>
+	<Tiletype type="sandRockAlgea" accessibility="false">
+		<Tile x="2" y="7"/>
+	</Tiletype>
+	<Tiletype type="sandRock2" accessibility="false">
+		<Tile x="9" y="2"/>
+		<Tile x="7" y="0"/>
+		<Tile x="7" y="6"/>
+	</Tiletype>
+	<Tiletype type="sandRock2Algea" accessibility="false">
+		<Tile x="7" y="1"/>
+		<Tile x="2" y="0"/>
+	</Tiletype>
+	<Tiletype type="sandRock3" accessibility="true">
+		<Tile x="5" y="8"/>
+		<Tile x="9" y="7"/>
+		<Tile x="0" y="6"/>
+		<Tile x="5" y="4"/>
+		<Tile x="1" y="6"/>
+		<Tile x="7" y="2"/>
+	</Tiletype>
+	<Tiletype type="sandRock3Algea" accessibility="true">
+		<Tile x="0" y="5"/>
+		<Tile x="4" y="9"/>
+		<Tile x="8" y="3"/>
+	</Tiletype>
+	<!--Entities-->
+	<Entity type="bubble" x="2" y="3"/>
+	<Entity type="bubble" x="0" y="7"/>
+	<Entity type="bubble" x="6" y="1"/>
+	<Entity type="bubble" x="7" y="5"/>
+</Tilemap>
