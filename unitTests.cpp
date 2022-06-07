@@ -7,17 +7,8 @@
 /*
 * File of the various tests of the program
 */
-TEST(TestActor, TestLoadingSprite) //test wether or not files are correctly loaded for actors -  ------------------ TO REWRITE -----------------------------
-{
-    /*
-    std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    auto player = Player(0,playerTexturePath);
-    sf::Texture actorTexture;
-    bool actorSpriteLoad = actorTexture.loadFromFile(playerTexturePath);
-    EXPECT_EQ(actorSpriteLoad, true); // TEST IS USELESS FOR NOW
-    */
-}
 
+// TEST ACTORS
 TEST(TestActor, TestChangingState) //test wether or not the states of the player changes
 {
     /*
@@ -33,22 +24,36 @@ TEST(TestActor, TestChangingState) //test wether or not the states of the player
     //ASSERT_EQ(inputHandler.getState()->getName(), PlayerStates::moving.getName()) << "Player states have not been updated correctly"; //TEST IS USELESS FOR NOW AS WE CAN'T CHANGE INPUT
 }
 
-TEST(TestActor, TestHealthPlayer) //test wether or not the player's Health is initialized correctly AND is correctly updated
+TEST(TestActor, TestEnemyStates) //test wether the enemy states are updated //TO REWRITE
 {
+    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
     /*
+    auto enemy = Enemy(1, enemyTexturePath);
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    ASSERT_EQ(enemy.getState(),EnemyStates::STATE_IDLE) << "Enemy did not have its states setup at idle by default";
+    enemy.setState(EnemyStates::STATE_MOVING);
+    ASSERT_EQ(enemy.getState(), EnemyStates::STATE_MOVING) << "Enemy did not have its state updated";
+    */
+}
+TEST(TestModules, TestHealthPlayer) //test wether or not the player's Health is initialized correctly AND is correctly updated
+{
+    
     std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    auto player = Player(0,playerTexturePath);
+    sf::Texture playerTexture;
+    playerTexture.loadFromFile(playerTexturePath);
+    auto player = Player(0,playerTexture);
     ASSERT_EQ(player.getHealth(), 10) << "Player health has not initizalized correctly";
     player.takeDamage(1);
     ASSERT_EQ(player.getHealth(), 9) << "Player health has not taken damage correctly";
-    */
 }
 
-TEST(TestActor, TestOxygenPlayer) //test wether or not the player's Oxygen is initialized correctly AND is correctly updated
+TEST(TestModules, TestOxygenPlayer) //test wether or not the player's Oxygen is initialized correctly AND is correctly updated
 {
     /*
     std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    auto player = Player(0,playerTexturePath);
+    sf::Texture playerTexture;
+    playerTexture.loadFromFile(playerTexturePath);
+    auto player = Player(0,playerTexture);
     ASSERT_EQ(player.getOxygen(),5) << "Player oxygen has not initialized correctly";
     player.decreaseOxygen(2);
     ASSERT_EQ(player.getOxygen(), 3) << "Player oxygen has not decreased correctly";
@@ -61,57 +66,39 @@ TEST(TestActor, TestOxygenPlayer) //test wether or not the player's Oxygen is in
     */
 }
 
-TEST(TestActor, TestHealthEnemy) //test wether or not the enemy's Health is initialized correctly AND is correctly updated //TO REWRITE
+TEST(TestModules, TestHealthEnemy) //test wether or not the enemy's Health is initialized correctly AND is correctly updated
 {
-    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    /*
-    auto enemy = Enemy(1, enemyTexturePath);
-    ASSERT_EQ(enemy.getHealth(), 10) << "Player health has not initizalized correctly";
+    GameAssets ga;
+    Tilemap tilemap;
+    sf::Texture enemyTexture = ga.EldritchSquidLeft;
+    auto enemy = Enemy(1, enemyTexture, &tilemap);
+    ASSERT_EQ(enemy.getHealth(), 10) << "Enemy health has not initizalized correctly";
     enemy.takeDamage(1);
-    ASSERT_EQ(enemy.getHealth(), 9) << "Player health has not taken damage correctly";
-    */
+    ASSERT_EQ(enemy.getHealth(), 9) << "Enemy health has not taken damage correctly";
 }
 
-TEST(TestActor, TestConcurrentHealth) //test if two health pool can coexist without issues //TO REWRITE
+TEST(TestModules, TestConcurrentHealth) //test if two health pool can coexist without issues 
 {
-    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    /*
-    auto enemy = Enemy(1, enemyTexturePath);
-    std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    auto player = Player(playerTexturePath);
+    GameAssets ga;
+    Tilemap tilemap;
+    sf::Texture enemyTexture = ga.EldritchSquidLeft;
+    auto enemy = Enemy(1, enemyTexture, &tilemap);
+    sf::Texture playerTexture = ga.Bubble;
+    auto player = Player(0,playerTexture);
     player.takeDamage(1);
     enemy.takeDamage(2);
     ASSERT_NE(player.getHealth(), enemy.getHealth()) << "Player and enemy health pool seem to be indistinct";
-    */
-}
-
-TEST(TestActor, TestEnemyStates) //test wether the enemy states are updated //TO REWRITE
-{
-    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    /*
-    auto enemy = Enemy(1, enemyTexturePath);
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
-    ASSERT_EQ(enemy.getState(),EnemyStates::STATE_IDLE) << "Enemy did not have its states setup at idle by default";
-    enemy.setState(EnemyStates::STATE_MOVING);
-    ASSERT_EQ(enemy.getState(), EnemyStates::STATE_MOVING) << "Enemy did not have its state updated";
-    */
 }
 
 TEST(TestGameLogic, TestAddingEnemy) //test wether or not gameManager's adding enemies function works
 {
     GameAssets ga;
-    std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    auto player = Player(0,playerTexturePath);
-    //auto inputHandler = InputHandler(ga);
-    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/EldritchSquidRight.png";
-    /*
-    auto enemy = Enemy(1, enemyTexturePath);
     Tilemap tilemap;
-    sf::RenderWindow window(sf::VideoMode(0,0), "SFML window");
-    auto gameManager = GameManager(&player, enemy, &inputHandler, &tilemap, &window, &ga);
-    auto enemy2 = Enemy(1, enemyTexturePath);
+    sf::Texture enemyTexture = ga.EldritchSquidLeft;
+    auto enemy = Enemy(1, enemyTexture, &tilemap);
+    auto gameManager = GameManager(1,nullptr, enemy, nullptr, &tilemap, nullptr, &ga);
+    auto enemy2 = Enemy(1, enemyTexture, &tilemap);
     ASSERT_EQ(gameManager.addEnemy(enemy2), -1)<< "Both enemies have id as 1, GameManager's defense should return -1 -> Did not return -1 here";
-    */
 }
 
 // Tilemap tests
@@ -139,7 +126,8 @@ TEST(TestTilemap, TestBuildTilemap) {
     ASSERT_EQ(tile->getOccupied(), false) << "Tile (0, 0) wrongly occupied";
 }
 
-TEST(TestTilemap, TestSetTile) {
+TEST(TestTilemap, TestSetTile) 
+{
     Tilemap tilemap;
     GameAssets ga;
     auto* fileName = (char*)"../../../../projet-cpp/resources/tilemaps/TilemapForTesting.xml";
@@ -158,7 +146,8 @@ TEST(TestTilemap, TestSetTile) {
 
 // Definitions tests
 
-TEST(TestDefinition, TestOrthoToIso) {
+TEST(TestDefinition, TestOrthoToIso) 
+{
     auto orthoCoords = sf::Vector2i(5, 5);
     auto isoCoords = Definitions::orthoToIso(orthoCoords);
     ASSERT_EQ(isoCoords.x, 0) << "X coordinate is wrong";
@@ -166,14 +155,16 @@ TEST(TestDefinition, TestOrthoToIso) {
 }
 
 
-TEST(TestDefinition, TestIsoToOrtho) {
+TEST(TestDefinition, TestIsoToOrtho) 
+{
     auto isoCoords = sf::Vector2i(0, 160);
     auto orthoCoords = Definitions::isoToOrtho(isoCoords);
     ASSERT_EQ(orthoCoords.x, 5) << "X coordinate is wrong (should be 5): " << orthoCoords.x;
     ASSERT_EQ(orthoCoords.y, 5) << "Y coordinate is wrong (should be 5): " << orthoCoords.y;
 }
 
-TEST(TestDefinition, TestManhattanDistance) {
+TEST(TestDefinition, TestManhattanDistance) 
+{
     auto distance = Definitions::manhattanDistance(sf::Vector2i(0, 0), sf::Vector2(10, 5));
     ASSERT_EQ(distance, 15) << "Distance false";
     distance = Definitions::manhattanDistance(sf::Vector2i(0, 0), sf::Vector2(0, 0));
