@@ -32,7 +32,7 @@ int myMain()
     //Creating the game assets :
     auto ga = GameAssets();
     // Creating the UI :
-    auto ui = UI(ga);
+    auto ui = UI(ga.AlertOxygen, ga.AlertHealth);
 
     //Creating the player :
     std::string playerTexturePath = "../../../../resources/Sprites/Player.png";
@@ -49,7 +49,7 @@ int myMain()
     tilemap.buildTilemap(fileName, ga); // mettre dans le test
 
     //Creating the basic enemy :
-    std::string enemyTexturePath = "../../../../resources/Sprites/EldritchSquidRight.png";
+    std::string enemyTexturePath = "../../../../resources/Sprites/WyrmLeft.png";
     auto enemy = Enemy(1, enemyTexturePath, &tilemap);
     enemy.spawn(sf::Vector2i(4, 5));
 
@@ -61,7 +61,7 @@ int myMain()
 
     //adding another enemy :
     std::string enemyTexturePath2 = "../../../../resources/Sprites/EldritchSquidLeft.png";
-    auto enemy2 = Enemy(2, enemyTexturePath, &tilemap);
+    auto enemy2 = Enemy(2, enemyTexturePath2, &tilemap);
     enemy2.spawn(sf::Vector2i(7, 7));
     if (int ret = gameManager.addEnemy(enemy2); ret == -1) { exit(0); }
 

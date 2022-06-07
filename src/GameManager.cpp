@@ -46,10 +46,11 @@ void GameManager::gameLoop()
 			if (it->getState() == STATE_DEAD)
 			{
 				enemyGroup.erase(it);
-				if(enemyGroup.size() == 0) //if this triggers, it means the player killed all the enemies : we must end the level
+				if(enemyGroup.empty()) //if this triggers, it means the player killed all the enemies : we must end the level
 				{ 
 					isFinished = true;
 				}
+				std::cout << "Enemy list size :" << enemyGroup.size() << '\n';
 				break;
 			}
 		}

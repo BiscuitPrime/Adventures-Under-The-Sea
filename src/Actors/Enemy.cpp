@@ -60,16 +60,6 @@ void Enemy::moveEnemyCommand(sf::Vector2i movement)
 
 	//we physically move the enemy :
 	sf::Vector2i newEnemyPos = movement;
-	
-	/*int tries = 0;
-	while (testNewPositionValidity(newEnemyPos) == -1 && tries<=5) {
-		newEnemyPos = getCoordinates() + Definitions::getRandomDirection();
-		tries += 1;
-	}
-	if (tries == 6) //if a new valid position could not be found, the enemy stays on his position
-	{
-		newEnemyPos = getCoordinates();
-	}*/
 
 	setOrthoCoordinates(newEnemyPos); //set orthogonal coordinates
 	setIsoCoordinates(Definitions::orthoToIsoWithOffset(newEnemyPos)); //set isometric coordinates
