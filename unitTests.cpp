@@ -2,45 +2,41 @@
 #include <Actors/Player.h>
 #include <Actors/PlayerCommands/InputHandler.h>
 #include <Actors/Enemy.h>
+#include <UI/UI.h>
 #include <GameManager.h>
 
 /*
 * File of the various tests of the program
 */
 
-// TEST ACTORS
+// --------------------------------------------------------------- TEST ACTORS -------------------------------------------------------------------------------
 TEST(TestActor, TestChangingState) //test wether or not the states of the player changes
 {
-    /*
-    std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    auto player = Player(0,playerTexturePath);
+    sf::Texture texture;
+    auto player = Player(0,texture);
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
-    */
-    //auto inputHandler = InputHandler();
-
-    sf::Keyboard::isKeyPressed(sf::Keyboard::A); // ???????????????????????????????? -> how do you test a player input ??
-    //inputHandler.handleInput(&player, &window);
-
-    //ASSERT_EQ(inputHandler.getState()->getName(), PlayerStates::moving.getName()) << "Player states have not been updated correctly"; //TEST IS USELESS FOR NOW AS WE CAN'T CHANGE INPUT
+    GameAssets ga;
+    auto ui = UI(texture,texture);
+    auto inputHandler = InputHandler(ga,&ui);
+    ASSERT_EQ(inputHandler.getState()->getName(), PlayerStates::idle.getName()) << "Player states have not been initialized correctly";
 }
 
 TEST(TestActor, TestEnemyStates) //test wether the enemy states are updated //TO REWRITE
 {
-    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
-    /*
-    auto enemy = Enemy(1, enemyTexturePath);
+    sf::Texture texture;
+    Tilemap tilemap;
+    auto enemy = Enemy(1, texture, &tilemap);
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
     ASSERT_EQ(enemy.getState(),EnemyStates::STATE_IDLE) << "Enemy did not have its states setup at idle by default";
     enemy.setState(EnemyStates::STATE_MOVING);
     ASSERT_EQ(enemy.getState(), EnemyStates::STATE_MOVING) << "Enemy did not have its state updated";
-    */
 }
+
+// --------------------------------------------------------------- TEST MODULES -------------------------------------------------------------------------------
+
 TEST(TestModules, TestHealthPlayer) //test wether or not the player's Health is initialized correctly AND is correctly updated
 {
-    
-    std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
     sf::Texture playerTexture;
-    playerTexture.loadFromFile(playerTexturePath);
     auto player = Player(0,playerTexture);
     ASSERT_EQ(player.getHealth(), HEALTH_INITIAL_PLAYER) << "Player health has not initizalized correctly";
     player.takeDamage(1);
@@ -49,9 +45,7 @@ TEST(TestModules, TestHealthPlayer) //test wether or not the player's Health is 
 
 TEST(TestModules, TestOxygenPlayer) //test wether or not the player's Oxygen is initialized correctly AND is correctly updated
 {
-    std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
     sf::Texture playerTexture;
-    playerTexture.loadFromFile(playerTexturePath);
     auto player = Player(0,playerTexture);
     ASSERT_EQ(player.getOxygen(),OXYGEN_INITIAL_PLAYER) << "Player oxygen has not initialized correctly";
     player.decreaseOxygen(2);
@@ -67,14 +61,14 @@ TEST(TestModules, TestOxygenPlayer) //test wether or not the player's Oxygen is 
 TEST(TestModules, TestHealthEnemy) //test wether or not the enemy's Health is initialized correctly AND is correctly updated
 {
     Tilemap tilemap;
-    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
     sf::Texture texture;
-    texture.loadFromFile(enemyTexturePath);
     auto enemy = Enemy(1, texture, &tilemap);
     ASSERT_EQ(enemy.getHealth(), HEALTH_INITIAL_ENEMY_BASE) << "Enemy health has not initizalized correctly";
     enemy.takeDamage(1);
     ASSERT_EQ(enemy.getHealth(), HEALTH_INITIAL_ENEMY_BASE-1) << "Enemy health has not taken damage correctly";
 }
+
+// --------------------------------------------------------------- TEST GAMELOGIC -------------------------------------------------------------------------------
 
 TEST(TestGameLogic, TestAddingEnemy) //test wether or not gameManager's adding enemies function works
 {
@@ -87,8 +81,7 @@ TEST(TestGameLogic, TestAddingEnemy) //test wether or not gameManager's adding e
     ASSERT_EQ(gameManager.addEnemy(enemy2), -1)<< "Both enemies have id as 1, GameManager's defense should return -1 -> Did not return -1 here";
 }
 
-// Tilemap tests
-
+// --------------------------------------------------------------- TEST TILEMAP -------------------------------------------------------------------------------
 TEST(TestTilemap, TestBuildTilemap) {
     Tilemap tilemap;
     GameAssets ga;
@@ -130,7 +123,7 @@ TEST(TestTilemap, TestSetTile)
     ASSERT_EQ(tile->getAccessibility(), true) << "Accessibility of tile (0, 0) not properly set";
 }
 
-// Definitions tests
+// --------------------------------------------------------------- TEST DEFINITIONS -------------------------------------------------------------------------------
 
 TEST(TestDefinition, TestOrthoToIso) 
 {
