@@ -1,5 +1,4 @@
 #include "PlayerState.h"
-#include <Actors/PlayerStates/PlayerState.h>
 #include <iostream>
 /*
 * Source code of the various player states

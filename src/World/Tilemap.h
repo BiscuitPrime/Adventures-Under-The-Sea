@@ -1,6 +1,5 @@
 #pragma once
 #include <World/Tile.h>
-#include <Assets/Definitions.h>
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <Assets/Definitions.h>
