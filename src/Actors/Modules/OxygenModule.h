@@ -5,9 +5,6 @@
 */
 
 class OxygenModule : public Module {
-private:
-	int oxygenCounter = 5;
-	int maximalOxygen = MAX_OXYGEN;
 public:
 	OxygenModule();
 	void increaseOxygen(int value);

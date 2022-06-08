@@ -53,6 +53,8 @@ void GameManager::gameLoop()
 				break;
 			}
 		}
+		//we check the player's oxygen :
+		if (player->getOxygen()==0) { exit(5000); };
 	}
 	else if (_turn == ENEMY_TURN)
 	{

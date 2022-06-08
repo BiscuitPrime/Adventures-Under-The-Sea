@@ -42,52 +42,38 @@ TEST(TestModules, TestHealthPlayer) //test wether or not the player's Health is 
     sf::Texture playerTexture;
     playerTexture.loadFromFile(playerTexturePath);
     auto player = Player(0,playerTexture);
-    ASSERT_EQ(player.getHealth(), 10) << "Player health has not initizalized correctly";
+    ASSERT_EQ(player.getHealth(), HEALTH_INITIAL_PLAYER) << "Player health has not initizalized correctly";
     player.takeDamage(1);
-    ASSERT_EQ(player.getHealth(), 9) << "Player health has not taken damage correctly";
+    ASSERT_EQ(player.getHealth(), HEALTH_INITIAL_PLAYER-1) << "Player health has not taken damage correctly";
 }
 
 TEST(TestModules, TestOxygenPlayer) //test wether or not the player's Oxygen is initialized correctly AND is correctly updated
 {
-    /*
     std::string playerTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
     sf::Texture playerTexture;
     playerTexture.loadFromFile(playerTexturePath);
     auto player = Player(0,playerTexture);
-    ASSERT_EQ(player.getOxygen(),5) << "Player oxygen has not initialized correctly";
+    ASSERT_EQ(player.getOxygen(),OXYGEN_INITIAL_PLAYER) << "Player oxygen has not initialized correctly";
     player.decreaseOxygen(2);
-    ASSERT_EQ(player.getOxygen(), 3) << "Player oxygen has not decreased correctly";
+    ASSERT_EQ(player.getOxygen(), OXYGEN_INITIAL_PLAYER-2) << "Player oxygen has not decreased correctly";
     player.increaseOxygen(1);
-    ASSERT_EQ(player.getOxygen(), 4) << "Player oxygen has not increased correctly";
+    ASSERT_EQ(player.getOxygen(), OXYGEN_INITIAL_PLAYER-1) << "Player oxygen has not increased correctly";
     player.increaseOxygen(10);
     ASSERT_EQ(player.getOxygen(), 5) << "Player oxygen is not maxed";
     player.decreaseOxygen(10);
     ASSERT_EQ(player.getOxygen(), 0) << "Player oxygen is not floored";
-    */
 }
 
 TEST(TestModules, TestHealthEnemy) //test wether or not the enemy's Health is initialized correctly AND is correctly updated
 {
-    GameAssets ga;
     Tilemap tilemap;
-    sf::Texture enemyTexture = ga.EldritchSquidLeft;
-    auto enemy = Enemy(1, enemyTexture, &tilemap);
-    ASSERT_EQ(enemy.getHealth(), 10) << "Enemy health has not initizalized correctly";
+    std::string enemyTexturePath = "../../../../projet-cpp/resources/Sprites/Player.png";
+    sf::Texture texture;
+    texture.loadFromFile(enemyTexturePath);
+    auto enemy = Enemy(1, texture, &tilemap);
+    ASSERT_EQ(enemy.getHealth(), HEALTH_INITIAL_ENEMY_BASE) << "Enemy health has not initizalized correctly";
     enemy.takeDamage(1);
-    ASSERT_EQ(enemy.getHealth(), 9) << "Enemy health has not taken damage correctly";
-}
-
-TEST(TestModules, TestConcurrentHealth) //test if two health pool can coexist without issues 
-{
-    GameAssets ga;
-    Tilemap tilemap;
-    sf::Texture enemyTexture = ga.EldritchSquidLeft;
-    auto enemy = Enemy(1, enemyTexture, &tilemap);
-    sf::Texture playerTexture = ga.Bubble;
-    auto player = Player(0,playerTexture);
-    player.takeDamage(1);
-    enemy.takeDamage(2);
-    ASSERT_NE(player.getHealth(), enemy.getHealth()) << "Player and enemy health pool seem to be indistinct";
+    ASSERT_EQ(enemy.getHealth(), HEALTH_INITIAL_ENEMY_BASE-1) << "Enemy health has not taken damage correctly";
 }
 
 TEST(TestGameLogic, TestAddingEnemy) //test wether or not gameManager's adding enemies function works

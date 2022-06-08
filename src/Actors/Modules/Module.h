@@ -9,8 +9,10 @@ class Module {
 protected:
 	int maximalValue;
 	int valueCounter;
+	std::string type;
 public:
 	Module() = default;
+	std::string getType() { return type; }
 	void setInitialValue(int initialValue);
 	int getValue() const { return valueCounter; };
 };

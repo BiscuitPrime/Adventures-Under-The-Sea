@@ -9,7 +9,7 @@ Enemy::Enemy(int id, sf::Texture texture, Tilemap* tilem) : Actor{ id, texture }
 {
 	actorType = ENEMY;
 	_state = EnemyStates::STATE_IDLE; //by default in idle state
-	health.setInitialValue(1);
+	health.setInitialValue(HEALTH_INITIAL_ENEMY_BASE);
 }
 
 

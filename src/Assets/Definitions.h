@@ -9,9 +9,14 @@
 #define windowWidth 1920						// width of the render window
 #define windowHeight 1080						// height of the render window
 #define MAX_OXYGEN 5							// max oxygen value
+#define MAX_PLAYER_HEALTH 10					// max hp for player
 #define GAME_NAME "ADVENTURES UNDER THE SEA"	// name of the game
 #define OXYGEN_THRESHOLD 2						// threshold indicating that oxygen is low
-#define HEALTH_THRESHOLD 3						// threshold indicating that health is low
+#define OXYGEN_INITIAL_PLAYER 5					// initial value for player's oxygen
+#define HEALTH_PLAYER_THRESHOLD 3				// threshold indicating that health is low
+#define HEALTH_INITIAL_PLAYER 10				// initial value for player's health
+#define HEALTH_INITIAL_ENEMY_BASE 1				// initial value for base enemy's health
+
 
 class Definitions {
 // a class to hold tool functions

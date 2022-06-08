@@ -5,22 +5,28 @@
 */
 
 OxygenModule::OxygenModule()
-{}
+{
+	maximalValue = MAX_OXYGEN;
+	type = "OxygenModule";
+}
 
 //increases the OxygenModule's value
 void OxygenModule::increaseOxygen(int value)
 {
-	oxygenCounter += value;
-	if (oxygenCounter > maximalOxygen) oxygenCounter = maximalOxygen;
+	valueCounter += value;
+	if (valueCounter > maximalValue) 
+	{ 
+		valueCounter = maximalValue; 
+	}
 }
 
 //decreases the OxygenModule's value
 void OxygenModule::decreaseOxygen(int value)
 {
-	oxygenCounter -= value;
-	if (oxygenCounter < 0) 
+	valueCounter -= value;
+	if (valueCounter < 0) 
 	{ 
-		oxygenCounter = 0;
+		valueCounter = 0;
 	}
 }
 
