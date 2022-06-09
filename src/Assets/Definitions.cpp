@@ -2,6 +2,10 @@
 #include "Definitions.h"
 #include "Definitions.h"
 #include "Definitions.h"
+/*
+* Source code of the definitions
+*/
+
 
 sf::Vector2f Definitions::orthoToIso(sf::Vector2i orthoCoords) {
 	auto isoCoords = sf::Vector2f((orthoCoords.x - orthoCoords.y) * 0.5 * SPRITE_SIZE, (orthoCoords.x + orthoCoords.y) * 0.25 * SPRITE_SIZE);
@@ -41,7 +45,7 @@ int Definitions::manhattanDistance(sf::Vector2i A, sf::Vector2i B)
 //method that returns a random direction
 sf::Vector2i Definitions::getRandomDirection()
 {
-	srand(time(nullptr));  // Initialize random number generator.
+	srand(time(0));  // Initialize random number generator.
 	int randX = (rand() % 3);
 	int randXMinus = (rand() % 2);
 	int randYMinus = (rand() % 2);
