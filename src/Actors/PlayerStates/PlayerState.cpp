@@ -6,97 +6,65 @@
 
 //-------------------------------------------
 //PlayerState class :
-PlayerState::PlayerState() {
-	stateName = "playerState";
-}
+PlayerState::PlayerState() : stateName{ "playerState" } {}
 
-void PlayerState::stateExecute() 
-{}
-
-std::string PlayerState::getName()
-{
-	return stateName;
-}
-
+void PlayerState::stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap){}
 //-------------------------------------------
 
 //-------------------------------------------
 //PlayerIdleState class :
-PlayerIdleState::PlayerIdleState() 
-{
-	stateName = "playerIdleState";
-}
-void PlayerIdleState::stateExecute()
+PlayerIdleState::PlayerIdleState() : stateName{ "playerIdleState" }{}
+
+void PlayerIdleState::stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap)
 {
 	std::cout << "Idle state\n";
 }
-std::string PlayerIdleState::getName()
-{
-	return stateName;
-}
+
 //-------------------------------------------
 
 //-------------------------------------------
 //PlayerMovingState class :
-PlayerMovingState::PlayerMovingState() {
-	stateName = "playerMovingState";
-}
+PlayerMovingState::PlayerMovingState(): stateName { "playerMovingState" } {}
 
-void PlayerMovingState::stateExecute()
+void PlayerMovingState::stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap)
 {
 	std::cout << "Moving state\n";
+	moveCommand.execute(player, window, tilemap);
 }
-std::string PlayerMovingState::getName()
-{
-	return stateName;
-}
+
 //-------------------------------------------
 
 
 //-------------------------------------------
 //PlayerAttackState class :
-PlayerAttackState::PlayerAttackState() {
-	stateName = "playerAttackState";
-}
+PlayerAttackState::PlayerAttackState() :stateName{ "playerAttackState" } {}
 
-void PlayerAttackState::stateExecute()
+
+void PlayerAttackState::stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap)
 {
 	std::cout << "Attack state\n";
 }
-std::string PlayerAttackState::getName()
-{
-	return std::string();
-}
+
 //-------------------------------------------
 
 //-------------------------------------------
 //PlayerMineAttackState class :
-PlayerMineAttackState::PlayerMineAttackState() {
-	stateName = "playerMineAttackState";
-}
+PlayerMineAttackState::PlayerMineAttackState() : stateName{ "playerMineAttackState" } {}
 
-void PlayerMineAttackState::stateExecute()
+void PlayerMineAttackState::stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap)
 {
 	std::cout << "Mine state\n";
+	mineCommand.execute(player, window, tilemap);
 }
-std::string PlayerMineAttackState::getName()
-{
-	return std::string();
-}
+
 //-------------------------------------------
 
 //-------------------------------------------
 //PlayerTorpedoAttackState class :
-PlayerTorpedoAttackState::PlayerTorpedoAttackState() {
-	stateName = "playerTorpedoAttackState";
-}
+PlayerTorpedoAttackState::PlayerTorpedoAttackState() : stateName{ "playerTorpedoAttackState" } {}
 
-void PlayerTorpedoAttackState::stateExecute()
+void PlayerTorpedoAttackState::stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap)
 {
 	std::cout << "Torpedo state\n";
-}
-
-std::string PlayerTorpedoAttackState::getName()
-{
-	return std::string();
+	torpedoCommand.execute(player, window, tilemap);
 }

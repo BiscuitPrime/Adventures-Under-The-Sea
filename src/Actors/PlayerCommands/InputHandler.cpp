@@ -8,7 +8,6 @@ InputHandler::InputHandler(GameAssets const& ga, UI* const& nui)
 	ui = nui;
 	gameAssets = ga;
 	_state = &PlayerStates::idle; //by default, in idle state
-	_command = &moveCommand; //by default, command is given to move command
 }
 
 //method that handles the player's inputs :
@@ -21,21 +20,18 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		unselectAvailableTiles(tilemap); //we start by unloading any and all variants
 		if (_state == &PlayerStates::moving)
 		{
-			_command = &moveCommand;
-			_command->execute(player, window, tilemap);
+			_state->stateExecute(player, window, tilemap);
 			_state = &PlayerStates::attack;
 		}
 		else if (_state == &PlayerStates::mine)
 		{
-			_command = &mineCommand;
-			_command->execute(player, window, tilemap);
+			_state->stateExecute(player, window, tilemap);
 			_state = &PlayerStates::idle;
 			isPlayerLoopFinished = true; //by that point the player has finished its loop
 		}
 		else if (_state == &PlayerStates::torpedo)
 		{
-			_command = &torpedoCommand;
-			_command->execute(player, window, tilemap);
+			_state->stateExecute(player, window, tilemap);
 			_state = &PlayerStates::idle;
 			isPlayerLoopFinished = true; //by that point the player has finished its loop
 		}

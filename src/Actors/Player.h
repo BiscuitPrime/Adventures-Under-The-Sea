@@ -1,7 +1,6 @@
 #pragma once
 #include "Actor.h"
 #include <iostream>
-#include <Actors/PlayerStates/PlayerStates.h>
 #include <SFML/Graphics.hpp>
 
 /*

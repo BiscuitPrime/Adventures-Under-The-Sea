@@ -2,7 +2,7 @@
 /*
 * Header for the InputHandler class, that handles the analysis of the player's input and calls the appropriate commands that will execute functions
 */
-#include <Actors/PlayerCommands/PlayerCommands.h>
+#include <Actors/PlayerStates/PlayerStates.h>
 #include <World/Tile.h>
 #include <World/Tilemap.h>
 #include <UI/UI.h>
@@ -10,12 +10,7 @@
 class InputHandler {
 private:
 	PlayerState* _state; //state of the player
-	PlayerCommand* _command; //USELESS FOR NOW
-	MoveCommand moveCommand;
-	MineAttackCommand mineCommand;
-	TorpedoAttackCommand torpedoCommand;
 	GameAssets gameAssets;
-	//Tile* currentSelectedTile;
 	bool isPlayerLoopFinished = false;
 	UI* ui;
 public:

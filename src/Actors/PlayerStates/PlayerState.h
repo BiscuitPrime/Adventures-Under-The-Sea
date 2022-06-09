@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <Actors/PlayerCommands/PlayerCommands.h>
 /*
 * Header used to define the various available Player states
 */
@@ -8,10 +9,14 @@
 class PlayerState {
 private:
 	std::string stateName;
+protected:
+	MoveCommand moveCommand;
+	MineAttackCommand mineCommand;
+	TorpedoAttackCommand torpedoCommand;
 public:
 	PlayerState();
-	virtual void stateExecute();
-	virtual std::string getName();
+	virtual void stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap);
+	std::string getName() const { return stateName; };
 };
 
 //idle state :
@@ -21,8 +26,7 @@ private:
 	std::string stateName;
 public:
 	PlayerIdleState();
-	void stateExecute() override;
-	std::string getName() override;
+	void stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap) override;
 };
 
 //moving state :
@@ -32,8 +36,7 @@ private:
 	std::string stateName;
 public:
 	PlayerMovingState();
-	void stateExecute() override;
-	std::string getName() override;
+	void stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap) override;
 };
 
 //attack state :
@@ -43,8 +46,7 @@ private:
 	std::string stateName;
 public:
 	PlayerAttackState();
-	void stateExecute() override;
-	std::string getName() override;
+	void stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap) override;
 };
 
 //mine attack state :
@@ -54,8 +56,7 @@ private:
 	std::string stateName;
 public:
 	PlayerMineAttackState();
-	void stateExecute() override;
-	std::string getName() override;
+	void stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap) override;
 };
 
 //torpedo attack state :
@@ -65,7 +66,6 @@ private:
 	std::string stateName;
 public:
 	PlayerTorpedoAttackState();
-	void stateExecute() override;
-	std::string getName() override;
+	void stateExecute(Player* player, sf::RenderWindow* window, Tilemap* tilemap) override;
 };
 
