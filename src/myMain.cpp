@@ -87,10 +87,15 @@ int myMain()
     //we create the levels :
     levelZero = Level(0, &gameManager, sf::Vector2i(0, 5));
     levelOne = Level(1, &gameManager2, sf::Vector2i(0, 5));
-    //we set up the next levels :
+    //we set up the next levels of each levels :
     levelZero.setNextLevel(&levelOne);
     levelOne.setNextLevel(nullptr);
+
+    //WE SET the current active level, i.e. levelZero :
+    levelZero.initializeLevel();
     _currentLevel = &levelZero;
+
+    //boolean indicating wether start screen begun or not
     bool started = false;
 
     //THE START MENU LOOP :
