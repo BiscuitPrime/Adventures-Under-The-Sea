@@ -46,7 +46,7 @@ int myMain()
 
     //Creating the tilemap :
     Tilemap tilemap;
-    auto* fileName = (char*)"resources/tilemaps/TilemapLevel2.xml";
+    auto* fileName = (char*)"resources/tilemaps/TilemapLevel1.xml";
     tilemap.buildTilemap(fileName, ga); // mettre dans le test
 
     //Creating the basic enemy :
