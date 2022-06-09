@@ -24,12 +24,10 @@ enum turnState {
 
 class GameManager {
 private:
-	//duration<double> lag;
-	//high_resolution_clock::time_point previousTimestamp;
 	int id;
 	Player* player;
 	std::vector<Enemy> enemyGroup;
-	PlayerHandler* inputhandler;
+	PlayerHandler* playerhandler;
 	Tilemap* tilemap;
 	sf::RenderWindow* window;
 	GameAssets* gameAssets;
@@ -40,7 +38,7 @@ public:
 	GameManager(int id,Player* player, Enemy enemy, PlayerHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
 	int getId() const { return id; };
 	void gameLoop();
-	turnState changeTurn();
+	turnState changeTurn() const { return _turn == PLAYER_TURN ? ENEMY_TURN : PLAYER_TURN; };
 	int addEnemy(Enemy enemy);
 	Enemy* selectEnemy();
 	bool getFinishedStatus() const { return isFinished; };

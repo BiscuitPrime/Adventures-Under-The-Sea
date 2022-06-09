@@ -19,7 +19,6 @@ void Enemy::death()
 	std::cout << "Enemy has died.\n";
 	_state = STATE_DEAD;
 	removeEnemyOnTilemap();
-	//exit(500);
 }
 
 //method that returns the next state

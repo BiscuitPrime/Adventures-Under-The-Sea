@@ -56,6 +56,7 @@ void UI::warningHealth(bool oxy)
 	ImGui::End();
 }
 
+//Starting UI
 int UI::startUI()
 {
 	ImGui::SetNextWindowPos(ImVec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));

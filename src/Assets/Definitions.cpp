@@ -41,7 +41,7 @@ int Definitions::manhattanDistance(sf::Vector2i A, sf::Vector2i B)
 //method that returns a random direction
 sf::Vector2i Definitions::getRandomDirection()
 {
-	srand(time(0));  // Initialize random number generator.
+	srand(time(nullptr));  // Initialize random number generator.
 	int randX = (rand() % 3);
 	int randXMinus = (rand() % 2);
 	int randYMinus = (rand() % 2);

@@ -10,14 +10,11 @@
 
 //constructor of the game manager that handles the game.
 GameManager::GameManager(int nid, Player* play, Enemy en, PlayerHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga) :
-	id{nid},player{play},inputhandler{input},tilemap{tilem}, window{wind},gameAssets{ga}
+	id{nid},player{play},playerhandler{input},tilemap{tilem}, window{wind},gameAssets{ga}
 {
 	enemyGroup.push_back(en);
-	//previousTimestamp = high_resolution_clock::now();
-	//lag = (duration<double>)0;
 	_turn = PLAYER_TURN;
 	currentEnemy = nullptr;
-	//en.setUpEnemyOnTilemap();
 }
 
 //function that handles the game loop :
@@ -30,13 +27,12 @@ void GameManager::gameLoop()
 	if (_turn == PLAYER_TURN)
 	{
 		//we start the player's turn :
-		inputhandler->startPlayerLoop();
+		playerhandler->startPlayerLoop();
 
 		//we handle the player's input :
-		//std::cout << "Player's turn !\n";
-		inputhandler->update(player, window, tilemap);
+		playerhandler->update(player, window, tilemap);
 
-		if (inputhandler->finishedPlayerLoop())
+		if (playerhandler->finishedPlayerLoop())
 		{
 			//we then change turn :
 			_turn = changeTurn();
@@ -77,11 +73,6 @@ void GameManager::gameLoop()
 	render();
 }
 
-//method that returns the next turn depending on the current turn
-turnState GameManager::changeTurn()
-{
-	return _turn == PLAYER_TURN ? ENEMY_TURN : PLAYER_TURN;
-}
 
 //functions that adds an enemy to the group of enemies stored in the Game Manager.
 int GameManager::addEnemy(Enemy enemy)

@@ -5,7 +5,7 @@
 #include <iostream>
 
 //Constructor of the actor class
-Actor::Actor(int nid, sf::Texture texture) : id{ nid }, health{ HealthModule() }, actorTexture{ texture }
+Actor::Actor(int nid, sf::Texture texture) : actorTexture{ texture }, id{ nid }, health{ HealthModule() }
 {
 }
 
