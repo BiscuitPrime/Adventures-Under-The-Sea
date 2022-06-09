@@ -1,8 +1,10 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
+/*
+*	Header for the game assets
+*/
 
 class GameAssets {
 public:
@@ -11,6 +13,7 @@ public:
     std::map<std::string, sf::Texture> tileIndexes;
 
     // ui 
+    sf::Texture Titlescreen;
     sf::Texture AlertHealth;
     sf::Texture AlertOxygen;
 
