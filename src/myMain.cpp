@@ -97,7 +97,7 @@ int myMain()
         ImGui::SFML::Update(window, deltaClock.restart());
 
         //we create the game button :
-        ImGui::SetNextWindowPos(ImVec2((windowWidth / 2)-100, (windowHeight / 2)));
+        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH / 2)-100, (WINDOW_HEIGHT / 2)));
         ImGui::SetNextWindowSize(ImVec2(200, 70));
         ImGui::Begin("Starting game");
         if(ImGui::Button("StartGame"))

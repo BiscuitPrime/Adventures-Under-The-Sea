@@ -11,7 +11,8 @@ Player::Player(int id, sf::Texture texture) : Actor{ id,texture }
 	actorType = PLAYER;
 	setOrthoCoordinates(sf::Vector2i(0, 5)); //set orthogonal coordinates
 	setIsoCoordinates(Definitions::orthoToIsoWithOffset(sf::Vector2i(0, 5))); //set isometric coordinates
-	getSprite().setPosition(getIsometricCoordinates()); //set sprite position
+	sf::Vector2f spritePosition = sf::Vector2f(getIsometricCoordinates().x, getIsometricCoordinates().y + ACTOR_SPRITE_VERTICAL_OFFSET);
+	getSprite().setPosition(spritePosition); //set sprite position
 	health.setInitialValue(HEALTH_INITIAL_PLAYER); //we set up the life at 10 for the player
 	oxygen.setInitialValue(MAX_OXYGEN); //we set up the player's oxygen at max value
 }

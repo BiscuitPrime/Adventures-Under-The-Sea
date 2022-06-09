@@ -2539,13 +2539,13 @@ static void ShowDemoWindowLayout()
         HelpMarker(
             "Horizontal scrolling for a window is enabled via the ImGuiWindowFlags_HorizontalScrollbar flag.\n\n"
             "You may want to also explicitly specify content width by using SetNextWindowContentWidth() before Begin().");
-        static int lines = 7;
-        ImGui::SliderInt("Lines", &lines, 1, 15);
+        static int LINES = 7;
+        ImGui::SliderInt("Lines", &LINES, 1, 15);
         ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 3.0f);
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(2.0f, 1.0f));
         ImVec2 scrolling_child_size = ImVec2(0, ImGui::GetFrameHeightWithSpacing() * 7 + 30);
         ImGui::BeginChild("scrolling", scrolling_child_size, true, ImGuiWindowFlags_HorizontalScrollbar);
-        for (int line = 0; line < lines; line++)
+        for (int line = 0; line < LINES; line++)
         {
             // Display random stuff. For the sake of this trivial demo we are using basic Button() + SameLine()
             // If you want to create your own time line for a real application you may be better off manipulating
@@ -2964,7 +2964,7 @@ static void ShowDemoWindowColumns()
     if (disable_indent)
         ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, 0.0f);
 
-    // Basic columns
+    // Basic COLUMNS
     if (ImGui::TreeNode("Basic"))
     {
         ImGui::Text("Without border:");
@@ -3011,7 +3011,7 @@ static void ShowDemoWindowColumns()
 
     if (ImGui::TreeNode("Borders"))
     {
-        // NB: Future columns API should allow automatic horizontal borders.
+        // NB: Future COLUMNS API should allow automatic horizontal borders.
         static bool h_borders = true;
         static bool v_borders = true;
         static int columns_count = 4;
@@ -3089,7 +3089,7 @@ static void ShowDemoWindowColumns()
         ImGui::TreePop();
     }
 
-    // Scrolling columns
+    // Scrolling COLUMNS
     /*
     if (ImGui::TreeNode("Vertical Scrolling"))
     {
@@ -3191,10 +3191,10 @@ static void ShowDemoWindowMisc()
                     "  \"xxx,yyy\"  display lines containing \"xxx\" or \"yyy\"\n"
                     "  \"-xxx\"     hide lines containing \"xxx\"");
         filter.Draw();
-        const char* lines[] = { "aaa1.c", "bbb1.c", "ccc1.c", "aaa2.cpp", "bbb2.cpp", "ccc2.cpp", "abc.h", "hello, world" };
-        for (int i = 0; i < IM_ARRAYSIZE(lines); i++)
-            if (filter.PassFilter(lines[i]))
-                ImGui::BulletText("%s", lines[i]);
+        const char* LINES[] = { "aaa1.c", "bbb1.c", "ccc1.c", "aaa2.cpp", "bbb2.cpp", "ccc2.cpp", "abc.h", "hello, world" };
+        for (int i = 0; i < IM_ARRAYSIZE(LINES); i++)
+            if (filter.PassFilter(LINES[i]))
+                ImGui::BulletText("%s", LINES[i]);
     }
 
     if (ImGui::CollapsingHeader("Inputs, Navigation & Focus"))
@@ -4319,7 +4319,7 @@ struct ExampleAppLog
 {
     ImGuiTextBuffer     Buf;
     ImGuiTextFilter     Filter;
-    ImVector<int>       LineOffsets; // Index to lines offset. We maintain this with AddLog() calls.
+    ImVector<int>       LineOffsets; // Index to LINES offset. We maintain this with AddLog() calls.
     bool                AutoScroll;  // Keep scrolling if already at the bottom.
 
     ExampleAppLog()
@@ -4402,7 +4402,7 @@ struct ExampleAppLog
             // The simplest and easy way to display the entire buffer:
             //   ImGui::TextUnformatted(buf_begin, buf_end);
             // And it'll just work. TextUnformatted() has specialization for large blob of text and will fast-forward
-            // to skip non-visible lines. Here we instead demonstrate using the clipper to only process lines that are
+            // to skip non-visible LINES. Here we instead demonstrate using the clipper to only process LINES that are
             // within the visible area.
             // If you have tens of thousands of items and their processing cost is non-negligible, coarse clipping them
             // on your side is recommended. Using ImGuiListClipper requires
@@ -4538,7 +4538,7 @@ static void ShowDummyObject(const char* prefix, int uid)
 {
     // Use object uid as identifier. Most commonly you could also use the object pointer as a base ID.
     ImGui::PushID(uid);
-    ImGui::AlignTextToFramePadding();   // Text and Tree nodes are less high than framed widgets, here we add vertical spacing to make the tree lines equal high.
+    ImGui::AlignTextToFramePadding();   // Text and Tree nodes are less high than framed widgets, here we add vertical spacing to make the tree LINES equal high.
     bool node_open = ImGui::TreeNode("Object", "%s_%u", prefix, uid);
     ImGui::NextColumn();
     ImGui::AlignTextToFramePadding();
@@ -4621,20 +4621,20 @@ static void ShowExampleAppLongText(bool* p_open)
 
     static int test_type = 0;
     static ImGuiTextBuffer log;
-    static int lines = 0;
+    static int LINES = 0;
     ImGui::Text("Printing unusually long amount of text.");
     ImGui::Combo("Test type", &test_type,
         "Single call to TextUnformatted()\0"
         "Multiple calls to Text(), clipped\0"
         "Multiple calls to Text(), not clipped (slow)\0");
-    ImGui::Text("Buffer contents: %d lines, %d bytes", lines, log.size());
-    if (ImGui::Button("Clear")) { log.clear(); lines = 0; }
+    ImGui::Text("Buffer contents: %d lines, %d bytes", LINES, log.size());
+    if (ImGui::Button("Clear")) { log.clear(); LINES = 0; }
     ImGui::SameLine();
     if (ImGui::Button("Add 1000 lines"))
     {
         for (int i = 0; i < 1000; i++)
-            log.appendf("%i The quick brown fox jumps over the lazy dog\n", lines+i);
-        lines += 1000;
+            log.appendf("%i The quick brown fox jumps over the lazy dog\n", LINES+i);
+        LINES += 1000;
     }
     ImGui::BeginChild("Log");
     switch (test_type)
@@ -4647,7 +4647,7 @@ static void ShowExampleAppLongText(bool* p_open)
         {
             // Multiple calls to Text(), manually coarsely clipped - demonstrate how to use the ImGuiListClipper helper.
             ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0,0));
-            ImGuiListClipper clipper(lines);
+            ImGuiListClipper clipper(LINES);
             while (clipper.Step())
                 for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; i++)
                     ImGui::Text("%i The quick brown fox jumps over the lazy dog", i);
@@ -4657,7 +4657,7 @@ static void ShowExampleAppLongText(bool* p_open)
     case 2:
         // Multiple calls to Text(), not clipped (slow)
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0,0));
-        for (int i = 0; i < lines; i++)
+        for (int i = 0; i < LINES; i++)
             ImGui::Text("%i The quick brown fox jumps over the lazy dog", i);
         ImGui::PopStyleVar();
         break;
@@ -4679,13 +4679,13 @@ static void ShowExampleAppAutoResize(bool* p_open)
         return;
     }
 
-    static int lines = 10;
+    static int LINES = 10;
     ImGui::TextUnformatted(
         "Window will resize every-frame to the size of its content.\n"
         "Note that you probably don't want to query the window size to\n"
         "output your content because that would create a feedback loop.");
-    ImGui::SliderInt("Number of lines", &lines, 1, 20);
-    for (int i = 0; i < lines; i++)
+    ImGui::SliderInt("Number of lines", &LINES, 1, 20);
+    for (int i = 0; i < LINES; i++)
         ImGui::Text("%*sThis is line %d", i * 4, "", i); // Pad with space to extend size horizontally
     ImGui::End();
 }
@@ -4968,7 +4968,7 @@ static void ShowExampleAppCustomRendering(bool* p_open)
                 }
             }
 
-            // Draw all lines in the canvas (with a clipping rectangle so they don't stray out of it).
+            // Draw all LINES in the canvas (with a clipping rectangle so they don't stray out of it).
             draw_list->PushClipRect(canvas_p, ImVec2(canvas_p.x + canvas_sz.x, canvas_p.y + canvas_sz.y), true);
             for (int i = 0; i < points.Size - 1; i += 2)
                 draw_list->AddLine(ImVec2(canvas_p.x + points[i].x, canvas_p.y + points[i].y), ImVec2(canvas_p.x + points[i + 1].x, canvas_p.y + points[i + 1].y), IM_COL32(255, 255, 0, 255), 2.0f);

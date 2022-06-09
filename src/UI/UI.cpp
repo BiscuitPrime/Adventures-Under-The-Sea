@@ -58,7 +58,7 @@ void UI::warningHealth(bool oxy)
 
 int UI::startUI()
 {
-	ImGui::SetNextWindowPos(ImVec2(windowWidth / 2, windowHeight / 2));
+	ImGui::SetNextWindowPos(ImVec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
 	ImGui::Begin("");
 	if (ImGui::Button("START GAME"))
 	{

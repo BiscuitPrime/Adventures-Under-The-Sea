@@ -16,7 +16,7 @@
 #define HEALTH_PLAYER_THRESHOLD 3				// threshold indicating that health is low
 #define HEALTH_INITIAL_PLAYER 10				// initial value for player's health
 #define HEALTH_INITIAL_ENEMY_BASE 1				// initial value for base enemy's health
-
+#define ACTOR_SPRITE_VERTICAL_OFFSET 50			// vertical offset for actor sprites
 
 class Definitions {
 // a class to hold tool functions

@@ -110,7 +110,7 @@ int InputHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vec
 	int loadTextureVar;
 	for (auto pos : relativeArea) {
 		auto target = actorPos + pos;
-		if (target.x >= 0 && target.x < lines && target.y >= 0 && target.y < columns) {
+		if (target.x >= 0 && target.x < LINES && target.y >= 0 && target.y < COLUMNS) {
 			Tile* availableTile = tilemap->getTile(actorPos + pos);
 
 			availableTile->setAvailable(true);
@@ -141,7 +141,7 @@ void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 {
 	sf::Vector2i pos = sf::Vector2i(0, 0);
 	//sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(pos);
-	//two lines below had getTile
+	//two LINES below had getTile
 	tilemap->getTile(pos)->setCurrentActor(player);
 	tilemap->getTile(pos)->setOccupied(true);
 }
