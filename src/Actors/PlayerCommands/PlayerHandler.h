@@ -7,15 +7,15 @@
 #include <World/Tilemap.h>
 #include <UI/UI.h>
 
-class InputHandler {
+class PlayerHandler {
 private:
 	PlayerState* _state; //state of the player
 	GameAssets gameAssets;
 	bool isPlayerLoopFinished = false;
 	UI* ui;
 public:
-	explicit InputHandler(GameAssets const& ga, UI* const& ui);
-	void handleInput(Player* player, sf::RenderWindow* window, Tilemap* selectedTileCoords);
+	explicit PlayerHandler(GameAssets const& ga, UI* const& ui);
+	void update(Player* player, sf::RenderWindow* window, Tilemap* selectedTileCoords);
 	int selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant);
 	int unselectAvailableTiles(Tilemap* tilemap);
 	void setUpPlayer(Player* player, Tilemap* tilemap);

@@ -8,7 +8,7 @@
 */
 
 //constructor of the game manager that handles the game.
-GameManager::GameManager(int nid, Player* play, Enemy en, InputHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga) :
+GameManager::GameManager(int nid, Player* play, Enemy en, PlayerHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga) :
 	id{nid},player{play},inputhandler{input},tilemap{tilem}, window{wind},gameAssets{ga}
 {
 	enemyGroup.push_back(en);
@@ -33,7 +33,7 @@ void GameManager::gameLoop()
 
 		//we handle the player's input :
 		//std::cout << "Player's turn !\n";
-		inputhandler->handleInput(player, window, tilemap);
+		inputhandler->update(player, window, tilemap);
 
 		if (inputhandler->finishedPlayerLoop())
 		{

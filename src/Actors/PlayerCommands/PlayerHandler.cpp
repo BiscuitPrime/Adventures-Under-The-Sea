@@ -1,9 +1,9 @@
-#include "InputHandler.h"
+#include "PlayerHandler.h"
 #include "Assets/TilePatterns.h"
 #include <imgui.h>
 
 //constructor of the input handler :
-InputHandler::InputHandler(GameAssets const& ga, UI* const& nui)
+PlayerHandler::PlayerHandler(GameAssets const& ga, UI* const& nui)
 {
 	ui = nui;
 	gameAssets = ga;
@@ -11,7 +11,7 @@ InputHandler::InputHandler(GameAssets const& ga, UI* const& nui)
 }
 
 //method that handles the player's inputs :
-void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
+void PlayerHandler::update(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
 {
 	TilePattern tilePatterns = TilePattern();
 	// get selected tile, if left click is pressed and selected tile is available && accessible --> move
@@ -23,13 +23,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 			_state->stateExecute(player, window, tilemap);
 			_state = &PlayerStates::attack;
 		}
-		else if (_state == &PlayerStates::mine)
-		{
-			_state->stateExecute(player, window, tilemap);
-			_state = &PlayerStates::idle;
-			isPlayerLoopFinished = true; //by that point the player has finished its loop
-		}
-		else if (_state == &PlayerStates::torpedo)
+		else if (_state == &PlayerStates::mine || _state == &PlayerStates::torpedo)
 		{
 			_state->stateExecute(player, window, tilemap);
 			_state = &PlayerStates::idle;
@@ -37,8 +31,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 		}
 	}
 
-	// ------------------------------------ IMGUI SEGMENT --------------------------------------------------
-	
+	// ------------------------------------ IMGUI SEGMENT --------------------------------------------------	
 	// STATISTICS UI :
 	ui->displayStatisticsUI(player->getHealth(), player->getOxygen());
 
@@ -87,7 +80,7 @@ void InputHandler::handleInput(Player* player, sf::RenderWindow* window, Tilemap
 }
 
 //method that will select the Available tiles dependant on the current player _state :
-int InputHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant)
+int PlayerHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant)
 {
 	if (_state == &PlayerStates::idle) //test wether we are in correct state
 	{
@@ -123,7 +116,7 @@ int InputHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vec
 }
 
 //method that will unselect the Available tiles dependant on the current player _state :
-int InputHandler::unselectAvailableTiles(Tilemap* tilemap)
+int PlayerHandler::unselectAvailableTiles(Tilemap* tilemap)
 {
 	if (int unselect = tilemap->removeAllTileVariants(gameAssets) == -1) {
 		std::cout << "Error while unselecting the Tiles (origin: InputHandler)\n";
@@ -133,7 +126,7 @@ int InputHandler::unselectAvailableTiles(Tilemap* tilemap)
 }
 
 //method that sets up the player at the tilemap's 0,0 tile
-void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
+void PlayerHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 {
 	sf::Vector2i pos = sf::Vector2i(0, 0);
 	//sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(pos);
@@ -143,7 +136,7 @@ void InputHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 }
 
 //method that will test wether or not the player needs to have a warning displayed
-void InputHandler::warningDisplay(Player* player)
+void PlayerHandler::warningDisplay(Player* player)
 {
 	if (player->getOxygen() <= OXYGEN_THRESHOLD)
 	{

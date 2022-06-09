@@ -3,7 +3,7 @@
 /*
 * We define the code of the Player class here :
 */
-#include <Actors/PlayerCommands/InputHandler.h>
+#include <Actors/PlayerCommands/PlayerHandler.h>
 
 Player::Player(int id, sf::Texture texture) : Actor{ id,texture }
 {

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <Actors/Player.h>
-#include <Actors/PlayerCommands/InputHandler.h>
+#include <Actors/PlayerCommands/PlayerHandler.h>
 #include <Actors/Enemy.h>
 #include <UI/UI.h>
 #include <GameManager.h>
@@ -17,7 +17,7 @@ TEST(TestActor, TestChangingState) //test wether or not the states of the player
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
     GameAssets ga;
     auto ui = UI(texture,texture);
-    auto inputHandler = InputHandler(ga,&ui);
+    auto inputHandler = PlayerHandler(ga,&ui);
     ASSERT_EQ(inputHandler.getState()->getName(), PlayerStates::idle.getName()) << "Player states have not been initialized correctly";
 }
 

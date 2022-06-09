@@ -4,7 +4,7 @@
 */
 #include <chrono>
 #include <iostream>
-#include <Actors/PlayerCommands/InputHandler.h>
+#include <Actors/PlayerCommands/PlayerHandler.h>
 #include <Assets/GameAssets.h>
 #include "Actors/Enemy.h"
 #include <ctime>
@@ -29,7 +29,7 @@ private:
 	int id;
 	Player* player;
 	std::vector<Enemy> enemyGroup;
-	InputHandler* inputhandler;
+	PlayerHandler* inputhandler;
 	Tilemap* tilemap;
 	sf::RenderWindow* window;
 	GameAssets* gameAssets;
@@ -37,7 +37,7 @@ private:
 	Enemy* currentEnemy; //indicates the enemy concerned by the current gameplay loop
 	bool isFinished = false;
 public:
-	GameManager(int id,Player* player, Enemy enemy, InputHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
+	GameManager(int id,Player* player, Enemy enemy, PlayerHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
 	int getId() const { return id; };
 	void gameLoop();
 	turnState changeTurn();

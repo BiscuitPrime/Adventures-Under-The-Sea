@@ -40,7 +40,7 @@ int myMain()
     auto player = Player(0, playerTexture); //the player is created as a unique pointer
 
     //Creating the input handler associated to the player :
-    auto inputHandler = InputHandler(ga,&ui);
+    auto inputHandler = PlayerHandler(ga,&ui);
 
     // ------------------------------------------ Creating the game elements for the level 1 ------------------------------------------------------------------
 
