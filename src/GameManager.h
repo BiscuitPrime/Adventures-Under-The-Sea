@@ -43,6 +43,7 @@ public:
 	turnState changeTurn();
 	int addEnemy(Enemy enemy);
 	Enemy* selectEnemy();
-	bool getFinishedStatus() { return isFinished; };
+	bool getFinishedStatus() const { return isFinished; };
 	int spawnPlayer(sf::Vector2i position);
+	void render();
 };

@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "GameManager.h"
 #include "GameManager.h"
+#include "GameManager.h"
 #include <GameManager.h>
 
 /*
@@ -73,17 +74,7 @@ void GameManager::gameLoop()
 	}
 
 	// ------------------------------- RENDER FUNCTION (should be created) ---------------------- =>
-	tilemap->draw(*window); //drawing the tilemap
-	window->draw(player->getSprite()); //drawing the player
-	//drawing the enemies :
-	for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it)
-	{
-		window->draw(it->getSprite());
-	}
-	//enemy not drawn
-	//we display the window :
-	ImGui::SFML::Render(*window);
-	window->display();
+	render();
 }
 
 //method that returns the next turn depending on the current turn
@@ -116,7 +107,7 @@ Enemy* GameManager::selectEnemy()
 		isFinished = true;
 		return nullptr;
 	}
-	if (enemyGroup.size() == 1) //if the enemy list only contains one enemy, we always select it
+	if (enemyGroup.size() == 1 && currentEnemy!=nullptr) //if the enemy list only contains one enemy, we always select it
 	{
 		return currentEnemy;
 	}
@@ -135,4 +126,20 @@ int GameManager::spawnPlayer(sf::Vector2i position)
 {
 	player->spawnPlayer(position);
 	return 0;
+}
+
+//render function : 
+void GameManager::render()
+{
+	tilemap->draw(*window); //drawing the tilemap
+	window->draw(player->getSprite()); //drawing the player
+	//drawing the enemies :
+	for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it)
+	{
+		window->draw(it->getSprite());
+	}
+	//enemy not drawn
+	//we display the window :
+	ImGui::SFML::Render(*window);
+	window->display();
 }
