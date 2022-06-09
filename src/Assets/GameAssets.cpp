@@ -1,9 +1,14 @@
 #include "GameAssets.h"
+/*
+* Source code of the game assets
+*/
+
 
 GameAssets::GameAssets() {
     std::string resourceDirectory = "resources/sprites/";
 
     // UI
+    Titlescreen.loadFromFile(resourceDirectory + "titlescreen.png");
     AlertHealth.loadFromFile(resourceDirectory + "AlertHealth.png");
     AlertOxygen.loadFromFile(resourceDirectory + "AlertOxygen.png");
    
