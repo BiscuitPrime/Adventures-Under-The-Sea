@@ -112,14 +112,15 @@ int InputHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vec
 		auto target = actorPos + pos;
 		if (target.x >= 0 && target.x < LINES && target.y >= 0 && target.y < COLUMNS) {
 			Tile* availableTile = tilemap->getTile(actorPos + pos);
-
-			availableTile->setAvailable(true);
-			availableTile->setVariant(variant);
-			loadTextureVar = availableTile->loadTextureVariant(gameAssets);
-			if (loadTextureVar < 0)
-			{
-				std::cout << "Error when selecting tile: selected texture could not be loaded\n";
-				return -1;
+			if (availableTile->getAccessibility()) {
+				availableTile->setAvailable(true);
+				availableTile->setVariant(variant);
+				loadTextureVar = availableTile->loadTextureVariant(gameAssets);
+				if (loadTextureVar < 0)
+				{
+					std::cout << "Error when selecting tile: selected texture could not be loaded\n";
+					return -1;
+				}
 			}
 		}
 	}

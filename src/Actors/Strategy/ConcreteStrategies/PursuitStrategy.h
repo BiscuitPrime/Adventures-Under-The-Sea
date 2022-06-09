@@ -27,7 +27,7 @@ public:
 					if (Definitions::positionIsWithinTilemapBounds(potentialPos)) {
 						int potentialDistance = Definitions::manhattanDistance(playerPos, potentialPos);
 						// check if the tile is accessible, has no bubble and is further away from the player
-						if (Tile* potentialTile = tilemap->getTile(potentialPos); potentialTile->getAccessibility() && !(potentialTile->hasBubble()) && potentialDistance < currentDistance) {
+						if (Tile* potentialTile = tilemap->getTile(potentialPos); !potentialTile->getOccupied() && potentialTile->getAccessibility() && !(potentialTile->hasBubble()) && potentialDistance < currentDistance) {
 							positions.push_back(potentialPos);
 							currentEnnemyPos = potentialPos;
 						}
