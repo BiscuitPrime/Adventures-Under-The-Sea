@@ -9,6 +9,7 @@
 #include <../imgui/imgui.h>
 #include <../imgui/imgui-SFML.h>
 #include <Levels/Level.h>
+#include <memory> 
 
 Level* _currentLevel;
 Level levelZero = Level(0, nullptr, sf::Vector2i(0, 0));
@@ -40,8 +41,7 @@ int myMain()
     auto ui = UI(ga.AlertOxygen, ga.AlertHealth);
 
     //Creating the player :
-    sf::Texture playerTexture;
-    if (bool ret = playerTexture.loadFromFile("../../../../resources/Sprites/Player.png"); ret == -1) { std::cout << "Failed to load Player texture (myMain.cpp)\n"; exit(300); };
+    sf::Texture playerTexture=ga.Player;
     auto player = Player(0, playerTexture); //the player is created as a unique pointer
 
     //Creating the input handler associated to the player :
