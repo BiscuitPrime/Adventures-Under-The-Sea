@@ -59,7 +59,7 @@ void GameManager::gameLoop()
 	else if (_turn == ENEMY_TURN)
 	{
 		//we start the enemy's turn :
-		if (currentEnemy == nullptr || currentEnemy->getEnemyLoopFinished()){ currentEnemy=selectRandomEnemy(); }
+		if (currentEnemy == nullptr || currentEnemy->getEnemyLoopFinished()){ currentEnemy=selectEnemy(); }
 
 		//we start the enemy's turn :
 		currentEnemy->handleEnemy(player);
@@ -109,25 +109,25 @@ int GameManager::addEnemy(Enemy enemy)
 }
 
 //function that returns a random enemy of the game manager
-Enemy* GameManager::selectRandomEnemy()
+Enemy* GameManager::selectEnemy()
 {
-	srand(time(0));  // Initialize random number generator.
-	if (enemyGroup.size() <= 0)
+	if (enemyGroup.size() <= 0) //if the enemy list is empty, we call the ending of the level
 	{
 		isFinished = true;
 		return nullptr;
 	}
-	int curSelector = (rand()%enemyGroup.size());
-	std::cout << "Selected enemy : " << enemyGroup.at(curSelector).getId() << "\n";
-	return &enemyGroup.at(curSelector);
-}
-
-bool GameManager::isEnemyDead(Enemy enemy)
-{
-	if (enemy.getState() == STATE_DEAD) {
-		return true;
+	if (enemyGroup.size() == 1) //if the enemy list only contains one enemy, we always select it
+	{
+		return currentEnemy;
 	}
-	return false;
+	srand(time(0));  // Initialize random number generator.
+	int curSelector = (rand() % enemyGroup.size());
+	while (currentEnemy!=nullptr && enemyGroup.at(curSelector).getId() == currentEnemy->getId()) //we ensure no enemy is selected twice
+	{
+		curSelector = (rand() % enemyGroup.size());
+		std::cout << "Selected enemy : " << enemyGroup.at(curSelector).getId() << "\n";
+	}
+	return &enemyGroup.at(curSelector);
 }
 
 //method that spawns the player at a given position

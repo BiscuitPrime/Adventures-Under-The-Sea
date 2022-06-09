@@ -42,8 +42,7 @@ public:
 	void gameLoop();
 	turnState changeTurn();
 	int addEnemy(Enemy enemy);
-	Enemy* selectRandomEnemy();
-	bool isEnemyDead(Enemy enemy);
+	Enemy* selectEnemy();
 	bool getFinishedStatus() { return isFinished; };
 	int spawnPlayer(sf::Vector2i position);
 };
