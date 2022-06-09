@@ -10,7 +10,7 @@ class Tilemap {
 /// </summary>
 private:
 	std::string label;
-	Tile tilemap[columns][lines];
+	Tile tilemap[COLUMNS][LINES];
 	sf::Vector2i selectedTileCoords; // coordinates of the current selected tile (ORTHOGONAL)
 public:
 	Tilemap();

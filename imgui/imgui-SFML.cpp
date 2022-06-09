@@ -623,9 +623,9 @@ bool ImageButton(const sf::Texture& texture, const sf::Vector2f& size,
 
 bool ImageButton(const sf::Sprite& sprite, const int framePadding,
                  const sf::Color& bgColor, const sf::Color& tintColor) {
-    sf::FloatRect spriteSize = sprite.getGlobalBounds();
+    sf::FloatRect SPRITE_SIZE = sprite.getGlobalBounds();
     return ImageButton(sprite,
-                       sf::Vector2f(spriteSize.width, spriteSize.height),
+                       sf::Vector2f(SPRITE_SIZE.width, SPRITE_SIZE.height),
                        framePadding, bgColor, tintColor);
 }
 

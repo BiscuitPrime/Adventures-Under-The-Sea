@@ -9,8 +9,8 @@ label("")
 {
 	// initialize tilemap array with basic tiles 
 	selectedTileCoords = sf::Vector2i(0, 0);
-	for (int y = 0; y < lines; y++) {
-		for (int x = 0; x < columns; x++) {
+	for (int y = 0; y < LINES; y++) {
+		for (int x = 0; x < COLUMNS; x++) {
 			auto tile = Tile();
 			tilemap[y][x] = tile;
 		}
@@ -56,13 +56,13 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 {
 	// convert isometric mouse coordinates to orthogonal normalized ones to get tile position in array
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	sf::Vector2i adjustedWorldPosition = sf::Vector2i((int) (mousePosition.x - (windowWidth / 2) - 32), (int) (mousePosition.y - (windowHeight / 2) - 32));
+	sf::Vector2i adjustedWorldPosition = sf::Vector2i((int) (mousePosition.x - (WINDOW_WIDTH / 2) - 32), (int) (mousePosition.y - (WINDOW_HEIGHT / 2) - 32));
 	sf::Vector2f orthogonalMousePos = Definitions::isoToOrtho(adjustedWorldPosition);
 	sf::Vector2i selectedTileOrthoPos = sf::Vector2i(round(orthogonalMousePos.x), round(orthogonalMousePos.y));
 	TileVariant variant = SELECTED;
 
 	// prevent mouse to generate coordinates out of bounds
-	if (orthogonalMousePos.x >= 0 && orthogonalMousePos.x < columns && orthogonalMousePos.y >= 0 && orthogonalMousePos.y < lines) {
+	if (orthogonalMousePos.x >= 0 && orthogonalMousePos.x < COLUMNS && orthogonalMousePos.y >= 0 && orthogonalMousePos.y < LINES) {
 		Tile& newlySelectedTile = tilemap[selectedTileOrthoPos.y][selectedTileOrthoPos.x];
 		sf::Vector2i newlySelectedTileCoords = newlySelectedTile.getOrthogonalCoords();
 
@@ -150,7 +150,7 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 	// parse xml
 	auto tilemapNode = doc.child("Tilemap");
 	setLabel(tilemapNode.attribute("label").as_string());
-	if (tilemapNode.attribute("lines").as_int() != lines || tilemapNode.attribute("columns").as_int() != columns) {
+	if (tilemapNode.attribute("lines").as_int() != LINES || tilemapNode.attribute("columns").as_int() != COLUMNS) {
 		std::cerr << "Error when parsing xml file: line or column not equal to 10\n";
 		return -1;
 	}
@@ -194,8 +194,8 @@ Tile* Tilemap::getTile(sf::Vector2i coords)
 int Tilemap::draw(sf::RenderWindow &window)
 {
 	// run through the tilemap array and call Tile.draw() for each one
-	for (int y = 0; y < lines; y++) {
-		for (int x = 0; x < columns; x++) {
+	for (int y = 0; y < LINES; y++) {
+		for (int x = 0; x < COLUMNS; x++) {
 			Tile& tile = tilemap[x][y];
 			tile.draw(window);
 		}
@@ -205,8 +205,8 @@ int Tilemap::draw(sf::RenderWindow &window)
 
 //function that unloads all the variants
 int Tilemap::removeAllTileVariants(GameAssets const& ga) {
-	for (int y = 0; y < lines; y++) {
-		for (int x = 0; x < columns; x++) {
+	for (int y = 0; y < LINES; y++) {
+		for (int x = 0; x < COLUMNS; x++) {
 			Tile* tile = &tilemap[y][x];
 			int unload = tile->unloadTextureVariant(ga);
 			if (unload == -1)

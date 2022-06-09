@@ -101,7 +101,8 @@ void Enemy::spawn(sf::Vector2i spawnPoint)
 {
 	setOrthoCoordinates(spawnPoint); //set orthogonal coordinates
 	setIsoCoordinates(Definitions::orthoToIsoWithOffset(spawnPoint)); //set isometric coordinates
-	getSprite().setPosition(getIsometricCoordinates()); //set sprite position
+	sf::Vector2f spritePosition = sf::Vector2f(getIsometricCoordinates().x, getIsometricCoordinates().y + ACTOR_SPRITE_VERTICAL_OFFSET);
+	getSprite().setPosition(spritePosition); //set sprite position
 	setUpEnemyOnTilemap(); //we tell the new occupied tile that it is occupied by an enemy
 }
 
@@ -123,7 +124,7 @@ void Enemy::removeEnemyOnTilemap()
 //function that tests if the new position will be valid
 int Enemy::testNewPositionValidity(sf::Vector2i pos)
 {
-	if (pos.x >= 0 && pos.x < lines && pos.y >= 0 && pos.y < columns) //we test if the new position is in bounds with the tilemap
+	if (pos.x >= 0 && pos.x < LINES && pos.y >= 0 && pos.y < COLUMNS) //we test if the new position is in bounds with the tilemap
 	{
 		if (tilemap->getTile(pos)->getAccessibility() && !tilemap->getTile(pos)->getOccupied()) //we test if tile is accessible and inoccupied
 		{
