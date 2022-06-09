@@ -71,12 +71,15 @@ int UI::startUI()
 }
 
 //input attack ui :
-void UI::inputUIAttack() const
+void UI::inputUI(std::string input) const
 {
 	ImGui::SetNextWindowPos(ImVec2(20, 150));
 	ImGui::SetNextWindowSize(ImVec2(200, 70));
 	ImGui::Begin("SUGGESTION");
-	std::string display = "PLEASE CHOOSE AN ATTACK";
+	std::string display = "PLEASE CHOOSE A MOVEMENT";
+	if (input == "attack") {
+		display = "PLEASE CHOOSE AN ATTACK";
+	}
 	ImGui::Text(display.c_str());
 	ImGui::End();
 }

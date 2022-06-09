@@ -160,7 +160,10 @@ void PlayerHandler::inputUI() const
 {
 	if (_state == &PlayerStates::attack)
 	{
-		ui->inputUIAttack();
+		ui->inputUI("attack");
 	}
-
+	if (_state == &PlayerStates::idle)
+	{
+		ui->inputUI("move");
+	}
 }
