@@ -54,7 +54,7 @@ void GameManager::gameLoop()
 			}
 		}
 		//we check the player's oxygen :
-		if (player->getOxygen()==0) { exit(5000); };
+		if (player->getOxygen() == 0) { player->death(); }
 	}
 	else if (_turn == ENEMY_TURN)
 	{
@@ -112,6 +112,11 @@ int GameManager::addEnemy(Enemy enemy)
 Enemy* GameManager::selectRandomEnemy()
 {
 	srand(time(0));  // Initialize random number generator.
+	if (enemyGroup.size() <= 0)
+	{
+		isFinished = true;
+		return nullptr;
+	}
 	int curSelector = (rand()%enemyGroup.size());
 	std::cout << "Selected enemy : " << enemyGroup.at(curSelector).getId() << "\n";
 	return &enemyGroup.at(curSelector);

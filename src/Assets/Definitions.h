@@ -3,6 +3,7 @@
 #include <utility>
 #include <SFML/Graphics.hpp>
 
+
 #define SPRITE_SIZE 64							// size in px for the sprites
 #define LINES 10								// how many LINES of tiles the tilemap has
 #define COLUMNS 10								// how many COLUMNS of tiles the tilemap has 

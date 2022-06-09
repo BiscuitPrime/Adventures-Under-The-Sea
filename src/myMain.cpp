@@ -11,12 +11,17 @@
 #include <Levels/Level.h>
 
 Level* _currentLevel;
-Level levelOne = Level(1,nullptr, sf::Vector2i(0,0));
-Level levelTwo = Level(2, nullptr, sf::Vector2i(0, 0));
+Level levelZero = Level(0, nullptr, sf::Vector2i(0, 0));
+Level levelOne = Level(1, nullptr, sf::Vector2i(0, 0));
 
-static void endLevel()
+static void changeLevel()
 {
-    _currentLevel = &levelTwo;
+    if (_currentLevel->getNextLevel()==nullptr) 
+    {
+        std::cout << "GAME OVER !\n";
+        exit(0);
+    }
+    _currentLevel = _currentLevel->getNextLevel();
     _currentLevel->initializeLevel();
 }
 
@@ -28,7 +33,7 @@ int myMain()
     sf::RenderWindow window(sf::VideoMode(width, height), GAME_NAME);
     ImGui::SFML::Init(window);
     // ------------------------------------------ Creating the game elements that exists outside of levels ----------------------------------------------------
-    
+
     //Creating the game assets :
     auto ga = GameAssets();
     // Creating the UI :
@@ -36,18 +41,17 @@ int myMain()
 
     //Creating the player :
     sf::Texture playerTexture;
-    if(bool ret = playerTexture.loadFromFile("../../../../resources/Sprites/Player.png"); ret==-1){std::cout<<"Failed to load Player texture (myMain.cpp)\n"; exit(300); };
+    if (bool ret = playerTexture.loadFromFile("../../../../resources/Sprites/Player.png"); ret == -1) { std::cout << "Failed to load Player texture (myMain.cpp)\n"; exit(300); };
     auto player = Player(0, playerTexture); //the player is created as a unique pointer
 
     //Creating the input handler associated to the player :
-    auto inputHandler = PlayerHandler(ga,&ui);
+    auto inputHandler = PlayerHandler(ga, &ui);
 
     // ------------------------------------------ Creating the game elements for the level 1 ------------------------------------------------------------------
 
     //Creating the tilemap :
     Tilemap tilemap;
-    auto* fileName = (char*)"resources/tilemaps/TilemapLevel1.xml";
-    tilemap.buildTilemap(fileName, ga); // mettre dans le test
+    tilemap.buildTilemap((char*)"resources/tilemaps/TilemapLevel1.xml", ga); // mettre dans le test
 
     //Creating the basic enemy :
     sf::Texture enemyTexture = ga.EldritchSquidLeft;
@@ -67,24 +71,31 @@ int myMain()
     if (int ret = gameManager.addEnemy(enemy2); ret == -1) { exit(0); }
 
     // ------------------------------------------ Creating the game elements for the level 2 ------------------------------------------------------------------
+    //Creating the tilemap :
+    Tilemap tilemap2;
+    tilemap2.buildTilemap((char*)"resources/tilemaps/TilemapLevel2.xml", ga); // mettre dans le test
+
     //Creating the basic enemy :
     sf::Texture enemyTexture3 = ga.EldritchSquidRight;
     auto enemy3 = Enemy(3, enemyTexture3, &tilemap);
     enemy3.spawn(sf::Vector2i(7, 7));
 
     //Creating the game manager :
-    auto gameManager2 = GameManager(1, &player, enemy3, &inputHandler, &tilemap, &window, &ga);
+    auto gameManager2 = GameManager(1, &player, enemy3, &inputHandler, &tilemap2, &window, &ga);
 
     // ------------------------------------------ Creating the levels ------------------------------------------------------------------
-    //we create the level system that will control our game :
-    levelOne = Level(1,&gameManager, sf::Vector2i(0,5));
-    levelTwo = Level(2,&gameManager2, sf::Vector2i(0, 5));
-    _currentLevel = &levelOne;
+    //we create the levels :
+    levelZero = Level(0, &gameManager, sf::Vector2i(0, 5));
+    levelOne = Level(1, &gameManager2, sf::Vector2i(0, 5));
+    //we set up the next levels :
+    levelZero.setNextLevel(&levelOne);
+    levelOne.setNextLevel(nullptr);
+    _currentLevel = &levelZero;
     bool started = false;
 
     //THE START MENU LOOP :
     sf::Clock deltaClock;
-    while (window.isOpen() && started==false)
+    while (window.isOpen() && started == false)
     {
         sf::Event event;
         while (window.pollEvent(event))
@@ -97,10 +108,10 @@ int myMain()
         ImGui::SFML::Update(window, deltaClock.restart());
 
         //we create the game button :
-        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH / 2)-100, (WINDOW_HEIGHT / 2)));
+        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH / 2) - 100, (WINDOW_HEIGHT / 2)));
         ImGui::SetNextWindowSize(ImVec2(200, 70));
         ImGui::Begin("Starting game");
-        if(ImGui::Button("StartGame"))
+        if (ImGui::Button("StartGame"))
         {
             started = true;
         }
@@ -124,7 +135,7 @@ int myMain()
 
         //we call the game loop :
         _currentLevel->getGameManager()->gameLoop();
-        if (_currentLevel->getGameManager()->getFinishedStatus()) { endLevel(); } //we test wether or not the level is finished
+        if (_currentLevel->getGameManager()->getFinishedStatus()) { changeLevel(); } //we test wether or not the level is finished
     }
 
     ImGui::SFML::Shutdown();
