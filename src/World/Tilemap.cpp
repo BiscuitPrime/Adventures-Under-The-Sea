@@ -56,7 +56,7 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 {
 	// convert isometric mouse coordinates to orthogonal normalized ones to get tile position in array
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	sf::Vector2i adjustedWorldPosition = sf::Vector2i((int) (mousePosition.x - (windowWidth / 2) - 32), (int) (mousePosition.y - (windowHeight / 2) - 32));
+	sf::Vector2i adjustedWorldPosition = sf::Vector2i((int) (mousePosition.x - (WINDOW_WIDTH / 2) - 32), (int) (mousePosition.y - (WINDOW_HEIGHT / 2) - 32));
 	sf::Vector2f orthogonalMousePos = Definitions::isoToOrtho(adjustedWorldPosition);
 	sf::Vector2i selectedTileOrthoPos = sf::Vector2i(round(orthogonalMousePos.x), round(orthogonalMousePos.y));
 	TileVariant variant = SELECTED;
