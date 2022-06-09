@@ -1,6 +1,7 @@
 #include "UI.h"
 #include "UI.h"
 #include "UI.h"
+#include "UI.h"
 /*
 *	Source code for the UI class
 */
@@ -81,5 +82,21 @@ void UI::inputUI(std::string input) const
 		display = "PLEASE CHOOSE AN ATTACK";
 	}
 	ImGui::Text(display.c_str());
+	ImGui::End();
+}
+
+//enemy UI display :
+void UI::enemyUI(std::string name, int hp, sf::Sprite enemySprite) const
+{
+	ImGui::SetNextWindowPos(ImVec2(1200, 20));
+	ImGui::SetNextWindowSize(ImVec2(200, 200));
+	ImGui::Begin("Current Enemy");
+	ImGui::Image(enemySprite);
+	std::string display = "Name :";
+	ImGui::Text(display.c_str());
+	ImGui::Text(name.c_str());
+	display = "HP :";
+	ImGui::Text(display.c_str());
+	ImGui::Text(std::to_string(hp).c_str());
 	ImGui::End();
 }

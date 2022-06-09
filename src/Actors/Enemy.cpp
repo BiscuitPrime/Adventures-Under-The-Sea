@@ -5,8 +5,9 @@
 #include <Actors/Strategy/ConcreteStrategies/MeleeAttackStrategy.h>
 
 
-Enemy::Enemy(int id, sf::Texture texture, Tilemap* tilem) : Actor{ id, texture }, tilemap{ tilem }
+Enemy::Enemy(int id, sf::Texture texture, Tilemap* tilem, UI* nui) : Actor{ id, texture }, tilemap{ tilem }
 {
+	ui = nui;
 	actorType = ENEMY;
 	_state = EnemyStates::STATE_IDLE; //by default in idle state
 	health.setInitialValue(HEALTH_INITIAL_ENEMY_BASE);
@@ -16,8 +17,9 @@ Enemy::Enemy(int id, sf::Texture texture, Tilemap* tilem) : Actor{ id, texture }
 //method called when the enemy is dying.
 void Enemy::death() 
 {
-	std::cout << "Enemy has died.\n";
+	std::cout << "Enemy "<< getId() << " has died.\n";
 	_state = STATE_DEAD;
+	std::cout << _state<<'\n';
 	removeEnemyOnTilemap();
 }
 
@@ -100,7 +102,7 @@ void Enemy::spawn(sf::Vector2i spawnPoint)
 {
 	setOrthoCoordinates(spawnPoint); //set orthogonal coordinates
 	setIsoCoordinates(Definitions::orthoToIsoWithOffset(spawnPoint)); //set isometric coordinates
-	sf::Vector2f spritePosition = sf::Vector2f(getIsometricCoordinates().x, getIsometricCoordinates().y + ACTOR_SPRITE_VERTICAL_OFFSET);
+	auto spritePosition = sf::Vector2f(getIsometricCoordinates().x, getIsometricCoordinates().y);
 	getSprite().setPosition(spritePosition); //set sprite position
 	setUpEnemyOnTilemap(); //we tell the new occupied tile that it is occupied by an enemy
 }

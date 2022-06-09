@@ -31,7 +31,7 @@ public:
 	sf::Sprite& getSprite() { actorSprite.setTexture(actorTexture); return actorSprite; }
 	virtual int getHealth()	{ return health.getValue(); }
 	virtual void takeDamage(int dmg);
-	virtual void death();
+	virtual void death() {};
 	int getId() const { return id; }
 	ActorType getType() const { return actorType; };
 };

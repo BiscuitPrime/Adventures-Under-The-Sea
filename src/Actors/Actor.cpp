@@ -18,9 +18,4 @@ void Actor::takeDamage(int dmg)
         death(); 
     }
 }
- //method that handles the actor's death
-void Actor::death()
-{
-    std::cout << "Actor has died\n";
-}
 

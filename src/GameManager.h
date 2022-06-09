@@ -26,7 +26,7 @@ class GameManager {
 private:
 	int id;
 	Player* player;
-	std::vector<Enemy> enemyGroup;
+	std::vector<Enemy*> enemyGroup;
 	PlayerHandler* playerhandler;
 	Tilemap* tilemap;
 	sf::RenderWindow* window;
@@ -35,11 +35,11 @@ private:
 	Enemy* currentEnemy; //indicates the enemy concerned by the current gameplay loop
 	bool isFinished = false;
 public:
-	GameManager(int id,Player* player, Enemy enemy, PlayerHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
+	GameManager(int id,Player* player, Enemy* enemy, PlayerHandler* inputHandler, Tilemap* tilemap, sf::RenderWindow* window, GameAssets* gameAssets);
 	int getId() const { return id; };
 	void gameLoop();
 	turnState changeTurn() const { return _turn == PLAYER_TURN ? ENEMY_TURN : PLAYER_TURN; };
-	int addEnemy(Enemy enemy);
+	int addEnemy(Enemy* enemy);
 	Enemy* selectEnemy();
 	bool getFinishedStatus() const { return isFinished; };
 	int spawnPlayer(sf::Vector2i position);

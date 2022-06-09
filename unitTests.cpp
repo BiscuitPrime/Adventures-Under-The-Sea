@@ -25,7 +25,8 @@ TEST(TestActor, TestEnemyStates) //test wether the enemy states are updated //TO
 {
     sf::Texture texture;
     Tilemap tilemap;
-    auto enemy = Enemy(1, texture, &tilemap);
+    auto ui = UI(texture, texture);
+    auto enemy = Enemy(1, texture, &tilemap,&ui);
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
     ASSERT_EQ(enemy.getState(),EnemyStates::STATE_IDLE) << "Enemy did not have its states setup at idle by default";
     enemy.setState(EnemyStates::STATE_MOVING);
@@ -62,7 +63,8 @@ TEST(TestModules, TestHealthEnemy) //test wether or not the enemy's Health is in
 {
     Tilemap tilemap;
     sf::Texture texture;
-    auto enemy = Enemy(1, texture, &tilemap);
+    auto ui = UI(texture, texture);
+    auto enemy = Enemy(1, texture, &tilemap, &ui);
     ASSERT_EQ(enemy.getHealth(), HEALTH_INITIAL_ENEMY_BASE) << "Enemy health has not initizalized correctly";
     enemy.takeDamage(1);
     ASSERT_EQ(enemy.getHealth(), HEALTH_INITIAL_ENEMY_BASE-1) << "Enemy health has not taken damage correctly";
@@ -75,10 +77,12 @@ TEST(TestGameLogic, TestAddingEnemy) //test wether or not gameManager's adding e
     GameAssets ga;
     Tilemap tilemap;
     sf::Texture enemyTexture = ga.EldritchSquidLeft;
-    auto enemy = Enemy(1, enemyTexture, &tilemap);
-    auto gameManager = GameManager(1,nullptr, enemy, nullptr, &tilemap, nullptr, &ga);
-    auto enemy2 = Enemy(1, enemyTexture, &tilemap);
-    ASSERT_EQ(gameManager.addEnemy(enemy2), -1)<< "Both enemies have id as 1, GameManager's defense should return -1 -> Did not return -1 here";
+    sf::Texture texture;
+    auto ui = UI(texture, texture);
+    auto enemy = Enemy(1, enemyTexture, &tilemap, &ui);
+    auto gameManager = GameManager(1,nullptr, &enemy, nullptr, &tilemap, nullptr, &ga);
+    auto enemy2 = Enemy(1, enemyTexture, &tilemap, &ui);
+    ASSERT_EQ(gameManager.addEnemy(&enemy2), -1)<< "Both enemies have id as 1, GameManager's defense should return -1 -> Did not return -1 here";
 }
 
 // --------------------------------------------------------------- TEST TILEMAP -------------------------------------------------------------------------------

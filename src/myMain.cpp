@@ -55,20 +55,22 @@ int myMain()
 
     //Creating the basic enemy :
     sf::Texture enemyTexture = ga.EldritchSquidLeft;
-    auto enemy = Enemy(1, enemyTexture, &tilemap);
+    auto enemy = Enemy(1, enemyTexture, &tilemap, &ui);
     enemy.spawn(sf::Vector2i(7, 5));
+    enemy.setName("Moth Birlith");
 
     //setting up the player :
     inputHandler.setUpPlayer(&player, &tilemap);
 
     //Creating the game manager :
-    auto gameManager = GameManager(1, &player, enemy, &inputHandler, &tilemap, &window, &ga);
+    auto gameManager = GameManager(1, &player, &enemy, &inputHandler, &tilemap, &window, &ga);
 
     //adding another enemy :
     sf::Texture enemyTexture2 = ga.WyrmRight;
-    auto enemy2 = Enemy(2, enemyTexture2, &tilemap);
+    auto enemy2 = Enemy(2, enemyTexture2, &tilemap, &ui);
     enemy2.spawn(sf::Vector2i(7, 7));
-    if (int ret = gameManager.addEnemy(enemy2); ret == -1) { exit(0); }
+    enemy2.setName("Mavak");
+    if (int ret = gameManager.addEnemy(&enemy2); ret == -1) { exit(0); }
 
     // ------------------------------------------ Creating the game elements for the level 2 ------------------------------------------------------------------
     //Creating the tilemap :
@@ -77,16 +79,31 @@ int myMain()
 
     //Creating the basic enemy :
     sf::Texture enemyTexture3 = ga.EldritchSquidRight;
-    auto enemy3 = Enemy(3, enemyTexture3, &tilemap);
-    enemy3.spawn(sf::Vector2i(7, 7));
+    auto enemy3 = Enemy(3, enemyTexture3, &tilemap, &ui);
+    enemy3.spawn(sf::Vector2i(1, 8));
+    enemy3.setName("Den Kavoth");
 
     //Creating the game manager :
-    auto gameManager2 = GameManager(1, &player, enemy3, &inputHandler, &tilemap2, &window, &ga);
+    auto gameManager2 = GameManager(1, &player, &enemy3, &inputHandler, &tilemap2, &window, &ga);
+
+    //adding another enemy :
+    sf::Texture enemyTexture4 = ga.EldritchSquidLeft;
+    auto enemy4 = Enemy(4, enemyTexture4, &tilemap, &ui);
+    enemy4.spawn(sf::Vector2i(5, 9));
+    enemy4.setName("Oorb Nortis");
+    if (int ret = gameManager2.addEnemy(&enemy4); ret == -1) { exit(0); }
+
+    //adding another enemy :
+    sf::Texture enemyTexture5 = ga.WyrmLeft;
+    auto enemy5 = Enemy(5, enemyTexture5, &tilemap, &ui);
+    enemy5.spawn(sf::Vector2i(9, 6));
+    enemy5.setName("René, stagiaire");
+    if (int ret = gameManager2.addEnemy(&enemy5); ret == -1) { exit(0); }
 
     // ------------------------------------------ Creating the levels ------------------------------------------------------------------
     //we create the levels :
     levelZero = Level(0, &gameManager, sf::Vector2i(0, 5));
-    levelOne = Level(1, &gameManager2, sf::Vector2i(0, 5));
+    levelOne = Level(1, &gameManager2, sf::Vector2i(4, 0));
     //we set up the next levels of each levels :
     levelZero.setNextLevel(&levelOne);
     levelOne.setNextLevel(nullptr);

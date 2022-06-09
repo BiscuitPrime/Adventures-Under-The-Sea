@@ -20,4 +20,5 @@ public:
 	void warningHealth(bool oxy);
 	int startUI();
 	void inputUI(std::string input) const;
+	void enemyUI(std::string name, int hp, sf::Sprite enemySprite) const;
 };

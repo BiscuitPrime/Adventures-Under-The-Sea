@@ -5,6 +5,7 @@
 #include <Actors/Strategy/MovementStrategy.h>
 #include <Actors/Strategy/AttackStrategy.h>
 #include <Actors/Strategy/ConcreteStrategies/MeleeAttackStrategy.h>
+#include <UI/UI.h>
 /*
 * Enemy class
 */
@@ -18,6 +19,7 @@ enum EnemyStates {
 
 class Enemy : public Actor {
 private:
+	UI* ui;
 	int movementRange = 3;
 	int fleeRange = 2;
 	EnemyStates _state;
@@ -25,8 +27,9 @@ private:
 	AttackStrategy* attackStrategy;
 	bool isEnemyLoopFinished = true;
 	Tilemap* tilemap;
+	std::string name;
 public:
-	explicit Enemy(int id, sf::Texture texture, Tilemap* tilemap);
+	explicit Enemy(int id, sf::Texture texture, Tilemap* tilemap, UI* ui);
 	void death() override;
 	int getMovementRange() const { return movementRange; }
 	EnemyStates getState() const { return _state; };
@@ -42,4 +45,7 @@ public:
 	void setUpEnemyOnTilemap(); //method that will tell the tilemap that an enemy is on one of her tiles
 	void removeEnemyOnTilemap(); //method that will tell the tilemap that an enemy is not on one of her tiles
 	int testNewPositionValidity(sf::Vector2i pos);//function that tests if the new position will be valid
+	std::string getName() const { return name; }
+	void setName(std::string const& newName) { name = newName; }
+	void getUi() { ui->enemyUI(name, getHealth(),getSprite()); }
 };

@@ -9,7 +9,7 @@
 */
 
 //constructor of the game manager that handles the game.
-GameManager::GameManager(int nid, Player* play, Enemy en, PlayerHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga) :
+GameManager::GameManager(int nid, Player* play, Enemy* en, PlayerHandler* input, Tilemap* tilem, sf::RenderWindow* wind, GameAssets* ga) :
 	id{nid},player{play},playerhandler{input},tilemap{tilem}, window{wind},gameAssets{ga}
 {
 	enemyGroup.push_back(en);
@@ -38,15 +38,17 @@ void GameManager::gameLoop()
 			_turn = changeTurn();
 		}
 		//at the end of the player's turn, we remove the eventually dead enemies :
-		for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it)
+		for (auto enemy:enemyGroup)
 		{
-			if (it->getState() == STATE_DEAD)
+			if (enemy->getState() == STATE_DEAD)
 			{
-				enemyGroup.erase(it);
-				if(enemyGroup.empty()) //if this triggers, it means the player killed all the enemies : we must end the level
-				{ 
+				std::cout << "Enemy " << enemy->getId() << " is dead, removing it from list.\n";
+				enemyGroup.erase(std::remove(enemyGroup.begin(),enemyGroup.end(),enemy));
+				if (enemyGroup.empty()) //if this triggers, it means the player killed all the enemies : we must end the level
+				{
 					isFinished = true;
 				}
+				std::cout << "enemy list size after removal : " << enemyGroup.size();
 				break;
 			}
 		}
@@ -68,6 +70,7 @@ void GameManager::gameLoop()
 			_turn = changeTurn();
 		}
 	}
+	if (currentEnemy != nullptr) { currentEnemy->getUi(); }
 
 	// ------------------------------- RENDER FUNCTION (should be created) ---------------------- =>
 	render();
@@ -75,11 +78,11 @@ void GameManager::gameLoop()
 
 
 //functions that adds an enemy to the group of enemies stored in the Game Manager.
-int GameManager::addEnemy(Enemy enemy)
+int GameManager::addEnemy(Enemy* enemy)
 {
-	for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it) //we remove the possibility of the system possessing 2 enemies with the same id ( 2 same enemies)
+	for (auto en: enemyGroup) //we remove the possibility of the system possessing 2 enemies with the same id ( 2 same enemies)
 	{
-		if (it->getId() == enemy.getId()) 
+		if (en->getId() == enemy->getId())
 		{
 			std::cout << "Error when assigning enemy to Game Manager : enemy with existing id already exists in the manager unit\n";
 			return -1;
@@ -104,12 +107,12 @@ Enemy* GameManager::selectEnemy()
 	}
 	srand(time(0));  // Initialize random number generator.
 	int curSelector = (rand() % enemyGroup.size());
-	while (currentEnemy!=nullptr && enemyGroup.at(curSelector).getId() == currentEnemy->getId()) //we ensure no enemy is selected twice
+	while (currentEnemy!=nullptr && enemyGroup.at(curSelector)->getId() == currentEnemy->getId()) //we ensure no enemy is selected twice
 	{
 		curSelector = (rand() % enemyGroup.size());
-		std::cout << "Selected enemy : " << enemyGroup.at(curSelector).getId() << "\n";
+		std::cout << "Selected enemy : " << enemyGroup.at(curSelector)->getId() << "\n";
 	}
-	return &enemyGroup.at(curSelector);
+	return enemyGroup.at(curSelector);
 }
 
 //method that spawns the player at a given position
@@ -125,9 +128,9 @@ void GameManager::render()
 	tilemap->draw(*window); //drawing the tilemap
 	window->draw(player->getSprite()); //drawing the player
 	//drawing the enemies :
-	for (auto it = enemyGroup.begin(); it < enemyGroup.end(); ++it)
+	for (auto enemy : enemyGroup)
 	{
-		window->draw(it->getSprite());
+		window->draw(enemy->getSprite());
 	}
 	//enemy not drawn
 	//we display the window :
