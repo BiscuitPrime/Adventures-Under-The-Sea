@@ -19,4 +19,5 @@ public:
 	void warningOxygen();
 	void warningHealth(bool oxy);
 	int startUI();
+	void inputUIAttack() const;
 };

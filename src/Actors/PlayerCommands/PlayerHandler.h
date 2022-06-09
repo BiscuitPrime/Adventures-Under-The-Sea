@@ -20,7 +20,8 @@ public:
 	int unselectAvailableTiles(Tilemap* tilemap);
 	void setUpPlayer(Player* player, Tilemap* tilemap);
 	PlayerState* getState() { return _state; };
-	bool finishedPlayerLoop() { return isPlayerLoopFinished; };
+	bool finishedPlayerLoop() const { return isPlayerLoopFinished; };
 	void startPlayerLoop() { isPlayerLoopFinished = false; }
 	void warningDisplay(Player* player);
+	void inputUI() const;
 };

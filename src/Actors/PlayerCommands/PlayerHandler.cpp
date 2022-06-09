@@ -1,4 +1,5 @@
 #include "PlayerHandler.h"
+#include "PlayerHandler.h"
 #include "Assets/TilePatterns.h"
 #include <imgui.h>
 
@@ -38,13 +39,16 @@ void PlayerHandler::update(Player* player, sf::RenderWindow* window, Tilemap* ti
 	// WARNING UI :
 	warningDisplay(player);
 
+	// INPUT UI :
+	inputUI();
+
 	//ACTION UI :
 	ImGui::SetNextWindowPos(ImVec2(200, 20));
 	ImGui::SetNextWindowSize(ImVec2(170, 100));
 	ImGui::Begin("Choose Action :");
 	if (ImGui::Button("Begin MOVEMENT"))
 	{
-		if (_state == &PlayerStates::idle) //if the player can move (A has been pressed) -> move if player can move
+		if (_state == &PlayerStates::idle) //if the player can move
 		{
 			_state = &PlayerStates::moving;
 			int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.sphere3, tilemap, MOVEMENT);
@@ -149,4 +153,14 @@ void PlayerHandler::warningDisplay(Player* player)
 		std::string warningStr = "Health";
 		ui->warningHealth((player->getOxygen()<= OXYGEN_THRESHOLD)); //we call the warning and indicate wether or not the other warning is also displayed
 	}
+}
+
+
+void PlayerHandler::inputUI() const
+{
+	if (_state == &PlayerStates::attack)
+	{
+		ui->inputUIAttack();
+	}
+
 }

@@ -1,5 +1,6 @@
 #include "UI.h"
 #include "UI.h"
+#include "UI.h"
 /*
 *	Source code for the UI class
 */
@@ -67,4 +68,15 @@ int UI::startUI()
 	}
 	ImGui::End();
 	return -1;
+}
+
+//input attack ui :
+void UI::inputUIAttack() const
+{
+	ImGui::SetNextWindowPos(ImVec2(20, 150));
+	ImGui::SetNextWindowSize(ImVec2(200, 70));
+	ImGui::Begin("SUGGESTION");
+	std::string display = "PLEASE CHOOSE AN ATTACK";
+	ImGui::Text(display.c_str());
+	ImGui::End();
 }
