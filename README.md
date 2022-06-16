@@ -8,10 +8,12 @@ The story takes place in 1867. 15 days ago, off the coast of the Lancashire, thr
 
 ### Gameplay :
 
-The game is turn-based, switching from your turn to the enemies'. You may, using your **mouse**, select a **movement** and **attack**, to try and take out the monsters lurking in the depths.
+The game is turn-based, switching from your turn to the enemies'. You may, using your **mouse**, select a **movement** and **attack**, to try and take out the monsters lurking in the depths. But ***BEWARE*** : once a torpedo is loaded, you will have to fire it ! So think carefully before oredering your crew around !
+
 ![screen1](https://cdn.discordapp.com/attachments/978315547496292392/986609138794655835/unknown.png)
 ![screen2](https://cdn.discordapp.com/attachments/978315547496292392/986609138794655835/unknown.png)
 ![screen3](https://cdn.discordapp.com/attachments/978315547496292392/986609517863256064/unknown.png)
+
 Keep an eye out on your oxygen bar ! Use **bubbles** to replenish it.
 
 __Team__ :
