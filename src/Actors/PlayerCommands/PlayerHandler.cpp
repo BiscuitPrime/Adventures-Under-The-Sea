@@ -14,7 +14,7 @@ PlayerHandler::PlayerHandler(GameAssets const& ga, UI* const& nui)
 //method that handles the player's inputs :
 void PlayerHandler::update(Player* player, sf::RenderWindow* window, Tilemap* tilemap) 
 {
-	TilePattern tilePatterns = TilePattern();
+	auto tilePatterns = TilePattern();
 	// get selected tile, if left click is pressed and selected tile is available && accessible --> move
 	if (auto selectedTile = tilemap->getTile(tilemap->getSelectedTileCoords()); sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && selectedTile->getAvailable() && selectedTile->getAccessibility()) //if the player is attempting to click and _state is moving -> we move the player
 	{
@@ -124,15 +124,14 @@ int PlayerHandler::unselectAvailableTiles(Tilemap* tilemap)
 //method that sets up the player at the tilemap's 0,0 tile
 void PlayerHandler::setUpPlayer(Player* player, Tilemap* tilemap)
 {
-	sf::Vector2i pos = sf::Vector2i(0, 0);
-	//sf::Vector2f isoCoords = Definitions::orthoToIsoWithOffset(pos);
+	auto pos = sf::Vector2i(0, 0);
 	//two LINES below had getTile
 	tilemap->getTile(pos)->setCurrentActor(player);
 	tilemap->getTile(pos)->setOccupied(true);
 }
 
 //method that will test wether or not the player needs to have a warning displayed
-void PlayerHandler::warningDisplay(Player* player)
+void PlayerHandler::warningDisplay(Player* player) const
 {
 	if (player->getOxygen() <= OXYGEN_THRESHOLD)
 	{

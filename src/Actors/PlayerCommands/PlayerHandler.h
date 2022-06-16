@@ -22,6 +22,6 @@ public:
 	PlayerState* getState() { return _state; };
 	bool finishedPlayerLoop() const { return isPlayerLoopFinished; };
 	void startPlayerLoop() { isPlayerLoopFinished = false; }
-	void warningDisplay(Player* player);
+	void warningDisplay(Player* player) const;
 	void inputUI() const;
 };

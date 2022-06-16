@@ -123,7 +123,6 @@ int Tilemap::setEntity(int x, int y, int isoX, int isoY, std::string type, GameA
 		std::cout << "Print Bubble\n";
 		auto orthoCoords = sf::Vector2i(x, y);
 		// create static bubble --> how to destroy the bubble once used ? 
-		//auto static bubble = Bubble(orthoCoords, sf::Vector2f(isoX, isoY), ga);
 		sf::Sprite bubbleSprite;
 		bubbleSprite.setTexture(ga.Bubble);
 		bubbleSprite.setPosition((sf::Vector2f) tile.getIsometricCoords());
