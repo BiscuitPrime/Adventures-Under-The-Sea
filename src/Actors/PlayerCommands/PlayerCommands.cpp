@@ -8,7 +8,9 @@
 
 //---------------------------------------------------
 //PlayerCommand class :
-void PlayerCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* tilemap){}
+void PlayerCommand::execute(Player* player, sf::RenderWindow* window, Tilemap* tilemap){
+	//virtual, hence empty
+}
 
 
 //---------------------------------------------------
