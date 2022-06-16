@@ -10,14 +10,11 @@
 
 
 //constructor
-UI::UI(sf::Texture oxytext, sf::Texture healthtext)
-{
-	warningOxygenTexture = oxytext;
-	warningHealthTexture = healthtext;
-}
+UI::UI(sf::Texture oxytext, sf::Texture healthtext) : warningOxygenTexture{oxytext}, warningHealthTexture{healthtext}
+{}
 
 //method used to display the oxygen of the player
-void UI::displayStatisticsUI(int hp, int oxygenLeft)
+void UI::displayStatisticsUI(int hp, int oxygenLeft) const
 {
 	ImGui::SetNextWindowPos(ImVec2(20, 20));
 	ImGui::SetNextWindowSize(ImVec2(170, 100));
@@ -30,7 +27,7 @@ void UI::displayStatisticsUI(int hp, int oxygenLeft)
 }
 
 //method used to display a warning message in case of low oxygen
-void UI::warningOxygen()
+void UI::warningOxygen() const
 {
 	ImGui::SetNextWindowPos(ImVec2(500, 20));
 	ImGui::SetNextWindowSize(ImVec2(500, 150));
@@ -44,7 +41,7 @@ void UI::warningOxygen()
 }
 
 //method used to display a warning message in case of low oxygen
-void UI::warningHealth(bool oxy)
+void UI::warningHealth(bool oxy) const
 {
 	if (oxy == true) { ImGui::SetNextWindowPos(ImVec2(500, 180)); }
 	else { ImGui::SetNextWindowPos(ImVec2(500, 20)); }
@@ -59,7 +56,7 @@ void UI::warningHealth(bool oxy)
 }
 
 //Starting UI
-int UI::startUI()
+int UI::startUI() const
 {
 	ImGui::SetNextWindowPos(ImVec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2));
 	ImGui::Begin("");

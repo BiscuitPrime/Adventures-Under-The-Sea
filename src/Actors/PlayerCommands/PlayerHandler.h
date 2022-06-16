@@ -16,9 +16,9 @@ private:
 public:
 	explicit PlayerHandler(GameAssets const& ga, UI* const& ui);
 	void update(Player* player, sf::RenderWindow* window, Tilemap* selectedTileCoords);
-	int selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant);
-	int unselectAvailableTiles(Tilemap* tilemap);
-	void setUpPlayer(Player* player, Tilemap* tilemap);
+	int selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant) const;
+	int unselectAvailableTiles(Tilemap* tilemap) const;
+	void setUpPlayer(Player* player, Tilemap* tilemap) const;
 	PlayerState* getState() { return _state; };
 	bool finishedPlayerLoop() const { return isPlayerLoopFinished; };
 	void startPlayerLoop() { isPlayerLoopFinished = false; }

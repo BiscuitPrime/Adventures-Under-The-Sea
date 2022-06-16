@@ -15,10 +15,10 @@ private:
 	sf::Texture warningHealthTexture;
 public:
 	UI(sf::Texture oxygenTexture, sf::Texture healthTexture);
-	void displayStatisticsUI(int hp,int oxygenLeft);
-	void warningOxygen();
-	void warningHealth(bool oxy);
-	int startUI();
+	void displayStatisticsUI(int hp,int oxygenLeft) const;
+	void warningOxygen() const;
+	void warningHealth(bool oxy) const;
+	int startUI() const;
 	void inputUI(std::string input) const;
 	void enemyUI(std::string name, int hp, sf::Sprite enemySprite) const;
 };

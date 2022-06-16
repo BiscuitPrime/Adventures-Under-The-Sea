@@ -4,10 +4,8 @@
 #include <imgui.h>
 
 //constructor of the input handler :
-PlayerHandler::PlayerHandler(GameAssets const& ga, UI* const& nui)
+PlayerHandler::PlayerHandler(GameAssets const& ga, UI* const& nui) : gameAssets{ga},ui{nui}
 {
-	ui = nui;
-	gameAssets = ga;
 	_state = &PlayerStates::idle; //by default, in idle state
 }
 
@@ -75,7 +73,7 @@ void PlayerHandler::update(Player* player, sf::RenderWindow* window, Tilemap* ti
 }
 
 //method that will select the Available tiles dependant on the current player _state :
-int PlayerHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant)
+int PlayerHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Vector2i> relativeArea, Tilemap* tilemap, TileVariant variant) const
 {
 	if (_state == &PlayerStates::idle) //test wether we are in correct state
 	{
@@ -112,7 +110,7 @@ int PlayerHandler::selectAvailableArea(sf::Vector2i actorPos, std::vector<sf::Ve
 }
 
 //method that will unselect the Available tiles dependant on the current player _state :
-int PlayerHandler::unselectAvailableTiles(Tilemap* tilemap)
+int PlayerHandler::unselectAvailableTiles(Tilemap* tilemap) const
 {
 	if (int unselect = tilemap->removeAllTileVariants(gameAssets) == -1) {
 		std::cout << "Error while unselecting the Tiles (origin: InputHandler)\n";
@@ -122,7 +120,7 @@ int PlayerHandler::unselectAvailableTiles(Tilemap* tilemap)
 }
 
 //method that sets up the player at the tilemap's 0,0 tile
-void PlayerHandler::setUpPlayer(Player* player, Tilemap* tilemap)
+void PlayerHandler::setUpPlayer(Player* player, Tilemap* tilemap) const
 {
 	auto pos = sf::Vector2i(0, 0);
 	//two LINES below had getTile

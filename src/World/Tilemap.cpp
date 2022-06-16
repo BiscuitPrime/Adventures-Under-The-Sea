@@ -5,10 +5,9 @@
 #include <math.h>
 
 Tilemap::Tilemap():
-label("")
+label(""),selectedTileCoords{ sf::Vector2i(0, 0) }
 {
 	// initialize tilemap array with basic tiles 
-	selectedTileCoords = sf::Vector2i(0, 0);
 	for (int y = 0; y < LINES; y++) {
 		for (int x = 0; x < COLUMNS; x++) {
 			auto tile = Tile();
@@ -35,7 +34,7 @@ int Tilemap::setTile(int x, int y, int isoX, int isoY, std::string type, bool ac
 	tile.setAccessibility(accessibility);
 	// generate sprite for the tile
 	sf::Sprite sprite;
-	sprite.setPosition(isoX, isoY);
+	sprite.setPosition((float)isoX, (float)isoY);
 
 	std::map<std::string, sf::Texture> tileIndexes = ga.tileIndexes;
 	if (!tileIndexes.contains(type)) {
@@ -56,9 +55,9 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 {
 	// convert isometric mouse coordinates to orthogonal normalized ones to get tile position in array
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	auto adjustedWorldPosition = sf::Vector2i((int) (mousePosition.x - (WINDOW_WIDTH / 2) - 32), (int) (mousePosition.y - (WINDOW_HEIGHT / 2) - 32));
+	auto adjustedWorldPosition = sf::Vector2i((mousePosition.x - (WINDOW_WIDTH / 2) - 32), (mousePosition.y - (WINDOW_HEIGHT / 2) - 32));
 	sf::Vector2f orthogonalMousePos = Definitions::isoToOrtho(adjustedWorldPosition);
-	auto selectedTileOrthoPos = sf::Vector2i(round(orthogonalMousePos.x), round(orthogonalMousePos.y));
+	auto selectedTileOrthoPos = sf::Vector2i((int)round(orthogonalMousePos.x), (int)round(orthogonalMousePos.y));
 
 	// prevent mouse to generate coordinates out of bounds
 	if (orthogonalMousePos.x >= 0 && orthogonalMousePos.x < COLUMNS && orthogonalMousePos.y >= 0 && orthogonalMousePos.y < LINES) {
@@ -90,8 +89,7 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 			}
 
 			// Add 'selected' to the tile variant
-			TileVariant newlySelectedTileVariant = newlySelectedTile.getVariant();
-			if (newlySelectedTileVariant == VANILLA) newlySelectedTile.setVariant(SELECTED);
+			if (TileVariant newlySelectedTileVariant = newlySelectedTile.getVariant(); newlySelectedTileVariant == VANILLA) newlySelectedTile.setVariant(SELECTED);
 			else if (newlySelectedTileVariant == MOVEMENT) newlySelectedTile.setVariant(MOVEMENT_SELECTED);
 			else if (newlySelectedTileVariant == ATTACK) newlySelectedTile.setVariant(ATTACK_SELECTED);
 			// reload the textures
@@ -106,7 +104,7 @@ void Tilemap::selectTile(sf::RenderWindow &window, GameAssets const& ga)
 	}
 }
 
-int Tilemap::setEntity(int x, int y, int isoX, int isoY, std::string type, GameAssets const& ga) {
+int Tilemap::setEntity(int x, int y, [[maybe_unused]]int isoX, [[maybe_unused]]int isoY, std::string type, GameAssets const& ga) {
 	// sets ptr to a tile at its corresponding coordinate in the tilemap
 	if (x < 0 || x >= 10) {
 		std::cout << "Could not set entity: x coordinate out of bounds\n";
@@ -138,8 +136,7 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 
 	// loads xml file
 	pugi::xml_document doc;
-	pugi::xml_parse_result result = doc.load_file(fileName);
-	if (!result)
+	if (pugi::xml_parse_result result = doc.load_file(fileName); !result)
 	{
 		std::cerr << "Could not open file because " << result.description() << std::endl;
 	}
@@ -164,7 +161,7 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 			// process isometric coordinates
 			sf::Vector2f worldCoords = Definitions::orthoToIsoWithOffset(sf::Vector2i(xCoord, yCoord));
 			// set the tile in the tilemap
-			int rt = setTile(xCoord, yCoord, worldCoords.x, worldCoords.y, tileTypeStr, accessibility, ga);
+			int rt = setTile(xCoord, yCoord, (int)worldCoords.x, (int)worldCoords.y, tileTypeStr, accessibility, ga);
 			// store isometric coordinates
 			if (rt < 0) return -1;
 		}
@@ -174,7 +171,7 @@ int Tilemap::buildTilemap(char fileName[], GameAssets const& ga)
 		auto xCoord = entityNode.attribute("x").as_int();
 		auto yCoord = entityNode.attribute("y").as_int();
 		sf::Vector2f worldCoords = Definitions::orthoToIsoWithOffset(sf::Vector2i(xCoord, yCoord));
-		setEntity(xCoord, yCoord, worldCoords.x, worldCoords.y, entityType, ga);
+		setEntity(xCoord, yCoord, (int)worldCoords.x, (int)worldCoords.y, entityType, ga);
 	}
 	return 0;
 }
@@ -205,8 +202,7 @@ int Tilemap::removeAllTileVariants(GameAssets const& ga) {
 	for (int y = 0; y < LINES; y++) {
 		for (int x = 0; x < COLUMNS; x++) {
 			Tile* tile = &tilemap[y][x];
-			int unload = tile->unloadTextureVariant(ga);
-			if (unload == -1)
+			if (int unload = tile->unloadTextureVariant(ga); unload == -1)
 			{
 				std::cout << "Error while unloading the texture\n";
 				return -1;
@@ -214,5 +210,6 @@ int Tilemap::removeAllTileVariants(GameAssets const& ga) {
 			tile->setAvailable(false);
 		}
 	}
+	return 0;
 }
 
