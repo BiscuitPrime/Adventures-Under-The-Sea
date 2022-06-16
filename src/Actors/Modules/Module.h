@@ -12,7 +12,7 @@ protected:
 	std::string type;
 public:
 	Module() = default;
-	std::string getType() { return type; }
+	std::string getType() const { return type; }
 	void setInitialValue(int initialValue);
 	int getValue() const { return valueCounter; };
 };

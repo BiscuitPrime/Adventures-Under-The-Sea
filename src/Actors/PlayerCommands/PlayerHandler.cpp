@@ -46,39 +46,30 @@ void PlayerHandler::update(Player* player, sf::RenderWindow* window, Tilemap* ti
 	ImGui::SetNextWindowPos(ImVec2(200, 20));
 	ImGui::SetNextWindowSize(ImVec2(170, 100));
 	ImGui::Begin("Choose Action :");
-	if (ImGui::Button("Begin MOVEMENT"))
+	if (_state == &PlayerStates::idle && ImGui::Button("Begin MOVEMENT")) //button appears only if player can move
 	{
-		if (_state == &PlayerStates::idle) //if the player can move
-		{
-			_state = &PlayerStates::moving;
-			int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.sphere3, tilemap, MOVEMENT);
-			//int selectTiles = selectAvailableTiles(player, tilemap, 3, _state); //we display the selectable tiles
-			if (selectTiles == -1) { exit(0); }
-		}
+		_state = &PlayerStates::moving;
+		int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.sphere3, tilemap, MOVEMENT);
+		if (selectTiles == -1) { exit(0); }
 	}
-	else if (ImGui::Button("Begin MINE")) 
+	else if ( _state == &PlayerStates::attack && ImGui::Button("Begin MINE") ) //button appears only if player can attack
 	{
-		std::cout << "Confirmed order : mine\n";
-		if (_state == &PlayerStates::attack)
-		{
-			_state = &PlayerStates::mine;
-			std::cout << "Selecting mine tiles\n";
-			int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.adjacentTiles, tilemap, ATTACK);
-			//int selectTiles = selectAvailableTiles(player, tilemap, 1, _state); //we display the selectable tiles
-			if (selectTiles == -1) { exit(0); }
-		}
+		_state = &PlayerStates::mine;
+		std::cout << "Selecting mine tiles\n";
+		int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.adjacentTiles, tilemap, ATTACK);
+		if (selectTiles == -1) { exit(0); }
 	}
-	else if (ImGui::Button("Begin TORPEDO"))
+	else if ( _state == &PlayerStates::attack && ImGui::Button("Begin TORPEDO") )
 	{
-		std::cout << "Confirmed order : torpedo\n";
-		if (_state == &PlayerStates::attack)
-		{
-			_state = &PlayerStates::torpedo;
-			std::cout << "Selecting torpedo tiles\n";
-			int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.cross3, tilemap, ATTACK);
-			//int selectTiles = selectAvailableTiles(player, tilemap, 2, _state); //we display the selectable tiles
-			if (selectTiles == -1) { exit(0); }
-		}
+		_state = &PlayerStates::torpedo;
+		std::cout << "Selecting torpedo tiles\n";
+		int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.cross3, tilemap, ATTACK);
+		if (selectTiles == -1) { exit(0); }
+	}
+	if ( (_state == &PlayerStates::idle || _state == &PlayerStates::attack) && ImGui::Button("End TURN"))
+	{
+		_state = &PlayerStates::idle;
+		isPlayerLoopFinished = true; //by that point the player has finished its loop
 	}
 	ImGui::End();
 }
@@ -151,7 +142,7 @@ void PlayerHandler::warningDisplay(Player* player)
 	if (player->getHealth() <= HEALTH_PLAYER_THRESHOLD)
 	{
 		std::string warningStr = "Health";
-		ui->warningHealth((player->getOxygen()<= OXYGEN_THRESHOLD)); //we call the warning and indicate wether or not the other warning is also displayed
+		ui->warningHealth(player->getOxygen()<= OXYGEN_THRESHOLD); //we call the warning and indicate wether or not the other warning is also displayed
 	}
 }
 

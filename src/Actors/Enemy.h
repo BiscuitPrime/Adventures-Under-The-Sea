@@ -21,7 +21,7 @@ class Enemy : public Actor {
 private:
 	UI* ui;
 	int movementRange = 3;
-	int fleeRange = 2;
+	int fleeRange = 4;
 	EnemyStates _state;
 	MovementStrategy* movementStrategy;
 	AttackStrategy* attackStrategy;
