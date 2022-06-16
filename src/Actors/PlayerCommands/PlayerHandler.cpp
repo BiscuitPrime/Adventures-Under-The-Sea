@@ -59,14 +59,14 @@ void PlayerHandler::update(Player* player, sf::RenderWindow* window, Tilemap* ti
 		int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.adjacentTiles, tilemap, ATTACK);
 		if (selectTiles == -1) { exit(0); }
 	}
-	else if ( _state == &PlayerStates::attack && ImGui::Button("Begin TORPEDO") )
+	else if ( _state == &PlayerStates::attack && ImGui::Button("Begin TORPEDO") ) //button appears only if player can attack
 	{
 		_state = &PlayerStates::torpedo;
 		std::cout << "Selecting torpedo tiles\n";
 		int selectTiles = selectAvailableArea(player->getCoordinates(), tilePatterns.cross3, tilemap, ATTACK);
 		if (selectTiles == -1) { exit(0); }
 	}
-	if ( (_state == &PlayerStates::idle || _state == &PlayerStates::attack) && ImGui::Button("End TURN"))
+	if ( (_state == &PlayerStates::idle || _state == &PlayerStates::attack) && ImGui::Button("End TURN")) //button appears only if player HAS NOT CHOSEN AN ACTION YET
 	{
 		_state = &PlayerStates::idle;
 		isPlayerLoopFinished = true; //by that point the player has finished its loop

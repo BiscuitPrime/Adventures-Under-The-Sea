@@ -21,7 +21,7 @@ void UI::displayStatisticsUI(int hp, int oxygenLeft)
 {
 	ImGui::SetNextWindowPos(ImVec2(20,20));
 	ImGui::SetNextWindowSize(ImVec2(170, 100));
-	ImGui::Begin("Player Statictics");
+	ImGui::Begin("Player Statistics");
 	ImGui::Text("Oxygen levels :");
 	ImGui::Text(std::to_string(oxygenLeft).c_str());
 	ImGui::Text("HP :", sf::Color::Blue);
