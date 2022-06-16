@@ -45,7 +45,7 @@ void PlayerHandler::update(Player* player, sf::RenderWindow* window, Tilemap* ti
 	//ACTION UI :
 	ImGui::SetNextWindowPos(ImVec2(200, 20));
 	ImGui::SetNextWindowSize(ImVec2(170, 100));
-	ImGui::Begin("Choose Action :");
+	ImGui::Begin("Choose Action");
 	if (_state == &PlayerStates::idle && ImGui::Button("Begin MOVEMENT")) //button appears only if player can move
 	{
 		_state = &PlayerStates::moving;

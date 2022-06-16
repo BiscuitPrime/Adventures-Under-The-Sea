@@ -19,7 +19,7 @@ UI::UI(sf::Texture oxytext, sf::Texture healthtext)
 //method used to display the oxygen of the player
 void UI::displayStatisticsUI(int hp, int oxygenLeft)
 {
-	ImGui::SetNextWindowPos(ImVec2(20,20));
+	ImGui::SetNextWindowPos(ImVec2(20, 20));
 	ImGui::SetNextWindowSize(ImVec2(170, 100));
 	ImGui::Begin("Player Statistics");
 	ImGui::Text("Oxygen levels :");
@@ -46,8 +46,8 @@ void UI::warningOxygen()
 //method used to display a warning message in case of low oxygen
 void UI::warningHealth(bool oxy)
 {
-	if(oxy==true){ ImGui::SetNextWindowPos(ImVec2(500, 180)); }
-	else{ ImGui::SetNextWindowPos(ImVec2(500, 20)); }
+	if (oxy == true) { ImGui::SetNextWindowPos(ImVec2(500, 180)); }
+	else { ImGui::SetNextWindowPos(ImVec2(500, 20)); }
 	ImGui::SetNextWindowSize(ImVec2(500, 150));
 	ImGui::Begin("WARNING HEALTH");
 	sf::Sprite sprite;

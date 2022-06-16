@@ -186,7 +186,7 @@ Tile* Tilemap::getTile(sf::Vector2i coords)
 		return &tilemap[coords.y][coords.x];
 	}
 	std::cout << "Error when getting tile: out of bounds\n";
-	//exit(-1);
+	return nullptr;
 }
 
 int Tilemap::draw(sf::RenderWindow &window)
