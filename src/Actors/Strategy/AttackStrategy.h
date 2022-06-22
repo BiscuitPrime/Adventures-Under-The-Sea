@@ -1,8 +1,8 @@
 #pragma once
-#include "Strategy.h"
+#include <SFML/Graphics.hpp>
 #include <vector>
 
-class AttackStrategy : public Strategy {
+class AttackStrategy {
 	int damage;
 	std::vector<sf::Vector2i> tilesAtRange;
 public:
