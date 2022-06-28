@@ -35,7 +35,7 @@ void UI::warningOxygen() const
 	sf::Sprite sprite;
 	sprite.setTexture(warningOxygenTexture);
 	ImGui::Image(sprite);
-	std::string display = "Oxygen low, please advise quickly";
+	std::string display = "Oxygen low, please refill quickly";
 	ImGui::Text(display.c_str());
 	ImGui::End();
 }
@@ -73,7 +73,7 @@ void UI::inputUI(std::string input) const
 {
 	ImGui::SetNextWindowPos(ImVec2(20, 150));
 	ImGui::SetNextWindowSize(ImVec2(200, 70));
-	ImGui::Begin("SUGGESTION");
+	ImGui::Begin("HELP");
 	std::string display = "PLEASE CHOOSE A MOVEMENT";
 	if (input == "attack") {
 		display = "PLEASE CHOOSE AN ATTACK";
