@@ -23,8 +23,8 @@ private:
 	int movementRange = 3;
 	int fleeRange = 4;
 	EnemyStates _state;
-	MovementStrategy* movementStrategy;
-	AttackStrategy* attackStrategy;
+	MovementStrategy* movementStrategy = nullptr;
+	AttackStrategy* attackStrategy = nullptr;
 	bool isEnemyLoopFinished = true;
 	Tilemap* tilemap;
 	std::string name;
