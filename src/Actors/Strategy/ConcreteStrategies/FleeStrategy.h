@@ -18,7 +18,8 @@ public:
 			// enemy can move over x tiles 
 			int currentDistance = Definitions::manhattanDistance(playerPos, currentEnnemyPos);
 			// test each adjacent tiles
-			for (auto neighborPos : neighboringTiles) {
+			for (auto const& neighborPos : neighboringTiles) {
+				// On peut bien utiliser const& ici dans la mesure où l'on ne modifie pas neighborPos, on ne fait que la lire
 				sf::Vector2i potentialPos = currentEnnemyPos + neighborPos;
 				if (Definitions::positionIsWithinTilemapBounds(potentialPos)) {
 					int potentialDistance = Definitions::manhattanDistance(playerPos, potentialPos);
